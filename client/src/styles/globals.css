@@ -1,0 +1,146 @@
+/**
+ * src/styles/globals.css
+ *
+ * Global stylesheet — Tailwind CSS v4 directives + design tokens.
+ * Import this file once in main.jsx.
+ *
+ * Design tokens are defined as CSS custom properties on :root so they
+ * can be consumed both in Tailwind utilities and in inline styles.
+ */
+
+@import "tailwindcss";
+
+/* ─── Design Tokens ──────────────────────────────────────────────────────────── */
+@layer base {
+  :root {
+    /* Brand colours - Premium SaaS (Stripe/Linear vibe) */
+    --color-brand-primary:   #000000;  /* Vercel/Linear dark */
+    --color-brand-secondary: #0070F3;  /* Vercel blue */
+    --color-brand-accent:    #F7F7F9;  /* Soft grey background */
+    --color-brand-glow:      rgba(0, 112, 243, 0.15); /* Soft blue glow */
+
+    /* Neutrals */
+    --color-bg:        #FAFAFA; /* Very light cool grey */
+    --color-surface:   #FFFFFF;
+    --color-border:    #EAEAEA;
+    --color-muted:     #888888;
+    --color-text:      #111111;
+
+    /* Typography */
+    --font-sans:    'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-display: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+    /* Spacing scale (rem-based) */
+    --radius-sm:  0.25rem;
+    --radius-md:  0.5rem;
+    --radius-lg:  0.75rem;
+    --radius-xl:  1rem;
+    --radius-2xl: 1.5rem;
+
+    /* Premium SaaS Shadows (smooth, deep, ambient) */
+    --shadow-sm:  0 1px 2px 0 rgba(0, 0, 0, 0.04);
+    --shadow-md:  0 4px 12px rgba(0, 0, 0, 0.03), 0 1px 4px rgba(0, 0, 0, 0.02);
+    --shadow-lg:  0 8px 30px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.03);
+    --shadow-xl:  0 20px 40px rgba(0, 0, 0, 0.06), 0 10px 20px rgba(0, 0, 0, 0.04);
+    --shadow-glow: 0 0 40px var(--color-brand-glow);
+
+    /* Transitions */
+    --transition-fast:   150ms cubic-bezier(0.32, 0.72, 0, 1);
+    --transition-normal: 300ms cubic-bezier(0.32, 0.72, 0, 1);
+    --transition-slow:   500ms cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  /* Dark mode tokens */
+  .dark {
+    --color-bg:      #000000;
+    --color-surface: #111111;
+    --color-border:  #333333;
+    --color-muted:   #888888;
+    --color-text:    #EDEDED;
+    --color-brand-primary:   #FFFFFF;
+    --color-brand-secondary: #3291FF;
+    --color-brand-accent:    #1A1A1A;
+  }
+
+  /* ─── Base Resets ─────────────────────────────────────────────────────────── */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    line-height: 1.25;
+    font-weight: 700;
+  }
+
+  a {
+    color: var(--color-brand-primary);
+    text-decoration: none;
+  }
+
+  img,
+  video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Focus ring for accessibility */
+  :focus-visible {
+    outline: 2px solid var(--color-brand-primary);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+}
+
+/* ─── Utility Classes ────────────────────────────────────────────────────────── */
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  .bg-brand-primary   { background-color: var(--color-brand-primary); }
+  .bg-brand-secondary { background-color: var(--color-brand-secondary); }
+  .text-brand-primary { color: var(--color-brand-primary); }
+
+  /* Smooth card hover lift */
+  .hover-lift {
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+  }
+  .hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  /* Skeleton loading animation */
+  .skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  @keyframes shimmer {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+}
