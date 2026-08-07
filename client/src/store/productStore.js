@@ -88,9 +88,9 @@ const useProductStore = create((set, get) => ({
       const res = await productService.getProducts(params);
 
       set({
-        products:    res.data?.products || [],
-        total:       res.data?.total || 0,
-        totalPages:  res.data?.totalPages || 1,
+        products:    res.data || [],
+        total:       res.meta?.total || 0,
+        totalPages:  res.meta?.totalPages || 1,
         currentPage: currentPage,
         isLoading:   false,
         error:       null,

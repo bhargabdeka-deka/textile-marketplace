@@ -9,18 +9,11 @@
     "start": "node server.js",
     "test": "echo \"No tests configured yet\" && exit 0"
   },
-  "keywords": [
-    "textile",
-    "marketplace",
-    "b2b",
-    "express",
-    "mongodb"
-  ],
+  "keywords": ["textile", "marketplace", "b2b", "express", "mongodb"],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^3.0.3",
-    "cloudinary": "^1.41.3",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^4.22.2",
@@ -29,8 +22,7 @@
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.9.1",
     "morgan": "^1.11.0",
-    "multer": "^2.2.0",
-    "multer-storage-cloudinary": "^4.0.0"
+    "multer": "^2.2.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.14"

@@ -126,7 +126,7 @@ const findProductById = async (id) => {
  */
 const createProduct = async (supplierId, data, imageFiles = []) => {
   const imagePaths = imageFiles.map(
-    (file) => file.path
+    (file) => `/uploads/${file.filename}`
   );
 
   const product = await Product.create({
@@ -168,7 +168,7 @@ const updateProduct = async (productId, supplierId, data, imageFiles = []) => {
   }
 
   // Merge new images with existing ones, capping at 8
-  const newImagePaths = imageFiles.map((f) => f.path);
+  const newImagePaths = imageFiles.map((f) => `/uploads/${f.filename}`);
   const updatedImages = [...product.images, ...newImagePaths].slice(0, 8);
 
   // Handle tags

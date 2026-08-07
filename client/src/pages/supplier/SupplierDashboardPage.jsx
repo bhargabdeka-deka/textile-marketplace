@@ -10,7 +10,7 @@ import { ShoppingCart, Package, TrendingUp, AlertTriangle, ArrowRight, Truck } f
 import { Link } from 'react-router-dom';
 import useOrderStore from '@/store/orderStore';
 import useProductStore from '@/store/productStore';
-import { formatCurrency, formatDate, getImageUrl } from '@/utils/formatters';
+import { formatCurrency, formatDate } from '@/utils/formatters';
 import Loading from '@/components/ui/Loading';
 
 function SupplierDashboardPage() {
@@ -189,7 +189,7 @@ function SupplierDashboardPage() {
                     <div key={idx} className="flex gap-4 items-center p-4 rounded-2xl bg-[var(--color-bg)] border border-[var(--color-border)]">
                       <div className="w-14 h-14 rounded-xl overflow-hidden bg-white border border-gray-200 shrink-0">
                         {item.product?.images?.[0] ? (
-                          <img src={getImageUrl(item.product.images[0])} alt="" className="w-full h-full object-cover" />
+                          <img src={item.product.images[0]} alt="" className="w-full h-full object-cover" />
                         ) : (
                           <div className="w-full h-full flex items-center justify-center"><Package size={16} className="text-gray-400" /></div>
                         )}

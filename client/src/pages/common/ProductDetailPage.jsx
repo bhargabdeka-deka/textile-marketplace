@@ -17,7 +17,7 @@ import useCartStore from '@/store/cartStore';
 import useAuthStore from '@/store/authStore';
 import toast from 'react-hot-toast';
 import Loading from '@/components/ui/Loading';
-import { formatCurrency, formatDate, getImageUrl } from '@/utils/formatters';
+import { formatCurrency, formatDate } from '@/utils/formatters';
 
 function ProductDetailPage() {
   const { id }                                    = useParams();
@@ -132,7 +132,7 @@ function ProductDetailPage() {
                 >
                   {images && images[activeImage] ? (
                     <img
-                      src={getImageUrl(images[activeImage])}
+                      src={images[activeImage]}
                       alt={`${title} image ${activeImage + 1}`}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
@@ -159,7 +159,7 @@ function ProductDetailPage() {
                     }`}
                     aria-label={`View image ${idx + 1}`}
                   >
-                    <img src={getImageUrl(src)} alt="" className="w-full h-full object-cover" />
+                    <img src={src} alt="" className="w-full h-full object-cover" />
                   </button>
                 ))}
               </div>
@@ -296,7 +296,7 @@ function ProductDetailPage() {
               <div className="mt-8 p-5 rounded-2xl bg-[var(--color-surface)] border border-[var(--color-border)] shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div className="flex items-center gap-4">
                   {supplier.avatar ? (
-                    <img src={getImageUrl(supplier.avatar)} alt={supplier.name} className="w-12 h-12 rounded-xl object-cover border border-gray-200" />
+                    <img src={supplier.avatar} alt={supplier.name} className="w-12 h-12 rounded-xl object-cover border border-gray-200" />
                   ) : (
                     <div className="w-12 h-12 rounded-xl bg-gray-100 flex items-center justify-center border border-gray-200">
                       <User size={20} className="text-gray-400" />

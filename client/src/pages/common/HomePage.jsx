@@ -65,17 +65,6 @@ function HomePage() {
         <div className="absolute top-[-20%] left-[50%] translate-x-[-50%] w-[800px] h-[500px] bg-[var(--color-brand-secondary)] opacity-20 blur-[120px] rounded-full pointer-events-none" />
         
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center text-center py-32 z-10">
-          {/* Badge */}
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            custom={0}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold mb-8 border border-[#333] bg-white/5 backdrop-blur-md"
-          >
-            <span className="w-2 h-2 rounded-full bg-[var(--color-brand-secondary)] animate-pulse shadow-[0_0_10px_var(--color-brand-secondary)]" />
-            <span className="text-[#a1a1aa]">TextileHub 2.0 is now live</span>
-          </motion.div>
 
           {/* Headline */}
           <motion.h1
@@ -121,7 +110,7 @@ function HomePage() {
             </Link>
             <Link
               to="/register?role=supplier"
-              className="px-8 py-4 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 transition-all duration-300 bg-white/5 border border-white/10 hover:bg-white/10"
+              className="px-8 py-4 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 transition-all duration-300 bg-white/5 border border-white/10 hover:bg-white/10 text-white"
             >
               Become a Supplier
             </Link>

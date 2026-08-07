@@ -10,7 +10,7 @@ import { useForm } from 'react-hook-form';
 import { ArrowLeft, CheckCircle2 } from 'lucide-react';
 import useOrderStore from '@/store/orderStore';
 import useCartStore from '@/store/cartStore';
-import { formatCurrency, getImageUrl } from '@/utils/formatters';
+import { formatCurrency } from '@/utils/formatters';
 
 const FIELD = (label, id, error) => (
   <div>
@@ -114,7 +114,7 @@ function CheckoutPage() {
                   <div key={item.product._id} className="flex gap-4">
                     <div className="w-16 h-16 rounded-xl bg-gray-50 border border-gray-100 overflow-hidden shrink-0">
                       {item.product.images?.[0] && (
-                        <img src={getImageUrl(item.product.images[0])} alt="" className="w-full h-full object-cover" />
+                        <img src={item.product.images[0]} alt="" className="w-full h-full object-cover" />
                       )}
                     </div>
                     <div className="flex-1 flex flex-col justify-center">
