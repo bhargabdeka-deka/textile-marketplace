@@ -2,10 +2,10 @@
  * src/pages/buyer/BuyerDashboardPage.jsx
  *
  * Buyer dashboard showing order history, profile, and recommendations.
- * Shopify Customer Portal Aesthetic.
+ * Shopify Customer Portal Aesthetic with interactive status filters & timelines.
  */
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import {
   ShoppingBag,
   Package,
@@ -18,7 +18,9 @@ import {
   TrendingUp,
   CreditCard,
   ChevronRight,
-  Search
+  Filter,
+  Check,
+  Truck
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import useOrderStore from '@/store/orderStore';
@@ -28,10 +30,15 @@ import { formatCurrency, formatDate } from '@/utils/formatters';
 import Loading from '@/components/ui/Loading';
 import ProductCard from '@/components/ui/ProductCard';
 
+const STEPS = ['Pending', 'Accepted', 'Preparing', 'Ready for Dispatch', 'Completed'];
+
 function BuyerDashboardPage() {
   const { user } = useAuthStore();
   const { buyerOrders, fetchBuyerOrders, isLoading: ordersLoading } = useOrderStore();
   const { products, fetchProducts, productLoading } = useProductStore();
+  
+  // Interactive filters
+  const [selectedFilter, setSelectedFilter] = useState('All'); // 'All', 'Pending', 'Active', 'Completed', 'Cancelled'
 
   useEffect(() => {
     fetchBuyerOrders();
@@ -42,11 +49,11 @@ function BuyerDashboardPage() {
     return <Loading variant="page" message="Loading customer portal..." />;
   }
 
+  // Stats Calculations
   const currentOrders = buyerOrders.filter(o => o.status !== 'Completed' && o.status !== 'Cancelled');
   const pastOrders = buyerOrders.filter(o => o.status === 'Completed' || o.status === 'Cancelled');
   const recommendations = products.slice(0, 4);
 
-  // Compute B2B financial metrics for dashboard statistics
   const totalSpend = buyerOrders
     .filter(o => o.status === 'Completed')
     .reduce((sum, o) => sum + o.totalAmount, 0);
@@ -58,146 +65,35 @@ function BuyerDashboardPage() {
       return sum + itemsSum;
     }, 0);
 
-  // Order List Component (Shopify-style Order Rows)
-  const OrderList = ({ orders, title, emptyMessage, icon: Icon, type }) => (
-    <div className="bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 rounded-2xl shadow-sm overflow-hidden mb-8">
-      {/* Header section of list block */}
-      <div className="px-5 py-4 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
-        <div className="flex items-center gap-2.5">
-          <Icon size={18} className="text-slate-500" />
-          <h2 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">
-            {title} ({orders.length})
-          </h2>
-        </div>
-        {type === 'active' && orders.length > 0 && (
-          <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
-        )}
-      </div>
-
-      {orders.length === 0 ? (
-        <div className="p-8 text-center flex flex-col items-center justify-center">
-          <div className="w-12 h-12 rounded-xl bg-slate-50 dark:bg-slate-950 flex items-center justify-center mb-3">
-            <Package size={20} className="text-slate-400" />
-          </div>
-          <h3 className="text-sm font-bold text-slate-950 dark:text-white mb-1">
-            {emptyMessage}
-          </h3>
-          <p className="text-xs text-slate-500 max-w-sm">
-            When you purchase fabrics, your shipment tracking and order status updates will be displayed here.
-          </p>
-          <Link
-            to="/products"
-            className="mt-4 inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-slate-950 dark:bg-white text-white dark:text-slate-950 text-xs font-extrabold shadow-sm hover:opacity-90 transition-all"
-          >
-            Browse Fabrics
-            <ArrowRight size={13} />
-          </Link>
-        </div>
-      ) : (
-        <div className="divide-y divide-slate-100 dark:divide-slate-800">
-          {orders.map((order) => {
-            const orderDate = formatDate(order.createdAt);
-            const isCompleted = order.status === 'Completed';
-            const isCancelled = order.status === 'Cancelled';
-
-            return (
-              <div key={order._id} className="p-5 hover:bg-slate-50/50 dark:hover:bg-slate-800/20 transition-colors">
-                
-                {/* Order Top Bar Info */}
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center shrink-0">
-                      <ShoppingBag size={17} className="text-slate-600 dark:text-slate-400" />
-                    </div>
-                    <div>
-                      <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
-                        Ordered {orderDate}
-                      </p>
-                      <h4 className="font-extrabold text-sm text-slate-950 dark:text-white mt-0.5">
-                        {order.supplier?.companyName || order.supplier?.name || 'Verified Textile Mill'}
-                      </h4>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-6 text-left">
-                    <div>
-                      <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Total Value</p>
-                      <p className="font-black text-sm text-slate-900 dark:text-white mt-0.5">
-                        {formatCurrency(order.totalAmount)}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Status</p>
-                      <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded text-xs font-extrabold border mt-0.5 ${
-                        isCompleted
-                          ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border-emerald-200 dark:border-emerald-900/60'
-                          : isCancelled
-                            ? 'bg-slate-50 dark:bg-slate-900 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-800'
-                            : 'bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-sky-400 border-blue-200 dark:border-blue-900/60'
-                      }`}>
-                        {isCompleted && <CheckCircle2 size={12} />}
-                        {!isCompleted && !isCancelled && <Clock size={12} />}
-                        {isCancelled && <AlertCircle size={12} />}
-                        {order.status}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Items in this order */}
-                <div className="space-y-2.5">
-                  {order.items.map((item, idx) => (
-                    <div
-                      key={idx}
-                      className="flex items-center gap-3.5 p-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/80"
-                    >
-                      <div className="w-12 h-12 rounded-lg overflow-hidden bg-white border border-slate-200/80 shrink-0">
-                        {item.product?.images?.[0] ? (
-                          <img src={item.product.images[0]} alt="" className="w-full h-full object-cover" />
-                        ) : (
-                          <div className="w-full h-full flex items-center justify-center">
-                            <Package size={16} className="text-slate-400" />
-                          </div>
-                        )}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <Link
-                          to={`/products/${item.product?._id}`}
-                          className="font-bold text-xs sm:text-sm text-slate-900 dark:text-white hover:text-[#0070F3] truncate block"
-                        >
-                          {item.product?.title || 'Unknown Product Spec'}
-                        </Link>
-                        <p className="text-[11px] font-medium text-slate-500 dark:text-slate-400 mt-0.5">
-                          {item.quantity} meters &times; {formatCurrency(item.price)} / meter
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-              </div>
-            );
-          })}
-        </div>
-      )}
-    </div>
-  );
+  // Apply visual filters to the list of orders
+  const filteredOrders = buyerOrders.filter((order) => {
+    if (selectedFilter === 'All') return true;
+    if (selectedFilter === 'Pending') return order.status === 'Pending';
+    if (selectedFilter === 'Active') return order.status !== 'Completed' && order.status !== 'Cancelled';
+    if (selectedFilter === 'Completed') return order.status === 'Completed';
+    if (selectedFilter === 'Cancelled') return order.status === 'Cancelled';
+    return true;
+  });
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 min-h-screen space-y-8">
       
-      {/* ── Header Dashboard Info ─────────────────────────────────────── */}
+      {/* ── 1. Header Dashboard Info ─────────────────────────────────────── */}
       <div className="flex flex-col lg:flex-row gap-6 lg:items-center justify-between border-b border-slate-200/80 dark:border-slate-800 pb-6">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-950 dark:text-white">
+          <div className="flex items-center gap-2">
+            <ShoppingBag size={16} className="text-slate-400" />
+            <span className="text-xs font-extrabold uppercase tracking-wider text-slate-500">Procurement Control</span>
+          </div>
+          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-950 dark:text-white mt-1">
             Buyer Dashboard
           </h1>
           <p className="text-sm font-medium text-slate-500 mt-1">
-            Overview of your active wholesale sourcing and completed order dispatches.
+            Track active mill orders, manage deliveries, and view wholesale invoice history.
           </p>
         </div>
 
-        {/* Profile Details (Shopify Card style) */}
+        {/* Profile Card Summary */}
         <div className="flex items-center gap-3 p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-sm max-w-sm">
           <div className="w-10 h-10 rounded-xl bg-slate-950 dark:bg-white text-white dark:text-slate-950 flex items-center justify-center shadow-sm">
             <User size={18} />
@@ -216,9 +112,8 @@ function BuyerDashboardPage() {
         </div>
       </div>
 
-      {/* ── KPI Widgets (Shopify style Metrics) ────────────────────────── */}
+      {/* ── 2. KPI Metrics ────────────────────────────────────────────── */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        
         <div className="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-sm">
           <div className="flex items-center justify-between text-slate-500">
             <span className="text-xs font-bold uppercase tracking-wider">Active Shipments</span>
@@ -227,7 +122,7 @@ function BuyerDashboardPage() {
           <p className="text-2xl sm:text-3xl font-black text-slate-950 dark:text-white mt-2">
             {currentOrders.length}
           </p>
-          <p className="text-[11px] font-semibold text-slate-400 mt-1">Currently in processing / transit</p>
+          <p className="text-[11px] font-semibold text-slate-400 mt-1">In fulfillment transit</p>
         </div>
 
         <div className="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-sm">
@@ -238,7 +133,7 @@ function BuyerDashboardPage() {
           <p className="text-2xl sm:text-3xl font-black text-slate-950 dark:text-white mt-2">
             {pastOrders.length}
           </p>
-          <p className="text-[11px] font-semibold text-slate-400 mt-1">Direct deliveries completed</p>
+          <p className="text-[11px] font-semibold text-slate-400 mt-1">Fulfilled successfully</p>
         </div>
 
         <div className="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-sm">
@@ -249,7 +144,7 @@ function BuyerDashboardPage() {
           <p className="text-2xl sm:text-3xl font-black text-slate-950 dark:text-white mt-2">
             {formatCurrency(totalSpend)}
           </p>
-          <p className="text-[11px] font-semibold text-slate-400 mt-1">Volume sourced value</p>
+          <p className="text-[11px] font-semibold text-slate-400 mt-1">Direct invoice spend</p>
         </div>
 
         <div className="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-sm">
@@ -260,25 +155,218 @@ function BuyerDashboardPage() {
           <p className="text-2xl sm:text-3xl font-black text-slate-950 dark:text-white mt-2">
             {totalMetresPurchased} m
           </p>
-          <p className="text-[11px] font-semibold text-slate-400 mt-1">Fabric quantity fulfilled</p>
+          <p className="text-[11px] font-semibold text-slate-400 mt-1">Metres delivered</p>
+        </div>
+      </div>
+
+      {/* ── 3. Orders Page Section (Filter + Timeline Cards) ─────────────── */}
+      <div className="space-y-6">
+        
+        {/* Interactive Filter Menu */}
+        <div className="flex items-center justify-between flex-wrap gap-4 border-b border-slate-100 dark:border-slate-800 pb-4">
+          <div className="flex items-center gap-2">
+            <Filter size={14} className="text-slate-400" />
+            <span className="text-xs font-extrabold uppercase tracking-wider text-slate-500">Filter Orders:</span>
+          </div>
+
+          <div className="flex items-center gap-1.5 overflow-x-auto">
+            {['All', 'Pending', 'Active', 'Completed', 'Cancelled'].map((f) => (
+              <button
+                key={f}
+                type="button"
+                onClick={() => setSelectedFilter(f)}
+                className={`px-3 py-1.5 rounded-lg text-xs font-extrabold border transition-all ${
+                  selectedFilter === f
+                    ? 'bg-slate-950 dark:bg-white text-white dark:text-slate-950 border-slate-950 dark:border-white shadow-sm'
+                    : 'bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-800 hover:text-slate-800 dark:hover:text-white'
+                }`}
+              >
+                {f}
+              </button>
+            ))}
+          </div>
         </div>
 
+        {/* Orders Card Feed */}
+        {filteredOrders.length === 0 ? (
+          <div className="bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 rounded-2xl p-12 text-center flex flex-col items-center justify-center">
+            <div className="w-12 h-12 rounded-xl bg-slate-50 dark:bg-slate-950 flex items-center justify-center mb-3">
+              <Package size={20} className="text-slate-400" />
+            </div>
+            <h3 className="text-sm font-bold text-slate-950 dark:text-white mb-1">
+              No matching orders found
+            </h3>
+            <p className="text-xs text-slate-500 max-w-sm">
+              Refine your selected status filters or navigate to the marketplace to place a procurement request.
+            </p>
+          </div>
+        ) : (
+          <div className="space-y-6">
+            {filteredOrders.map((order) => {
+              const orderDate = formatDate(order.createdAt);
+              const isCompleted = order.status === 'Completed';
+              const isCancelled = order.status === 'Cancelled';
+              
+              // Calculate status stepper timeline parameters
+              const currentStepIndex = STEPS.indexOf(order.status);
+
+              return (
+                <div
+                  key={order._id}
+                  className="bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 rounded-2xl p-5 sm:p-6 shadow-sm hover:shadow-md transition-shadow space-y-6"
+                >
+                  
+                  {/* Order Title bar info */}
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100 dark:border-slate-800">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center shrink-0 border border-slate-200/50 dark:border-slate-700">
+                        <ShoppingBag size={17} className="text-slate-600 dark:text-slate-400" />
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-[10px] font-extrabold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded text-slate-500 border border-slate-200/60 dark:border-slate-700">
+                            Order #{order._id.slice(-6).toUpperCase()}
+                          </span>
+                          <span className="text-[11px] font-bold text-slate-400">
+                            {orderDate}
+                          </span>
+                        </div>
+                        <h4 className="font-extrabold text-sm text-slate-950 dark:text-white mt-1">
+                          Supplier: {order.supplier?.companyName || order.supplier?.name || 'Verified Mill'}
+                        </h4>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-6">
+                      <div>
+                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Total Invoice</p>
+                        <p className="font-black text-sm text-slate-900 dark:text-white mt-0.5">
+                          {formatCurrency(order.totalAmount)}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Status</p>
+                        <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-extrabold border mt-0.5 ${
+                          isCompleted
+                            ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border-emerald-200 dark:border-emerald-900/60'
+                            : isCancelled
+                              ? 'bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-400 border-rose-200 dark:border-rose-900/60'
+                              : 'bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-sky-400 border-blue-200 dark:border-blue-900/60'
+                        }`}>
+                          {isCompleted && <CheckCircle2 size={12} />}
+                          {!isCompleted && !isCancelled && <Clock size={12} />}
+                          {isCancelled && <AlertCircle size={12} />}
+                          {order.status}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Visual Progress Timeline (Step Tracker) */}
+                  {!isCancelled ? (
+                    <div className="py-2">
+                      <div className="relative flex justify-between items-center w-full max-w-2xl mx-auto">
+                        {/* Background connection line */}
+                        <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-slate-200 dark:bg-slate-800 -translate-y-1/2 z-0" />
+                        
+                        {/* Active connection line */}
+                        <div
+                          className="absolute top-1/2 left-0 h-0.5 bg-blue-500 -translate-y-1/2 z-0 transition-all duration-300"
+                          style={{
+                            width: `${currentStepIndex >= 0 ? (currentStepIndex / (STEPS.length - 1)) * 100 : 0}%`
+                          }}
+                        />
+
+                        {/* Visual timeline steps */}
+                        {STEPS.map((step, idx) => {
+                          const isDone = idx < currentStepIndex;
+                          const isActive = idx === currentStepIndex;
+                          const isPending = idx > currentStepIndex;
+
+                          return (
+                            <div key={step} className="relative z-10 flex flex-col items-center gap-1.5">
+                              <div className={`w-6 h-6 rounded-full flex items-center justify-center border transition-all ${
+                                isDone
+                                  ? 'bg-emerald-500 border-emerald-500 text-white shadow-sm'
+                                  : isActive
+                                    ? 'bg-blue-500 border-blue-500 text-white ring-4 ring-blue-500/20 shadow-sm'
+                                    : 'bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-850 text-slate-400'
+                              }`}>
+                                {isDone ? (
+                                  <Check size={12} strokeWidth={3} />
+                                ) : (
+                                  <span className="text-[10px] font-extrabold">{idx + 1}</span>
+                                )}
+                              </div>
+                              <span className={`text-[10px] font-bold uppercase tracking-wider hidden sm:block ${
+                                isActive ? 'text-blue-500' : 'text-slate-400'
+                              }`}>
+                                {step}
+                              </span>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="bg-rose-50/70 dark:bg-rose-950/20 border border-rose-100 dark:border-rose-900/60 p-4 rounded-xl flex items-center gap-3 text-rose-800 dark:text-rose-400">
+                      <AlertCircle size={16} />
+                      <p className="text-xs font-bold">This procurement order has been cancelled and refunded to escrow.</p>
+                    </div>
+                  )}
+
+                  {/* Fabrics ordered details list */}
+                  <div className="space-y-3 pt-2">
+                    {order.items.map((item, idx) => (
+                      <div
+                        key={idx}
+                        className="flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/80 gap-4"
+                      >
+                        <div className="flex items-center gap-3.5 min-w-0">
+                          <div className="w-12 h-12 rounded-lg overflow-hidden bg-white border border-slate-200/80 shrink-0">
+                            {item.product?.images?.[0] ? (
+                              <img src={item.product.images[0]} alt="" className="w-full h-full object-cover" />
+                            ) : (
+                              <div className="w-full h-full flex items-center justify-center bg-slate-100 dark:bg-slate-950 text-slate-400">
+                                <Package size={16} />
+                              </div>
+                            )}
+                          </div>
+                          <div className="min-w-0">
+                            <Link
+                              to={`/products/${item.product?._id}`}
+                              className="font-bold text-xs sm:text-sm text-slate-900 dark:text-white hover:text-[#0070F3] truncate block"
+                            >
+                              {item.product?.title || 'Unknown Fabric Specification'}
+                            </Link>
+                            <p className="text-[11px] font-semibold text-slate-400 mt-0.5">
+                              {item.quantity} meters &times; {formatCurrency(item.price)} / meter
+                            </p>
+                          </div>
+                        </div>
+                        <div className="font-extrabold text-xs sm:text-sm text-slate-900 dark:text-white shrink-0">
+                          {formatCurrency(item.price * item.quantity)}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                </div>
+              );
+            })}
+          </div>
+        )}
+
       </div>
 
-      {/* ── Order Management Rows ──────────────────────────────────────── */}
-      <div className="space-y-6">
-        <OrderList orders={currentOrders} title="Active Procurement" emptyMessage="No active shipments." icon={Clock} type="active" />
-        <OrderList orders={pastOrders} title="Procurement History" emptyMessage="Your order list is empty." icon={CheckCircle2} type="past" />
-      </div>
-
-      {/* ── Curated Fabric Recommendations ─────────────────────────────── */}
+      {/* Curated Recommendations */}
       {recommendations.length > 0 && (
-        <div className="pt-8 border-t border-slate-200/80 dark:border-slate-800">
+        <div className="pt-8 border-t border-slate-200/85 dark:border-slate-800">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-2">
               <Star size={18} className="text-[#0070F3]" />
               <h2 className="text-lg font-bold text-slate-950 dark:text-white">
-                Recommended Wholesale Fabrics
+                Recommended Fabrics
               </h2>
             </div>
             <Link

@@ -2,10 +2,10 @@
  * src/pages/supplier/SupplierDashboardPage.jsx
  *
  * Supplier dashboard for managing incoming orders and overview statistics.
- * Shopify Seller/Merchant Dashboard Aesthetic.
+ * Shopify Seller/Merchant Dashboard Aesthetic with status filters & timelines.
  */
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import {
   ShoppingCart,
   Package,
@@ -17,7 +17,9 @@ import {
   Users,
   ChevronDown,
   CheckCircle2,
-  Clock
+  Clock,
+  Filter,
+  Check
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import useOrderStore from '@/store/orderStore';
@@ -25,9 +27,14 @@ import useProductStore from '@/store/productStore';
 import { formatCurrency, formatDate } from '@/utils/formatters';
 import Loading from '@/components/ui/Loading';
 
+const STEPS = ['Pending', 'Accepted', 'Preparing', 'Ready for Dispatch', 'Completed'];
+
 function SupplierDashboardPage() {
   const { supplierOrders, fetchSupplierOrders, updateOrderStatus, isLoading: ordersLoading } = useOrderStore();
   const { myProducts, fetchMyProducts, productLoading } = useProductStore();
+  
+  // Interactive status filter
+  const [selectedFilter, setSelectedFilter] = useState('All'); // 'All', 'Pending', 'Preparing', 'Ready for Dispatch', 'Completed'
 
   useEffect(() => {
     fetchSupplierOrders();
@@ -46,6 +53,16 @@ function SupplierDashboardPage() {
   const revenue = completedOrders.reduce((sum, order) => sum + order.totalAmount, 0);
   const activeListings = myProducts.filter(p => p.isActive).length;
   const lowStockProducts = myProducts.filter(p => p.stock < 50);
+
+  // Apply filter to supplier orders
+  const filteredOrders = supplierOrders.filter((order) => {
+    if (selectedFilter === 'All') return true;
+    if (selectedFilter === 'Pending') return order.status === 'Pending';
+    if (selectedFilter === 'Preparing') return order.status === 'Preparing';
+    if (selectedFilter === 'Ready for Dispatch') return order.status === 'Ready for Dispatch';
+    if (selectedFilter === 'Completed') return order.status === 'Completed';
+    return true;
+  });
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 min-h-screen space-y-8">
@@ -149,38 +166,58 @@ function SupplierDashboardPage() {
       )}
 
       {/* ── 4. Incoming B2B Purchase Orders (Shopify Merchant style) ───── */}
-      <div className="space-y-4">
+      <div className="space-y-6">
         
-        <div className="flex items-center gap-2 pb-2">
-          <Truck size={17} className="text-slate-500" />
-          <h2 className="text-sm font-bold uppercase tracking-wider text-slate-900 dark:text-white">
-            Incoming Orders List
-          </h2>
+        {/* Interactive Filter Menu */}
+        <div className="flex items-center justify-between flex-wrap gap-4 border-b border-slate-100 dark:border-slate-800 pb-4">
+          <div className="flex items-center gap-2">
+            <Filter size={14} className="text-slate-400" />
+            <span className="text-xs font-extrabold uppercase tracking-wider text-slate-500">Filter Incoming:</span>
+          </div>
+
+          <div className="flex items-center gap-1.5 overflow-x-auto">
+            {['All', 'Pending', 'Preparing', 'Ready for Dispatch', 'Completed'].map((f) => (
+              <button
+                key={f}
+                type="button"
+                onClick={() => setSelectedFilter(f)}
+                className={`px-3 py-1.5 rounded-lg text-xs font-extrabold border transition-all ${
+                  selectedFilter === f
+                    ? 'bg-slate-950 dark:bg-white text-white dark:text-slate-950 border-slate-950 dark:border-white shadow-sm'
+                    : 'bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-800 hover:text-slate-800 dark:hover:text-white'
+                }`}
+              >
+                {f}
+              </button>
+            ))}
+          </div>
         </div>
 
-        {supplierOrders.length === 0 ? (
+        {filteredOrders.length === 0 ? (
           <div className="bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 rounded-2xl p-10 text-center flex flex-col items-center justify-center">
             <div className="w-12 h-12 rounded-xl bg-slate-50 dark:bg-slate-950 flex items-center justify-center mb-3">
               <ShoppingCart size={20} className="text-slate-400" />
             </div>
             <h3 className="text-sm font-bold text-slate-950 dark:text-white mb-1">
-              No orders received yet
+              No orders found
             </h3>
             <p className="text-xs text-slate-500 max-w-sm">
-              Keep your wholesale catalog active and update GSM weave specifications to attract wholesale buyers.
+              No orders match the selected filter status. Try changing filter parameters or updates.
             </p>
           </div>
         ) : (
-          <div className="space-y-4">
-            {supplierOrders.map((order) => {
+          <div className="space-y-6">
+            {filteredOrders.map((order) => {
               const orderIdSnippet = order._id.slice(-6).toUpperCase();
               const dateString = formatDate(order.createdAt);
               const shipAddress = order.shippingAddress;
+              const currentStepIndex = STEPS.indexOf(order.status);
+              const isCancelled = order.status === 'Cancelled';
 
               return (
                 <div
                   key={order._id}
-                  className="bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-4"
+                  className="bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 rounded-2xl p-5 sm:p-6 shadow-sm space-y-6"
                 >
                   
                   {/* Order Top Summary */}
@@ -207,7 +244,7 @@ function SupplierDashboardPage() {
 
                       {shipAddress && (
                         <p className="text-[11px] font-medium text-slate-500 leading-relaxed pt-1">
-                          <span className="font-bold text-slate-600 dark:text-slate-400">Shipping: </span> 
+                          <span className="font-bold text-slate-600 dark:text-slate-400">Shipping Address: </span> 
                           {shipAddress.street}, {shipAddress.city}, {shipAddress.state} {shipAddress.pincode}
                         </p>
                       )}
@@ -226,7 +263,7 @@ function SupplierDashboardPage() {
 
                       <div className="space-y-0.5">
                         <label htmlFor={`status-select-${order._id}`} className="text-[9px] font-bold text-slate-500 uppercase tracking-wider block">
-                          Fulfillment
+                          Fulfillment Action
                         </label>
                         <div className="relative inline-block">
                           <select
@@ -245,8 +282,56 @@ function SupplierDashboardPage() {
                     </div>
                   </div>
 
+                  {/* Visual Progress Timeline (Step Tracker) */}
+                  {!isCancelled ? (
+                    <div className="py-2">
+                      <div className="relative flex justify-between items-center w-full max-w-2xl mx-auto">
+                        <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-slate-200 dark:bg-slate-800 -translate-y-1/2 z-0" />
+                        <div
+                          className="absolute top-1/2 left-0 h-0.5 bg-blue-500 -translate-y-1/2 z-0 transition-all duration-300"
+                          style={{
+                            width: `${currentStepIndex >= 0 ? (currentStepIndex / (STEPS.length - 1)) * 100 : 0}%`
+                          }}
+                        />
+
+                        {STEPS.map((step, idx) => {
+                          const isDone = idx < currentStepIndex;
+                          const isActive = idx === currentStepIndex;
+
+                          return (
+                            <div key={step} className="relative z-10 flex flex-col items-center gap-1.5">
+                              <div className={`w-6 h-6 rounded-full flex items-center justify-center border transition-all ${
+                                isDone
+                                  ? 'bg-emerald-500 border-emerald-500 text-white'
+                                  : isActive
+                                    ? 'bg-blue-500 border-blue-500 text-white ring-4 ring-blue-500/20'
+                                    : 'bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-850 text-slate-400'
+                              }`}>
+                                {isDone ? (
+                                  <Check size={12} strokeWidth={3} />
+                                ) : (
+                                  <span className="text-[10px] font-extrabold">{idx + 1}</span>
+                                )}
+                              </div>
+                              <span className={`text-[10px] font-bold uppercase tracking-wider hidden sm:block ${
+                                isActive ? 'text-blue-500' : 'text-slate-400'
+                              }`}>
+                                {step}
+                              </span>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="bg-rose-50 dark:bg-rose-950/20 border border-rose-100 dark:border-rose-900/60 p-4 rounded-xl flex items-center gap-3 text-rose-800 dark:text-rose-400">
+                      <AlertTriangle size={16} />
+                      <p className="text-xs font-bold">This procurement order has been cancelled.</p>
+                    </div>
+                  )}
+
                   {/* Fabric Item Details Grid */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
                     {order.items.map((item, idx) => (
                       <div
                         key={idx}
