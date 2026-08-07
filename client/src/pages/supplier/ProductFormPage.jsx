@@ -21,6 +21,7 @@ import { Upload, X, ChevronLeft, Package } from 'lucide-react';
 import useProductStore from '@/store/productStore';
 import productService from '@/services/product.service';
 import Loading from '@/components/ui/Loading';
+import { getImageUrl } from '@/utils/formatters';
 
 const FIELD = (label, id, error) => (
   <div>
@@ -210,7 +211,7 @@ function ProductFormPage() {
                 {/* Existing images */}
                 {existingImgs.map((url) => (
                   <div key={url} className="relative aspect-square rounded-lg overflow-hidden" style={{ border: '1px solid var(--color-border)' }}>
-                    <img src={url} alt="" className="w-full h-full object-cover" style={{ opacity: removedImgs.includes(url) ? 0.35 : 1 }} />
+                    <img src={getImageUrl(url)} alt="" className="w-full h-full object-cover" style={{ opacity: removedImgs.includes(url) ? 0.35 : 1 }} />
                     <button
                       type="button"
                       onClick={() => toggleRemoveExisting(url)}

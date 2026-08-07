@@ -7,7 +7,7 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Edit2, Trash2, Package, CheckCircle, XCircle } from 'lucide-react';
-import { formatCurrency } from '@/utils/formatters';
+import { formatCurrency, getImageUrl } from '@/utils/formatters';
 
 function ProductCard({ product, onEdit, onDelete, showActions = false }) {
   const {
@@ -24,7 +24,7 @@ function ProductCard({ product, onEdit, onDelete, showActions = false }) {
     gsm,
   } = product;
 
-  const primaryImage = images && images.length > 0 ? images[0] : null;
+  const primaryImage = images && images.length > 0 ? getImageUrl(images[0]) : null;
 
   return (
     <motion.div

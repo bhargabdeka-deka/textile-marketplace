@@ -9,30 +9,30 @@
  */
 
 const multer = require('multer');
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const cloudinary = require('cloudinary').v2;
 const path = require('path');
-const fs = require('fs');
 
-// ─── Ensure upload directory exists ──────────────────────────────────────────
-const UPLOAD_DIR = path.join(__dirname, '..', 'uploads');
-if (!fs.existsSync(UPLOAD_DIR)) {
-  fs.mkdirSync(UPLOAD_DIR, { recursive: true });
-}
-
-// ─── Disk Storage Configuration ──────────────────────────────────────────────
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, UPLOAD_DIR);
-  },
-  filename: (req, file, cb) => {
-    // Generate unique filename: timestamp-random-originalname
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    cb(null, `${uniqueSuffix}-${file.originalname}`);
-  }
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-// ─── File Type Filter ─────────────────────────────────────────────────────────
+// Configure Storage
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'textile-marketplace', // Folder name in Cloudinary
+    allowed_formats: ['jpeg', 'jpg', 'png', 'webp', 'gif'],
+    // transformation: [{ width: 800, height: 800, crop: 'limit' }], // Optional optimizations
+  },
+});
+
+// File Type Filter
 const fileFilter = (req, file, cb) => {
-  const allowed = /jpeg|jpg|png|webp|gif|pdf/;
+  const allowed = /jpeg|jpg|png|webp|gif/;
   const isAllowed =
     allowed.test(path.extname(file.originalname).toLowerCase()) &&
     allowed.test(file.mimetype);
@@ -40,14 +40,12 @@ const fileFilter = (req, file, cb) => {
   if (isAllowed) {
     cb(null, true);
   } else {
-    cb(new Error('Only images (JPEG, PNG, WebP, GIF) and PDFs are allowed'));
+    cb(new Error('Only images (JPEG, PNG, WebP, GIF) are allowed'));
   }
 };
 
-// ─── Max file size from env or default to 10 MB ───────────────────────────────
 const MAX_SIZE_MB = parseInt(process.env.MAX_FILE_SIZE_MB || '10', 10);
 
-// ─── Export reusable upload handlers ─────────────────────────────────────────
 const upload = multer({
   storage,
   fileFilter,

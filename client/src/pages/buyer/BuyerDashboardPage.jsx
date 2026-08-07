@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 import useOrderStore from '@/store/orderStore';
 import useAuthStore from '@/store/authStore';
 import useProductStore from '@/store/productStore';
-import { formatCurrency, formatDate } from '@/utils/formatters';
+import { formatCurrency, formatDate, getImageUrl } from '@/utils/formatters';
 import Loading from '@/components/ui/Loading';
 import ProductCard from '@/components/ui/ProductCard';
 
@@ -97,7 +97,7 @@ function BuyerDashboardPage() {
                   <div key={idx} className="flex gap-5 items-center p-4 rounded-2xl bg-[var(--color-bg)] border border-[var(--color-border)] transition-colors hover:bg-gray-50">
                     <div className="w-16 h-16 rounded-xl overflow-hidden bg-white border border-gray-200 shrink-0">
                       {item.product?.images?.[0] ? (
-                        <img src={item.product.images[0]} alt="" className="w-full h-full object-cover" />
+                        <img src={getImageUrl(item.product.images[0])} alt="" className="w-full h-full object-cover" />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center"><Package size={20} className="text-gray-400" /></div>
                       )}

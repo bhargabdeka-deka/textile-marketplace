@@ -82,3 +82,19 @@ export const capitalise = (str) => {
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ');
 };
+
+/**
+ * getImageUrl — resolves Cloudinary or local image paths automatically
+ */
+export const getImageUrl = (imagePath) => {
+  if (!imagePath) return null;
+  if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) {
+    return imagePath;
+  }
+  const apiUrl = import.meta.env.VITE_API_URL;
+  if (apiUrl) {
+    const baseDomain = apiUrl.replace(/\/api\/?$/, '');
+    return `${baseDomain}${imagePath.startsWith('/') ? '' : '/'}${imagePath}`;
+  }
+  return `${imagePath.startsWith('/') ? '' : '/'}${imagePath}`;
+};

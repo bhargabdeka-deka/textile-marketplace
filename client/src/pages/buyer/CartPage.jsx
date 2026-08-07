@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Trash2, Plus, Minus, ShoppingBag, ArrowRight } from 'lucide-react';
 import useCartStore from '@/store/cartStore';
-import { formatCurrency } from '@/utils/formatters';
+import { formatCurrency, getImageUrl } from '@/utils/formatters';
 import Loading from '@/components/ui/Loading';
 import EmptyState from '@/components/ui/EmptyState';
 
@@ -45,7 +45,7 @@ function CartPage() {
                 <div key={item.product._id} className="flex flex-col sm:flex-row gap-6 p-6 rounded-3xl bg-[var(--color-surface)] border border-[var(--color-border)] shadow-sm hover:shadow-md transition-shadow">
                   <Link to={`/products/${item.product._id}`} className="shrink-0 w-32 h-32 rounded-2xl overflow-hidden bg-gray-50 border border-gray-100">
                     {item.product.images?.[0] ? (
-                      <img src={item.product.images[0]} alt={item.product.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+                      <img src={getImageUrl(item.product.images[0])} alt={item.product.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center text-gray-400">
                         <ShoppingBag size={24} />
