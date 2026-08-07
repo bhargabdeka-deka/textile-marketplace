@@ -82,3 +82,15 @@ export const capitalise = (str) => {
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ');
 };
+
+/**
+ * optimizeCloudinaryUrl — Add f_auto, q_auto, and optional width sizing to Cloudinary image URLs
+ * @param {string} url
+ * @param {number} width
+ */
+export const optimizeCloudinaryUrl = (url, width = 600) => {
+  if (!url) return '';
+  if (!url.includes('res.cloudinary.com')) return url;
+  return url.replace('/upload/', `/upload/f_auto,q_auto,c_limit,w_${width}/`);
+};
+

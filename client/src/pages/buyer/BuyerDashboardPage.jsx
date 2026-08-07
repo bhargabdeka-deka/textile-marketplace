@@ -26,7 +26,7 @@ import { Link } from 'react-router-dom';
 import useOrderStore from '@/store/orderStore';
 import useAuthStore from '@/store/authStore';
 import useProductStore from '@/store/productStore';
-import { formatCurrency, formatDate } from '@/utils/formatters';
+import { formatCurrency, formatDate, optimizeCloudinaryUrl } from '@/utils/formatters';
 import Loading from '@/components/ui/Loading';
 import ProductCard from '@/components/ui/ProductCard';
 
@@ -325,7 +325,7 @@ function BuyerDashboardPage() {
                         <div className="flex items-center gap-3.5 min-w-0">
                           <div className="w-12 h-12 rounded-lg overflow-hidden bg-white border border-slate-200/80 shrink-0">
                             {item.product?.images?.[0] ? (
-                              <img src={item.product.images[0]} alt="" className="w-full h-full object-cover" />
+                              <img src={optimizeCloudinaryUrl(item.product.images[0], 150)} alt="" className="w-full h-full object-cover" />
                             ) : (
                               <div className="w-full h-full flex items-center justify-center bg-slate-100 dark:bg-slate-950 text-slate-400">
                                 <Package size={16} />

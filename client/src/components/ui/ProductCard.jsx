@@ -18,7 +18,7 @@ import {
   ArrowUpRight,
   Building2
 } from 'lucide-react';
-import { formatCurrency } from '@/utils/formatters';
+import { formatCurrency, optimizeCloudinaryUrl } from '@/utils/formatters';
 
 function ProductCard({ product, onEdit, onDelete, showActions = false }) {
   const [isFavorite, setIsFavorite] = useState(false);
@@ -52,7 +52,7 @@ function ProductCard({ product, onEdit, onDelete, showActions = false }) {
         <Link to={`/products/${_id}`} className="block w-full h-full">
           {primaryImage ? (
             <img
-              src={primaryImage}
+              src={optimizeCloudinaryUrl(primaryImage, 600)}
               alt={title}
               className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
               loading="lazy"
