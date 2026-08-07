@@ -11,10 +11,7 @@ import { ArrowLeft, Search } from 'lucide-react';
 
 function NotFoundPage() {
   return (
-    <div
-      className="min-h-screen flex flex-col items-center justify-center px-4 text-center"
-      style={{ backgroundColor: 'var(--color-bg)' }}
-    >
+    <div className="min-h-screen flex flex-col items-center justify-center px-4 text-center bg-gray-50 font-sans">
       {/* Animated 404 number */}
       <motion.div
         initial={{ scale: 0.5, opacity: 0 }}
@@ -23,11 +20,9 @@ function NotFoundPage() {
         className="mb-8"
       >
         <span
-          className="text-9xl font-bold select-none"
+          className="text-9xl font-black select-none text-blue-50"
           style={{
-            fontFamily: 'var(--font-display)',
-            color: 'var(--color-brand-accent)',
-            WebkitTextStroke: `2px var(--color-brand-primary)`,
+            WebkitTextStroke: `2px #2563EB`, // blue-600
           }}
         >
           404
@@ -39,10 +34,9 @@ function NotFoundPage() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
-        className="mb-6 p-4 rounded-2xl"
-        style={{ backgroundColor: 'var(--color-brand-accent)' }}
+        className="mb-6 p-4 rounded-2xl bg-blue-50"
       >
-        <Search size={32} style={{ color: 'var(--color-brand-primary)' }} />
+        <Search size={32} className="text-blue-600" />
       </motion.div>
 
       {/* Text */}
@@ -51,13 +45,10 @@ function NotFoundPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
       >
-        <h1
-          className="text-2xl font-bold mb-3"
-          style={{ fontFamily: 'var(--font-display)', color: 'var(--color-text)' }}
-        >
+        <h1 className="text-2xl font-bold mb-3 text-gray-900">
           Page Not Found
         </h1>
-        <p className="text-sm max-w-sm mb-8 leading-relaxed" style={{ color: 'var(--color-muted)' }}>
+        <p className="text-sm max-w-sm mb-8 leading-relaxed text-gray-500 font-medium">
           The page you're looking for doesn't exist or has been moved.
           Let's get you back on track.
         </p>
@@ -65,11 +56,7 @@ function NotFoundPage() {
         {/* Back to Home */}
         <Link
           to="/"
-          className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-200 hover:scale-105"
-          style={{
-            backgroundColor: 'var(--color-brand-primary)',
-            color: '#ffffff',
-          }}
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm transition-all duration-200 hover:bg-blue-700 bg-blue-600 text-white shadow-sm hover:scale-105"
         >
           <ArrowLeft size={16} />
           Back to Home

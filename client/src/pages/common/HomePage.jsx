@@ -1,10 +1,9 @@
 /**
  * src/pages/common/HomePage.jsx
  *
- * Public Landing Page — Stripe / Shopify / Alibaba B2B Marketplace Layout.
+ * B2B Textile Marketplace Landing Page — World-Class Enterprise SaaS Design.
  */
 
-import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight,
@@ -18,29 +17,17 @@ import {
   Users,
   Building2,
   Search,
-  Filter,
   TrendingUp,
-  Sparkles,
   Layers,
   ChevronRight
 } from 'lucide-react';
 
-// ── Animation Variants ────────────────────────────────────────────────────────
-const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  visible: (delay = 0) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay, duration: 0.5, ease: [0.16, 1, 0.3, 1] },
-  }),
-};
-
 // ── Platform Statistics ───────────────────────────────────────────────────────
 const STATS = [
-  { value: '2,000+', label: 'Verified Textile Mills', subtext: 'Inspected & Compliance Checked' },
-  { value: '50,000+', label: 'Wholesale Fabric Listings', subtext: 'GSM & Weave Specs Verified' },
-  { value: '15,000+', label: 'Active B2B Buyers', subtext: 'Garment Brands & Retailers' },
-  { value: '$500M+', label: 'GMV Sourced', subtext: 'Secure Escrow Transactions' },
+  { value: '2,000+', label: 'Verified Textile Mills', subtext: 'Audited & compliance checked' },
+  { value: '50,000+', label: 'Fabric Listings', subtext: 'GSM & weave specs verified' },
+  { value: '15,000+', label: 'Active B2B Buyers', subtext: 'Garment brands & retailers' },
+  { value: '$500M+', label: 'GMV Sourced', subtext: 'Secured via escrow protocol' },
 ];
 
 // ── Fabric Categories ─────────────────────────────────────────────────────────
@@ -53,363 +40,297 @@ const CATEGORIES = [
   { name: 'Denim', icon: Layers, description: 'Raw selvedge, stretch & recycled denim', count: '4,600+ Fabrics' },
 ];
 
-// ── B2B How It Works Workflow ─────────────────────────────────────────────────
 const HOW_IT_WORKS = [
   {
     step: '01',
     icon: Users,
     title: 'Register & Verify Business',
-    desc: 'Create a verified buyer or supplier account in under 2 minutes with tax & business identification.',
+    desc: 'Create a verified buyer or supplier account with tax & business identification credentials.',
   },
   {
     step: '02',
     icon: Search,
     title: 'Discover & Inspect Fabrics',
-    desc: 'Filter by GSM, weave type, min order quantity, and pricing. Request physical swatch samples directly.',
+    desc: 'Filter by GSM, weave type, MOQ, and pricing. Request physical swatch samples directly.',
   },
   {
     step: '03',
     icon: ShieldCheck,
     title: 'Direct Wholesale Sourcing',
-    desc: 'Place bulk purchase orders directly with verified mills backed by transparent milestone escrow protection.',
+    desc: 'Place bulk purchase orders directly with verified mills backed by milestone escrow protection.',
   },
 ];
 
 function HomePage() {
   return (
-    <div className="bg-[var(--color-bg)] min-h-screen text-[var(--color-text-primary)] font-sans">
-      {/* ── 1. Hero Section (Split 2-Column B2B Layout) ────────────────────────── */}
-      <section className="relative overflow-hidden bg-slate-950 text-white border-b border-slate-800">
-        {/* Subtle Ambient Light Glow */}
-        <div className="absolute top-0 right-1/4 w-[600px] h-[450px] bg-[#0070F3]/15 blur-[140px] rounded-full pointer-events-none" />
-        <div className="absolute bottom-0 left-10 w-[400px] h-[300px] bg-sky-500/10 blur-[100px] rounded-full pointer-events-none" />
-
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24 z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+    <div className="bg-[#FAFBFC] min-h-screen text-[#374151] font-sans antialiased">
+      {/* ── 1. Hero Section ─────────────────────────────────────────────────── */}
+      <section className="bg-white border-b border-[#E5E7EB]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
             {/* ── Left Column: Headline & Action CTAs (Cols 1-7) ──────────────── */}
             <div className="lg:col-span-7 space-y-6 text-left">
               
               {/* Badge Pill */}
-              <motion.div
-                variants={fadeUp}
-                initial="hidden"
-                animate="visible"
-                custom={0}
-                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900 border border-slate-800 text-xs font-semibold text-sky-400 shadow-sm"
-              >
-                <Sparkles size={14} className="text-sky-400" />
-                <span>Next-Gen B2B Wholesale Textile Exchange</span>
-              </motion.div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-[#374151] border border-[#E5E7EB]">
+                <span>India's Verified B2B Textile Exchange</span>
+              </div>
 
               {/* Main Headline */}
-              <motion.h1
-                variants={fadeUp}
-                initial="hidden"
-                animate="visible"
-                custom={0.1}
-                className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.12] text-white"
-              >
-                The Operating System for <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-sky-400">
-                  Textile Commerce
-                </span>
-              </motion.h1>
+              <h1 className="text-4xl sm:text-[56px] sm:leading-[1.1] font-semibold tracking-tight text-[#111827]">
+                Direct Wholesale Textile Sourcing <br />
+                <span className="text-[#2563EB]">From Verified Mills</span>
+              </h1>
 
               {/* Subheadline */}
-              <motion.p
-                variants={fadeUp}
-                initial="hidden"
-                animate="visible"
-                custom={0.2}
-                className="text-base sm:text-lg text-slate-300 font-normal leading-relaxed max-w-2xl"
-              >
-                Connect directly with verified fabric manufacturers and textile mills. 
-                Source premium fabrics at scale with transparent B2B wholesale pricing, verified GSM specs, and escrow payment protection.
-              </motion.p>
+              <p className="text-base text-[#374151] font-normal leading-relaxed max-w-xl">
+                Source premium fabrics directly from audited manufacturers. Access transparent wholesale pricing, verified GSM specs, custom MOQs, and milestone escrow payment protection.
+              </p>
 
               {/* CTA Buttons */}
-              <motion.div
-                variants={fadeUp}
-                initial="hidden"
-                animate="visible"
-                custom={0.3}
-                className="pt-2 flex flex-col sm:flex-row gap-3.5 w-full sm:w-auto"
-              >
+              <div className="pt-2 flex flex-wrap gap-3">
                 <Link
                   to="/register?role=buyer"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm bg-[#0070F3] hover:bg-[#0059B2] text-white transition-all duration-200 shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium bg-[#2563EB] hover:bg-[#1D4ED8] text-white transition-colors shadow-sm"
                 >
-                  Start Sourcing
+                  Start Sourcing Fabrics
                   <ArrowRight size={16} />
                 </Link>
                 <Link
                   to="/register?role=supplier"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm bg-slate-900 hover:bg-slate-800 text-white border border-slate-700/80 transition-all duration-200"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium bg-white hover:bg-gray-50 text-[#111827] border border-[#E5E7EB] transition-colors shadow-sm"
                 >
-                  <Building2 size={16} />
-                  Become a Supplier
+                  <Building2 size={16} className="text-[#6B7280]" />
+                  Register as Textile Mill
                 </Link>
-              </motion.div>
+              </div>
 
-              {/* Trust Badges */}
-              <motion.div
-                variants={fadeUp}
-                initial="hidden"
-                animate="visible"
-                custom={0.4}
-                className="pt-6 border-t border-slate-800/80 grid grid-cols-2 sm:grid-cols-4 gap-4 text-slate-400 text-xs font-semibold"
-              >
-                <div className="flex items-center gap-2">
-                  <ShieldCheck size={16} className="text-emerald-400 shrink-0" />
-                  <span>ISO Certified Mills</span>
+              {/* Trust Features */}
+              <div className="pt-6 border-t border-[#EEF2F7] grid grid-cols-2 sm:grid-cols-4 gap-4 text-[#6B7280] text-xs font-medium">
+                <div className="flex items-center gap-1.5">
+                  <ShieldCheck size={16} className="text-[#6B7280] shrink-0" />
+                  <span>Verified Mills</span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 size={16} className="text-sky-400 shrink-0" />
-                  <span>Verified Suppliers</span>
+                <div className="flex items-center gap-1.5">
+                  <CheckCircle2 size={16} className="text-[#6B7280] shrink-0" />
+                  <span>Spec Inspections</span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Lock size={16} className="text-amber-400 shrink-0" />
-                  <span>Escrow Protection</span>
+                <div className="flex items-center gap-1.5">
+                  <Lock size={16} className="text-[#6B7280] shrink-0" />
+                  <span>Escrow Payments</span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Truck size={16} className="text-indigo-400 shrink-0" />
-                  <span>Pan-India Logistics</span>
+                <div className="flex items-center gap-1.5">
+                  <Truck size={16} className="text-[#6B7280] shrink-0" />
+                  <span>Pan-India Dispatch</span>
                 </div>
-              </motion.div>
+              </div>
 
             </div>
 
-            {/* ── Right Column: Interactive Marketplace Preview (Cols 8-12) ───── */}
-            <motion.div
-              variants={fadeUp}
-              initial="hidden"
-              animate="visible"
-              custom={0.2}
-              className="lg:col-span-5 w-full"
-            >
-              <div className="relative rounded-2xl bg-slate-900/90 border border-slate-800 p-5 shadow-2xl backdrop-blur-xl space-y-4">
+            {/* ── Right Column: SaaS Dashboard Showcase (Cols 8-12) ───────────── */}
+            <div className="lg:col-span-5 w-full hidden sm:block">
+              <div className="rounded-2xl bg-white border border-[#E5E7EB] p-5 shadow-sm space-y-4">
                 
                 {/* Header Mockup Bar */}
-                <div className="flex items-center justify-between pb-3 border-b border-slate-800 text-xs text-slate-400">
-                  <div className="flex items-center gap-2 font-bold text-white">
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                    <span>Live Wholesale Exchange</span>
+                <div className="flex items-center justify-between pb-3 border-b border-[#EEF2F7] text-xs text-[#6B7280]">
+                  <div className="font-medium text-[#111827]">
+                    Wholesale Exchange Feed
                   </div>
-                  <div className="flex items-center gap-2 text-slate-400 bg-slate-950 px-2.5 py-1 rounded-md border border-slate-800 text-[11px]">
-                    <Search size={12} />
-                    <span>Search 50k+ fabrics...</span>
+                  <div className="flex items-center gap-1.5 text-[#6B7280] bg-[#FAFBFC] px-2.5 py-1 rounded-lg border border-[#E5E7EB] text-[13px]">
+                    <Search size={14} />
+                    <span>Search 50k+ listings</span>
                   </div>
                 </div>
 
-                {/* Main Product Showcase Card */}
-                <div className="bg-slate-950 rounded-xl p-4 border border-slate-800 space-y-3">
+                {/* Product Showcase Card */}
+                <div className="bg-white rounded-xl p-4 border border-[#E5E7EB] space-y-3">
                   <div className="flex items-start justify-between gap-3">
                     <div>
-                      <span className="inline-block px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-blue-500/10 text-sky-400 border border-blue-500/20 mb-1">
+                      <span className="inline-block px-2.5 py-0.5 rounded-full text-[12px] font-medium bg-gray-100 text-[#374151] border border-[#E5E7EB] mb-1.5">
                         Cotton Twill • 240 GSM
                       </span>
-                      <h4 className="font-bold text-sm text-white">Organic Combed Cotton Twill Fabric</h4>
-                      <p className="text-xs text-slate-400 mt-0.5">Direct from Shivam Textile Mills • Surat, Gujarat</p>
+                      <h4 className="font-medium text-base text-[#111827]">Organic Combed Cotton Twill</h4>
+                      <p className="text-[13px] text-[#6B7280] mt-0.5">Shivam Textile Mills • Surat, Gujarat</p>
                     </div>
-                    <span className="shrink-0 px-2 py-1 bg-emerald-500/10 text-emerald-400 text-xs font-bold rounded border border-emerald-500/20">
-                      Verified Mill
+                    <span className="shrink-0 px-2 py-0.5 bg-emerald-50 text-[#16A34A] text-xs font-medium rounded-md border border-emerald-200">
+                      Verified
                     </span>
                   </div>
 
-                  <div className="grid grid-cols-3 gap-2 py-2 border-y border-slate-800/80 text-center">
-                    <div className="p-2 rounded bg-slate-900/80">
-                      <p className="text-[10px] text-slate-400 font-medium">Price / Meter</p>
-                      <p className="text-xs font-extrabold text-white mt-0.5">₹185.00</p>
+                  <div className="grid grid-cols-3 gap-2 py-2 border-y border-[#EEF2F7] text-center text-xs">
+                    <div className="p-2 rounded-lg bg-[#FAFBFC] border border-[#E5E7EB]">
+                      <p className="text-[12px] text-[#6B7280]">Price / m</p>
+                      <p className="text-sm font-semibold text-[#111827] mt-0.5">₹185.00</p>
                     </div>
-                    <div className="p-2 rounded bg-slate-900/80">
-                      <p className="text-[10px] text-slate-400 font-medium">Min Order (MOQ)</p>
-                      <p className="text-xs font-extrabold text-white mt-0.5">500 meters</p>
+                    <div className="p-2 rounded-lg bg-[#FAFBFC] border border-[#E5E7EB]">
+                      <p className="text-[12px] text-[#6B7280]">Min Order</p>
+                      <p className="text-sm font-semibold text-[#111827] mt-0.5">500 m</p>
                     </div>
-                    <div className="p-2 rounded bg-slate-900/80">
-                      <p className="text-[10px] text-slate-400 font-medium">Stock Available</p>
-                      <p className="text-xs font-extrabold text-emerald-400 mt-0.5">12,500 m</p>
+                    <div className="p-2 rounded-lg bg-[#FAFBFC] border border-[#E5E7EB]">
+                      <p className="text-[12px] text-[#6B7280]">Stock</p>
+                      <p className="text-sm font-semibold text-[#16A34A] mt-0.5">12,500 m</p>
                     </div>
                   </div>
 
                   <div className="flex items-center justify-between text-xs pt-1">
-                    <span className="text-slate-400 font-medium flex items-center gap-1">
-                      <TrendingUp size={14} className="text-emerald-400" />
-                      Bulk Discount applied above 2,000m
+                    <span className="text-[#6B7280] text-[13px] flex items-center gap-1.5">
+                      <TrendingUp size={14} className="text-[#6B7280]" />
+                      Tiered bulk pricing available
                     </span>
                     <Link
                       to="/products"
-                      className="text-sky-400 hover:text-sky-300 font-bold flex items-center gap-1 text-xs"
+                      className="text-[#2563EB] hover:text-[#1D4ED8] font-medium flex items-center gap-1 text-xs transition-colors"
                     >
-                      View Product
+                      View Catalog
                       <ChevronRight size={14} />
                     </Link>
                   </div>
                 </div>
 
-                {/* Activity Ticker Widget */}
-                <div className="flex items-center justify-between p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 text-xs">
+                {/* Activity Item */}
+                <div className="flex items-center justify-between p-3 rounded-xl bg-[#FAFBFC] border border-[#E5E7EB] text-xs">
                   <div className="flex items-center gap-2.5">
-                    <div className="w-7 h-7 rounded-lg bg-blue-500/10 text-sky-400 flex items-center justify-center shrink-0">
-                      <Box size={14} />
+                    <div className="w-8 h-8 rounded-lg bg-white border border-[#E5E7EB] text-[#2563EB] flex items-center justify-center shrink-0">
+                      <Box size={16} />
                     </div>
                     <div>
-                      <p className="text-slate-200 font-bold text-[11px]">5,000m Linen Blend Fulfilled</p>
-                      <p className="text-[10px] text-slate-400">Buyer: Garment Export Ltd, Mumbai</p>
+                      <p className="text-[#111827] font-medium text-xs">5,000m Linen Order Dispatched</p>
+                      <p className="text-[12px] text-[#6B7280]">Garment Exporters Ltd, Mumbai</p>
                     </div>
                   </div>
-                  <span className="text-[10px] font-semibold text-slate-500">2 mins ago</span>
+                  <span className="text-[12px] text-[#6B7280]">2m ago</span>
                 </div>
 
               </div>
-            </motion.div>
+            </div>
 
           </div>
         </div>
       </section>
 
-      {/* ── 2. Statistics Section (Clean High-Contrast Grid) ───────────────────── */}
-      <section className="py-12 lg:py-16 bg-[var(--color-surface)] border-b border-[var(--color-border)]">
+      {/* ── 2. Statistics Section (Stripe Style) ─────────────────────────── */}
+      <section className="py-12 bg-white border-b border-[#E5E7EB]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-            {STATS.map(({ value, label, subtext }, i) => (
-              <motion.div
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+            {STATS.map(({ value, label, subtext }) => (
+              <div
                 key={label}
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                custom={i * 0.08}
-                className="p-6 rounded-2xl bg-[var(--color-bg)] border border-[var(--color-border)] shadow-[var(--shadow-subtle)] space-y-1 text-left"
+                className="p-6 rounded-2xl bg-white border border-[#E5E7EB] text-left shadow-sm"
               >
-                <p className="text-3xl lg:text-4xl font-extrabold tracking-tight text-[var(--color-text-primary)]">
+                <p className="text-3xl sm:text-4xl font-semibold tracking-tight text-[#111827]">
                   {value}
                 </p>
-                <p className="text-xs lg:text-sm font-bold text-[var(--color-text-primary)]">
+                <p className="text-sm font-medium text-[#111827] mt-2">
                   {label}
                 </p>
-                <p className="text-[11px] font-medium text-[var(--color-text-muted)]">
+                <p className="text-xs text-[#6B7280] mt-0.5">
                   {subtext}
                 </p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── 3. Category Grid Section (Fabric Sourcing Hub) ────────────────────── */}
-      <section className="py-16 lg:py-24 bg-[var(--color-bg)]">
+      {/* ── 3. Category Grid Section ────────────────────────────────────────── */}
+      <section className="py-16 bg-[#FAFBFC]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
-            <div className="space-y-2">
-              <span className="text-xs font-bold uppercase tracking-wider text-[var(--color-brand-secondary)]">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-3">
+            <div>
+              <span className="text-xs font-semibold uppercase tracking-wider text-[#2563EB]">
                 Wholesale Catalog
               </span>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-[var(--color-text-primary)]">
+              <h2 className="text-2xl sm:text-[36px] font-semibold tracking-tight text-[#111827] mt-1">
                 Explore Fabrics by Category
               </h2>
             </div>
             <Link
               to="/products"
-              className="inline-flex items-center gap-1.5 text-sm font-bold text-[var(--color-brand-secondary)] hover:text-[var(--color-brand-hover)] transition-colors"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-[#2563EB] hover:text-[#1D4ED8] transition-colors"
             >
-              Browse All Products
+              Browse All Listings
               <ArrowRight size={16} />
             </Link>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {CATEGORIES.map(({ name, icon: Icon, description, count }, i) => (
-              <motion.div
+            {CATEGORIES.map(({ name, icon: Icon, description, count }) => (
+              <Link
                 key={name}
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: '-40px' }}
-                custom={i * 0.06}
+                to="/products"
+                className="group block p-6 rounded-2xl bg-white border border-[#E5E7EB] hover:border-gray-300 shadow-sm transition-all duration-150 hover:-translate-y-0.5"
               >
-                <Link
-                  to="/products"
-                  className="group ui-card ui-card-interactive block p-6 h-full flex flex-col justify-between"
-                >
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <div className="w-10 h-10 rounded-xl bg-[var(--color-brand-light)] text-[var(--color-brand-secondary)] flex items-center justify-center transition-transform group-hover:scale-110">
-                        <Icon size={20} />
-                      </div>
-                      <span className="text-xs font-bold text-[var(--color-text-muted)] bg-[var(--color-surface-muted)] px-2.5 py-1 rounded-full border border-[var(--color-border-subtle)]">
-                        {count}
-                      </span>
-                    </div>
-
-                    <div>
-                      <h3 className="text-lg font-bold text-[var(--color-text-primary)] group-hover:text-[var(--color-brand-secondary)] transition-colors">
-                        {name} Fabrics
-                      </h3>
-                      <p className="text-xs font-medium text-[var(--color-text-secondary)] mt-1 leading-relaxed">
-                        {description}
-                      </p>
-                    </div>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="w-10 h-10 rounded-xl bg-[#FAFBFC] text-[#2563EB] flex items-center justify-center border border-[#E5E7EB]">
+                    <Icon size={20} />
                   </div>
+                  <span className="text-xs font-medium text-[#6B7280] bg-[#FAFBFC] px-2.5 py-1 rounded-full border border-[#E5E7EB]">
+                    {count}
+                  </span>
+                </div>
 
-                  <div className="pt-4 mt-4 border-t border-[var(--color-border-subtle)] flex items-center justify-between text-xs font-bold text-[var(--color-text-primary)]">
-                    <span>Source {name}</span>
-                    <ChevronRight size={16} className="text-[var(--color-text-muted)] group-hover:translate-x-1 group-hover:text-[var(--color-brand-secondary)] transition-all" />
-                  </div>
-                </Link>
-              </motion.div>
+                <div>
+                  <h3 className="text-[22px] font-semibold text-[#111827] group-hover:text-[#2563EB] transition-colors">
+                    {name} Fabrics
+                  </h3>
+                  <p className="text-sm text-[#6B7280] mt-2 leading-relaxed">
+                    {description}
+                  </p>
+                </div>
+
+                <div className="pt-4 mt-4 border-t border-[#EEF2F7] flex items-center justify-between text-xs font-medium text-[#374151]">
+                  <span>Source {name}</span>
+                  <ChevronRight size={16} className="text-[#6B7280] group-hover:text-[#2563EB] transition-colors" />
+                </div>
+              </Link>
             ))}
           </div>
 
         </div>
       </section>
 
-      {/* ── 4. How It Works Section (Streamlined B2B Workflow) ────────────────── */}
-      <section className="py-16 lg:py-24 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+      {/* ── 4. How It Works Section ────────────────────────────────────────── */}
+      <section className="py-16 bg-white border-y border-[#E5E7EB]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
-          <div className="text-center max-w-2xl mx-auto mb-16 space-y-2">
-            <span className="text-xs font-bold uppercase tracking-wider text-[var(--color-brand-secondary)]">
-              Streamlined Procurement
+          <div className="text-center max-w-xl mx-auto mb-12 space-y-2">
+            <span className="text-xs font-semibold uppercase tracking-wider text-[#2563EB]">
+              Procurement Workflow
             </span>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-[var(--color-text-primary)]">
-              How TextileHub Operates
+            <h2 className="text-2xl sm:text-[36px] font-semibold tracking-tight text-[#111827]">
+              How TextileHub Works
             </h2>
-            <p className="text-sm text-[var(--color-text-secondary)] font-medium">
-              Eliminating intermediaries to deliver mill-direct pricing, verified quality specs, and escrow security.
+            <p className="text-base text-[#6B7280]">
+              Direct mill-to-buyer trade infrastructure with transparent pricing and escrow safety.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {HOW_IT_WORKS.map(({ step, icon: Icon, title, desc }, i) => (
-              <motion.div
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {HOW_IT_WORKS.map(({ step, icon: Icon, title, desc }) => (
+              <div
                 key={step}
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                custom={i * 0.1}
-                className="relative p-8 rounded-2xl bg-[var(--color-bg)] border border-[var(--color-border)] shadow-[var(--shadow-card)] space-y-4"
+                className="p-6 rounded-2xl bg-white border border-[#E5E7EB] shadow-sm space-y-4"
               >
                 <div className="flex items-center justify-between">
-                  <div className="w-12 h-12 rounded-xl bg-[var(--color-brand-primary)] text-white flex items-center justify-center shadow-sm">
-                    <Icon size={22} />
+                  <div className="w-10 h-10 rounded-xl bg-[#111827] text-white flex items-center justify-center">
+                    <Icon size={20} />
                   </div>
-                  <span className="text-3xl font-black text-[var(--color-border)] opacity-60">
+                  <span className="text-2xl font-semibold text-[#6B7280]">
                     {step}
                   </span>
                 </div>
 
                 <div className="space-y-2">
-                  <h3 className="text-lg font-bold text-[var(--color-text-primary)]">
+                  <h3 className="text-[22px] font-semibold text-[#111827]">
                     {title}
                   </h3>
-                  <p className="text-xs sm:text-sm font-medium text-[var(--color-text-secondary)] leading-relaxed">
+                  <p className="text-sm text-[#6B7280] leading-relaxed">
                     {desc}
                   </p>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
 
@@ -417,53 +338,31 @@ function HomePage() {
       </section>
 
       {/* ── 5. CTA Conversion Section ────────────────────────────────────────── */}
-      <section className="relative py-20 lg:py-24 bg-slate-950 text-white text-center border-t border-slate-800 overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-[#0070F3]/15 blur-[140px] rounded-full pointer-events-none" />
-        
-        <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 space-y-6">
-          <motion.h2
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white"
-          >
-            Ready to Scale Your Textile Sourcing?
-          </motion.h2>
+      <section className="py-20 bg-white text-center">
+        <div className="max-w-2xl mx-auto px-4 sm:px-6 space-y-5">
+          <h2 className="text-3xl sm:text-[36px] font-semibold tracking-tight text-[#111827]">
+            Ready to Streamline Fabric Sourcing?
+          </h2>
 
-          <motion.p
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            custom={0.1}
-            className="text-base sm:text-lg text-slate-300 font-normal max-w-2xl mx-auto"
-          >
-            Join thousands of verified garment manufacturers, apparel brands, and textile mills trading directly on India's premier B2B platform.
-          </motion.p>
+          <p className="text-base text-[#6B7280] max-w-lg mx-auto">
+            Join thousands of verified garment manufacturers, apparel brands, and textile mills trading directly on India's B2B marketplace.
+          </p>
 
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            custom={0.2}
-            className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3.5"
-          >
+          <div className="pt-4 flex flex-wrap items-center justify-center gap-3">
             <Link
               to="/register?role=buyer"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-bold text-sm bg-[#0070F3] hover:bg-[#0059B2] text-white transition-all duration-200 shadow-lg shadow-blue-500/25"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-medium bg-[#2563EB] hover:bg-[#1D4ED8] text-white transition-colors shadow-sm"
             >
-              Start Sourcing For Free
+              Start Sourcing
               <ArrowRight size={16} />
             </Link>
             <Link
               to="/register?role=supplier"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-bold text-sm bg-slate-900 hover:bg-slate-800 text-white border border-slate-700/80 transition-all duration-200"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-medium bg-white hover:bg-gray-50 text-[#111827] border border-[#E5E7EB] transition-colors shadow-sm"
             >
-              List Your Mill
+              Register Mill
             </Link>
-          </motion.div>
+          </div>
         </div>
       </section>
     </div>

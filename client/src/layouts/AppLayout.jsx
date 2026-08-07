@@ -13,7 +13,7 @@ import Footer from '@/components/common/Footer.jsx';
 
 function AppLayout() {
   return (
-    <div className="flex flex-col min-h-screen" style={{ backgroundColor: 'var(--color-bg)' }}>
+    <div className="flex flex-col min-h-screen bg-gray-50 font-sans">
       {/* Fixed top navigation */}
       <Navbar />
 

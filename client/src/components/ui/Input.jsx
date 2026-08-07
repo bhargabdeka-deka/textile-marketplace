@@ -1,7 +1,7 @@
 import React from 'react';
 
 /**
- * Reusable Input & Textarea Component — Stripe/Linear Design System.
+ * Reusable Input & Textarea Component — Stripe Checkout Design System.
  */
 const Input = React.forwardRef(({
   label,
@@ -18,8 +18,11 @@ const Input = React.forwardRef(({
   const inputId = id || (label ? label.toLowerCase().replace(/\s+/g, '-') : undefined);
   const isError = Boolean(error);
 
-  const baseInputClass = multiline ? 'ui-textarea' : 'ui-input';
-  const errorClass = isError ? (multiline ? 'ui-textarea-error' : 'ui-input-error') : '';
+  const baseInputStyle = 'w-full px-3.5 py-2.5 text-sm rounded-xl border bg-white text-[#111827] placeholder-[#6B7280] outline-none transition-all duration-150 shadow-xs';
+  const normalBorder = 'border-[#E5E7EB] focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/15 hover:border-gray-300';
+  const errorBorder = 'border-[#DC2626] focus:border-[#DC2626] focus:ring-2 focus:ring-[#DC2626]/15 hover:border-[#DC2626]';
+  
+  const borderClass = isError ? errorBorder : normalBorder;
   const iconPadding = Icon ? 'pl-10' : '';
 
   const Component = multiline ? 'textarea' : 'input';
@@ -29,14 +32,14 @@ const Input = React.forwardRef(({
       {label && (
         <label
           htmlFor={inputId}
-          className="block text-xs font-semibold text-[var(--color-text-primary)] uppercase tracking-wider"
+          className="block text-sm font-medium text-[#111827]"
         >
           {label}
         </label>
       )}
       <div className="relative">
         {Icon && !multiline && (
-          <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)] pointer-events-none">
+          <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#6B7280] pointer-events-none">
             <Icon size={16} />
           </div>
         )}
@@ -45,14 +48,14 @@ const Input = React.forwardRef(({
           id={inputId}
           type={multiline ? undefined : type}
           rows={multiline ? rows : undefined}
-          className={`${baseInputClass} ${errorClass} ${iconPadding} ${className}`}
+          className={`${baseInputStyle} ${borderClass} ${iconPadding} ${className}`}
           {...props}
         />
       </div>
       {error ? (
-        <p className="text-xs font-medium text-[var(--color-error-text)] mt-1">{error}</p>
+        <p className="text-xs font-medium text-[#DC2626] mt-1">{error}</p>
       ) : helperText ? (
-        <p className="text-xs text-[var(--color-text-muted)] mt-1">{helperText}</p>
+        <p className="text-xs text-[#6B7280] mt-1">{helperText}</p>
       ) : null}
     </div>
   );

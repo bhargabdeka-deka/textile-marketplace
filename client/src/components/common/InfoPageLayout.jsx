@@ -20,35 +20,35 @@ function InfoPageLayout({
   ctaLink = '/products',
 }) {
   return (
-    <div className="min-h-screen bg-[var(--color-bg)] py-12 px-4 sm:px-6 lg:px-8 transition-colors duration-200">
+    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 font-sans">
       <div className="max-w-4xl mx-auto space-y-8">
         
         {/* Back navigation link */}
         <Link
           to="/"
-          className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-muted)] hover:text-[var(--color-text)] transition-colors"
+          className="inline-flex items-center gap-2 text-sm font-semibold text-gray-500 hover:text-gray-900 transition-colors"
         >
           <ArrowLeft size={16} />
           Back to Home
         </Link>
 
         {/* Hero Card */}
-        <div className="relative overflow-hidden rounded-3xl border border-[var(--color-border)] bg-gradient-to-b from-neutral-900 to-black p-8 sm:p-12 text-white shadow-xl">
+        <div className="relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-8 sm:p-12 shadow-sm">
           {/* Subtle grid backdrop overlay */}
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#f3f4f6_1px,transparent_1px),linear-gradient(to_bottom,#f3f4f6_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
 
           <div className="relative z-10 space-y-6">
             
             {/* Badges Row */}
             <div className="flex flex-wrap items-center gap-3">
               {Icon && (
-                <div className="w-12 h-12 rounded-2xl bg-white/10 border border-white/20 backdrop-blur-md flex items-center justify-center text-white shadow-inner">
+                <div className="w-12 h-12 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 shadow-sm">
                   <Icon size={24} />
                 </div>
               )}
               {badge && (
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shadow-sm">
-                  <Clock size={12} />
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200 shadow-sm">
+                  <Clock size={14} />
                   {badge}
                 </span>
               )}
@@ -56,10 +56,10 @@ function InfoPageLayout({
 
             {/* Title & Subtitle */}
             <div className="space-y-3">
-              <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">
+              <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-gray-900 leading-tight">
                 {title}
               </h1>
-              <p className="text-lg sm:text-xl text-neutral-400 font-medium leading-relaxed max-w-2xl">
+              <p className="text-lg sm:text-xl text-gray-500 font-medium leading-relaxed max-w-2xl">
                 {subtitle}
               </p>
             </div>
@@ -73,17 +73,17 @@ function InfoPageLayout({
             {sections.map((sec, idx) => (
               <div
                 key={idx}
-                className="p-6 rounded-2xl border border-[var(--color-border)] bg-white dark:bg-neutral-900/50 shadow-sm hover:shadow-md transition-all duration-200"
+                className="p-6 rounded-2xl border border-gray-200 bg-white shadow-sm hover:shadow-md transition-shadow duration-200"
               >
                 {sec.icon && (
-                  <div className="w-10 h-10 rounded-xl bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center text-neutral-800 dark:text-neutral-200 mb-4">
-                    <sec.icon size={20} />
+                  <div className="w-12 h-12 rounded-xl bg-gray-50 flex items-center justify-center text-gray-700 mb-4 border border-gray-100">
+                    <sec.icon size={22} />
                   </div>
                 )}
-                <h3 className="text-lg font-bold text-[var(--color-text)] mb-2">
+                <h3 className="text-lg font-bold text-gray-900 mb-2">
                   {sec.title}
                 </h3>
-                <p className="text-sm text-[var(--color-muted)] leading-relaxed">
+                <p className="text-sm text-gray-500 leading-relaxed font-medium">
                   {sec.content}
                 </p>
               </div>
@@ -92,18 +92,18 @@ function InfoPageLayout({
         )}
 
         {/* CTA Footer Card */}
-        <div className="p-8 rounded-2xl border border-[var(--color-border)] bg-gradient-to-r from-neutral-100 to-white dark:from-neutral-950 dark:to-neutral-900 flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div className="space-y-1 text-center sm:text-left">
-            <h4 className="font-bold text-[var(--color-text)]">
+        <div className="p-8 rounded-2xl border border-gray-200 bg-white shadow-sm flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="space-y-1.5 text-center sm:text-left">
+            <h4 className="font-bold text-gray-900 text-lg">
               Looking for raw fabrics or textile suppliers?
             </h4>
-            <p className="text-xs text-[var(--color-muted)]">
+            <p className="text-sm text-gray-500 font-medium">
               Explore thousands of certified listings directly on TextileHub marketplace.
             </p>
           </div>
           <Link
             to={ctaLink}
-            className="px-6 py-3 rounded-xl text-sm font-semibold bg-black hover:bg-neutral-800 text-white dark:bg-white dark:text-black dark:hover:bg-neutral-200 transition-colors shadow-sm shrink-0 flex items-center gap-2"
+            className="px-6 py-3.5 rounded-xl text-sm font-bold bg-blue-600 hover:bg-blue-700 text-white transition-colors shadow-sm shrink-0 flex items-center gap-2"
           >
             <Sparkles size={16} />
             {ctaText}

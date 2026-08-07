@@ -1,7 +1,7 @@
 /**
  * src/components/ui/ProductCard.jsx
  *
- * Amazon Business / Alibaba B2B Product Card.
+ * Amazon Business / Stripe B2B Product Card.
  */
 
 import { useState } from 'react';
@@ -42,35 +42,37 @@ function ProductCard({ product, onEdit, onDelete, showActions = false }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
+      initial={{ opacity: 0, y: 4 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.2 }}
-      className="group relative flex flex-col h-full bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-sm hover:shadow-xl hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-300 overflow-hidden"
+      transition={{ duration: 0.15 }}
+      className="group relative flex flex-col h-full bg-white rounded-2xl border border-[#E5E7EB] shadow-sm hover:shadow-md hover:border-gray-300 transition-all duration-150 overflow-hidden"
     >
       {/* ── 1. Image Showcase Header ───────────────────────────────────── */}
-      <div className="relative overflow-hidden aspect-[4/3] bg-slate-100 dark:bg-slate-950 border-b border-slate-100 dark:border-slate-800">
+      <div className="relative overflow-hidden aspect-[4/3] bg-[#FAFBFC] border-b border-[#EEF2F7]">
         <Link to={`/products/${_id}`} className="block w-full h-full">
           {primaryImage ? (
             <img
               src={optimizeCloudinaryUrl(primaryImage, 600)}
               alt={title}
-              className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+              className="w-full h-full object-cover transition-transform duration-200 group-hover:scale-[1.02]"
               loading="lazy"
             />
           ) : (
-            <div className="w-full h-full flex flex-col items-center justify-center text-slate-400 gap-2">
-              <Package size={36} strokeWidth={1.5} className="opacity-40" />
-              <span className="text-xs font-semibold">No Image Preview</span>
+            <div className="w-full h-full flex flex-col items-center justify-center text-[#6B7280] gap-1.5">
+              <Package size={32} strokeWidth={1.5} className="opacity-40" />
+              <span className="text-xs font-medium text-[#6B7280]">No Image</span>
             </div>
           )}
         </Link>
 
         {/* Category Badge (Top Left) */}
-        <span className="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[10px] font-extrabold uppercase tracking-wider bg-white/95 dark:bg-slate-900/95 text-slate-900 dark:text-white shadow-sm border border-slate-200/80 dark:border-slate-700">
-          {category}
-        </span>
+        {category && (
+          <span className="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-lg text-xs font-medium bg-[#111827]/90 text-white shadow-sm">
+            {category}
+          </span>
+        )}
 
-        {/* Favorite Heart Button (Top Right Placeholder) */}
+        {/* Favorite Heart Button */}
         <button
           type="button"
           onClick={(e) => {
@@ -78,10 +80,10 @@ function ProductCard({ product, onEdit, onDelete, showActions = false }) {
             e.stopPropagation();
             setIsFavorite((prev) => !prev);
           }}
-          className={`absolute top-3 right-3 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 shadow-sm backdrop-blur-md ${
+          className={`absolute top-2.5 right-2.5 w-8 h-8 rounded-full flex items-center justify-center transition-colors shadow-sm ${
             isFavorite
-              ? 'bg-rose-500 text-white scale-110'
-              : 'bg-white/90 dark:bg-slate-900/90 text-slate-600 dark:text-slate-300 hover:text-rose-500 dark:hover:text-rose-400 hover:scale-110'
+              ? 'bg-rose-50 border border-rose-200 text-rose-600'
+              : 'bg-white/90 border border-[#E5E7EB] text-[#6B7280] hover:text-[#111827]'
           }`}
           aria-label={isFavorite ? 'Remove from wishlist' : 'Save to wishlist'}
         >
@@ -90,31 +92,31 @@ function ProductCard({ product, onEdit, onDelete, showActions = false }) {
 
         {/* Status Badges */}
         {!isActive && (
-          <span className="absolute bottom-3 left-3 px-2.5 py-0.5 rounded text-[10px] font-bold uppercase bg-rose-500 text-white shadow-sm">
+          <span className="absolute bottom-2.5 left-2.5 px-2.5 py-1 rounded-md text-xs font-medium bg-red-600 text-white shadow-sm">
             Inactive Listing
           </span>
         )}
         {isActive && stock === 0 && (
-          <span className="absolute bottom-3 left-3 px-2.5 py-0.5 rounded text-[10px] font-bold uppercase bg-amber-500 text-white shadow-sm">
+          <span className="absolute bottom-2.5 left-2.5 px-2.5 py-1 rounded-md text-xs font-medium bg-amber-600 text-white shadow-sm">
             Out of Stock
           </span>
         )}
       </div>
 
       {/* ── 2. Card Content Body ───────────────────────────────────────── */}
-      <div className="flex flex-col flex-1 p-4 sm:p-5 gap-3">
+      <div className="flex flex-col flex-1 p-4 gap-2.5">
         
-        {/* Supplier Info & Verified Badge (Alibaba Style) */}
+        {/* Supplier Info & Verified Badge */}
         <div className="flex items-center justify-between text-xs gap-2">
-          <div className="flex items-center gap-1.5 min-w-0 text-slate-600 dark:text-slate-400 font-medium">
-            <Building2 size={13} className="shrink-0 text-slate-400" />
-            <span className="truncate font-semibold text-slate-900 dark:text-slate-200">
+          <div className="flex items-center gap-1.5 min-w-0 text-[#6B7280]">
+            <Building2 size={14} className="shrink-0 text-[#6B7280]" />
+            <span className="truncate font-medium text-[#374151] text-xs">
               {supplierName}
             </span>
           </div>
           
-          <div className="flex items-center gap-1 text-[10px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 px-1.5 py-0.5 rounded border border-emerald-200 dark:border-emerald-800 shrink-0">
-            <ShieldCheck size={12} className="shrink-0 text-emerald-500" />
+          <div className="flex items-center gap-1 text-xs font-medium text-[#16A34A] bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200 shrink-0">
+            <ShieldCheck size={13} className="shrink-0 text-[#16A34A]" />
             <span>Verified</span>
           </div>
         </div>
@@ -122,49 +124,51 @@ function ProductCard({ product, onEdit, onDelete, showActions = false }) {
         {/* Product Title */}
         <Link
           to={`/products/${_id}`}
-          className="font-bold text-sm sm:text-[15px] leading-snug line-clamp-2 text-slate-900 dark:text-white transition-colors group-hover:text-[#0070F3]"
+          className="font-semibold text-sm leading-snug line-clamp-2 text-[#111827] hover:text-[#2563EB] transition-colors"
         >
           {title}
         </Link>
 
         {/* Specification Chips */}
-        <div className="flex flex-wrap gap-1.5 text-[11px] font-medium text-slate-600 dark:text-slate-400">
-          {fabric && (
-            <span className="bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded border border-slate-200/60 dark:border-slate-700">
-              {fabric}
-            </span>
-          )}
-          {gsm && (
-            <span className="bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded border border-slate-200/60 dark:border-slate-700">
-              {gsm} GSM
-            </span>
-          )}
-        </div>
+        {(fabric || gsm) && (
+          <div className="flex flex-wrap gap-1.5 text-xs text-[#6B7280]">
+            {fabric && (
+              <span className="bg-[#FAFBFC] px-2 py-0.5 rounded-md border border-[#E5E7EB]">
+                {fabric}
+              </span>
+            )}
+            {gsm && (
+              <span className="bg-[#FAFBFC] px-2 py-0.5 rounded-md border border-[#E5E7EB]">
+                {gsm} GSM
+              </span>
+            )}
+          </div>
+        )}
 
-        {/* ── 3. Pricing & MOQ Box (Amazon Business Style) ─────────────── */}
-        <div className="mt-auto pt-3 border-t border-slate-100 dark:border-slate-800 flex items-end justify-between gap-2">
+        {/* ── 3. Pricing & MOQ Box ─────────────────────────────────────── */}
+        <div className="mt-auto pt-3 border-t border-[#EEF2F7] flex items-end justify-between gap-2">
           <div>
             <div className="flex items-baseline gap-1">
-              <span className="text-base sm:text-lg font-black tracking-tight text-slate-900 dark:text-white">
+              <span className="text-base sm:text-lg font-semibold tracking-tight text-[#111827]">
                 {formatCurrency(pricePerMeter)}
               </span>
-              <span className="text-xs font-semibold text-slate-500">/ meter</span>
+              <span className="text-xs text-[#6B7280]">/ m</span>
             </div>
-            <p className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 mt-0.5">
-              MOQ: <span className="text-slate-900 dark:text-slate-200 font-bold">{minOrderQuantity} m</span>
+            <p className="text-xs text-[#6B7280] mt-0.5">
+              MOQ: <span className="text-[#111827] font-medium">{minOrderQuantity} m</span>
             </p>
           </div>
 
           {/* Stock Indicator */}
-          <div className="flex items-center gap-1 text-xs font-bold shrink-0">
+          <div className="flex items-center gap-1 text-xs shrink-0">
             {stock > 0 ? (
-              <span className="flex items-center gap-1 text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50 px-2 py-1 rounded text-[11px]">
-                <CheckCircle2 size={13} />
+              <span className="flex items-center gap-1 text-[#16A34A] bg-emerald-50 px-2 py-1 rounded-md text-xs font-medium">
+                <CheckCircle2 size={12} />
                 In Stock ({stock}m)
               </span>
             ) : (
-              <span className="flex items-center gap-1 text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/50 px-2 py-1 rounded text-[11px]">
-                <XCircle size={13} />
+              <span className="flex items-center gap-1 text-red-600 bg-red-50 px-2 py-1 rounded-md text-xs font-medium">
+                <XCircle size={12} />
                 Out of Stock
               </span>
             )}
@@ -176,29 +180,29 @@ function ProductCard({ product, onEdit, onDelete, showActions = false }) {
           {!showActions ? (
             <Link
               to={`/products/${_id}`}
-              className="w-full inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl text-xs font-extrabold bg-slate-950 dark:bg-white text-white dark:text-slate-950 hover:bg-slate-800 dark:hover:bg-slate-100 transition-all shadow-sm"
+              className="w-full inline-flex items-center justify-center gap-1.5 py-2 px-4 rounded-xl text-xs font-medium bg-white border border-[#E5E7EB] hover:border-gray-300 hover:bg-gray-50 text-[#111827] transition-colors shadow-sm"
             >
               <span>View Details</span>
-              <ArrowUpRight size={14} />
+              <ArrowUpRight size={14} className="text-[#6B7280]" />
             </Link>
           ) : (
             <div className="w-full flex gap-2">
               <button
                 type="button"
                 onClick={() => onEdit && onEdit(product)}
-                className="flex-1 inline-flex items-center justify-center gap-1 py-2 px-3 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700 transition-all"
+                className="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl text-xs font-medium bg-white hover:bg-gray-50 text-[#111827] border border-[#E5E7EB] transition-colors shadow-sm"
                 aria-label={`Edit ${title}`}
               >
-                <Edit2 size={13} />
+                <Edit2 size={14} className="text-[#6B7280]" />
                 Edit
               </button>
               <button
                 type="button"
                 onClick={() => onDelete && onDelete(product)}
-                className="flex-1 inline-flex items-center justify-center gap-1 py-2 px-3 rounded-xl text-xs font-bold bg-rose-50 dark:bg-rose-950/60 hover:bg-rose-100 dark:hover:bg-rose-900/60 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-800 transition-all"
+                className="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl text-xs font-medium bg-white hover:bg-red-50 text-red-600 border border-[#E5E7EB] hover:border-red-200 transition-colors shadow-sm"
                 aria-label={`Delete ${title}`}
               >
-                <Trash2 size={13} />
+                <Trash2 size={14} />
                 Delete
               </button>
             </div>

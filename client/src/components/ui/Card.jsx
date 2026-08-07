@@ -1,12 +1,15 @@
 import React from 'react';
 
 /**
- * Reusable Card Component — Stripe/Apple/Linear Design System.
+ * Reusable Card Component — Stripe/Apple/Linear Enterprise Design System.
  */
 export function Card({ children, interactive = false, className = '', ...props }) {
+  const baseClass = 'bg-white rounded-2xl border border-[#E5E7EB] shadow-xs';
+  const interactiveClass = interactive ? 'hover:-translate-y-0.5 hover:shadow-md hover:border-gray-300 transition-all duration-150 cursor-pointer' : '';
+  
   return (
     <div
-      className={`ui-card ${interactive ? 'ui-card-interactive' : ''} ${className}`}
+      className={`${baseClass} ${interactiveClass} ${className}`}
       {...props}
     >
       {children}
@@ -16,7 +19,7 @@ export function Card({ children, interactive = false, className = '', ...props }
 
 export function CardHeader({ children, className = '', ...props }) {
   return (
-    <div className={`p-6 border-b border-[var(--color-border)] ${className}`} {...props}>
+    <div className={`px-6 py-4 border-b border-[#EEF2F7] ${className}`} {...props}>
       {children}
     </div>
   );
@@ -32,7 +35,7 @@ export function CardBody({ children, className = '', ...props }) {
 
 export function CardFooter({ children, className = '', ...props }) {
   return (
-    <div className={`p-6 border-t border-[var(--color-border)] bg-[var(--color-surface-muted)] rounded-b-[var(--radius-xl)] ${className}`} {...props}>
+    <div className={`px-6 py-4 border-t border-[#EEF2F7] bg-[#FAFBFC] rounded-b-2xl ${className}`} {...props}>
       {children}
     </div>
   );

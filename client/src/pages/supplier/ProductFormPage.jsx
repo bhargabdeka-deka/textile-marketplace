@@ -26,8 +26,7 @@ const FIELD = (label, id, error) => (
   <div>
     <label
       htmlFor={id}
-      className="block text-sm font-semibold mb-1.5"
-      style={{ color: 'var(--color-text)' }}
+      className="block text-sm font-semibold mb-1.5 text-gray-900"
     >
       {label}
     </label>
@@ -35,12 +34,7 @@ const FIELD = (label, id, error) => (
   </div>
 );
 
-const inputClass = 'w-full px-3 py-2.5 rounded-lg text-sm border outline-none transition-colors duration-150';
-const inputStyle = {
-  borderColor: 'var(--color-border)',
-  backgroundColor: 'var(--color-bg)',
-  color: 'var(--color-text)',
-};
+const inputClass = 'w-full px-3 py-2.5 rounded-lg text-sm border border-gray-200 bg-white text-gray-900 outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition-all duration-150 shadow-sm';
 
 function ProductFormPage() {
   const { id }       = useParams();          // present → edit mode
@@ -169,26 +163,24 @@ function ProductFormPage() {
   }
 
   return (
-    <div style={{ backgroundColor: 'var(--color-bg)', minHeight: '80vh' }}>
+    <div className="bg-gray-50 min-h-[80vh] font-sans">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8">
 
         {/* Header */}
-        <div className="flex items-center gap-3 mb-8">
+        <div className="flex items-center gap-4 mb-8">
           <Link
             to="/supplier/products"
-            className="p-2 rounded-lg border"
-            style={{ borderColor: 'var(--color-border)', color: 'var(--color-muted)' }}
+            className="p-2.5 rounded-xl border border-gray-200 bg-white text-gray-500 hover:text-gray-900 hover:bg-gray-50 transition-colors shadow-sm"
           >
             <ChevronLeft size={18} />
           </Link>
           <div>
             <h1
-              className="text-2xl font-bold"
-              style={{ fontFamily: 'var(--font-display)', color: 'var(--color-text)' }}
+              className="text-2xl font-bold text-gray-900"
             >
               {isEditMode ? 'Edit Product' : 'New Product Listing'}
             </h1>
-            <p className="text-sm" style={{ color: 'var(--color-muted)' }}>
+            <p className="text-sm text-gray-500 mt-1">
               {isEditMode ? 'Update your product details' : 'Add a new textile product to the marketplace'}
             </p>
           </div>
@@ -196,44 +188,43 @@ function ProductFormPage() {
 
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
           <div
-            className="rounded-2xl p-6 space-y-6"
-            style={{ backgroundColor: 'var(--color-surface)', border: '1px solid var(--color-border)' }}
+            className="rounded-2xl p-6 sm:p-8 space-y-6 bg-white border border-gray-200 shadow-sm"
           >
 
             {/* ── Images ──────────────────────────────────────────── */}
             <div>
-              <p className="text-sm font-semibold mb-3" style={{ color: 'var(--color-text)' }}>
-                Product Images <span className="text-xs font-normal" style={{ color: 'var(--color-muted)' }}>({totalImages}/8)</span>
+              <p className="text-sm font-bold mb-3 text-gray-900">
+                Product Images <span className="text-xs font-medium text-gray-500 ml-1">({totalImages}/8)</span>
               </p>
 
-              <div className="grid grid-cols-4 gap-3 mb-3">
+              <div className="grid grid-cols-4 sm:grid-cols-5 gap-3 mb-3">
                 {/* Existing images */}
                 {existingImgs.map((url) => (
-                  <div key={url} className="relative aspect-square rounded-lg overflow-hidden" style={{ border: '1px solid var(--color-border)' }}>
-                    <img src={url} alt="" className="w-full h-full object-cover" style={{ opacity: removedImgs.includes(url) ? 0.35 : 1 }} />
+                  <div key={url} className="relative aspect-square rounded-xl overflow-hidden border border-gray-200">
+                    <img src={url} alt="" className="w-full h-full object-cover transition-opacity" style={{ opacity: removedImgs.includes(url) ? 0.35 : 1 }} />
                     <button
                       type="button"
                       onClick={() => toggleRemoveExisting(url)}
-                      className="absolute top-1 right-1 p-1 rounded-full text-white"
+                      className="absolute top-1.5 right-1.5 p-1 rounded-full text-white shadow-sm transition-colors"
                       style={{ backgroundColor: removedImgs.includes(url) ? '#16a34a' : '#ef4444' }}
                       aria-label={removedImgs.includes(url) ? 'Restore image' : 'Remove image'}
                     >
-                      <X size={10} />
+                      <X size={12} strokeWidth={3} />
                     </button>
                   </div>
                 ))}
 
                 {/* New preview images */}
                 {previewUrls.map((url, idx) => (
-                  <div key={url} className="relative aspect-square rounded-lg overflow-hidden" style={{ border: '1px solid var(--color-border)' }}>
+                  <div key={url} className="relative aspect-square rounded-xl overflow-hidden border border-gray-200">
                     <img src={url} alt="" className="w-full h-full object-cover" />
                     <button
                       type="button"
                       onClick={() => removeNewImage(idx)}
-                      className="absolute top-1 right-1 p-1 rounded-full bg-red-500 text-white"
+                      className="absolute top-1.5 right-1.5 p-1 rounded-full bg-red-500 hover:bg-red-600 text-white shadow-sm transition-colors"
                       aria-label="Remove image"
                     >
-                      <X size={10} />
+                      <X size={12} strokeWidth={3} />
                     </button>
                   </div>
                 ))}
@@ -241,15 +232,10 @@ function ProductFormPage() {
                 {/* Upload trigger */}
                 {totalImages < 8 && (
                   <label
-                    className="aspect-square rounded-lg flex flex-col items-center justify-center cursor-pointer transition-colors"
-                    style={{
-                      border: '2px dashed var(--color-border)',
-                      backgroundColor: 'var(--color-bg)',
-                      color: 'var(--color-muted)',
-                    }}
+                    className="aspect-square rounded-xl flex flex-col items-center justify-center cursor-pointer transition-colors border-2 border-dashed border-gray-300 bg-gray-50 text-gray-500 hover:bg-gray-100 hover:border-gray-400"
                   >
                     <Upload size={20} className="mb-1" />
-                    <span className="text-xs">Add</span>
+                    <span className="text-xs font-medium">Add</span>
                     <input
                       type="file"
                       accept="image/jpeg,image/png,image/webp"
@@ -260,10 +246,12 @@ function ProductFormPage() {
                   </label>
                 )}
               </div>
-              <p className="text-xs" style={{ color: 'var(--color-muted)' }}>
+              <p className="text-xs text-gray-500">
                 JPEG, PNG or WebP. Max 10 MB per file. Up to 8 images.
               </p>
             </div>
+
+            <div className="h-px bg-gray-100 my-2" />
 
             {/* ── Title ─────────────────────────────────────────── */}
             <div>
@@ -272,7 +260,6 @@ function ProductFormPage() {
                 id="title"
                 {...register('title', { required: 'Title is required', maxLength: { value: 200, message: 'Max 200 characters' } })}
                 className={inputClass}
-                style={inputStyle}
                 placeholder="e.g. Premium Cotton Voile Fabric"
               />
             </div>
@@ -284,21 +271,19 @@ function ProductFormPage() {
                 id="description"
                 {...register('description', { required: 'Description is required', maxLength: { value: 2000, message: 'Max 2000 characters' } })}
                 className={inputClass}
-                style={inputStyle}
                 rows={4}
                 placeholder="Describe your fabric in detail — quality, finish, use cases…"
               />
             </div>
 
             {/* ── Category + Fabric ─────────────────────────────── */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 {FIELD('Category *', 'category', errors.category)}
                 <select
                   id="category"
                   {...register('category', { required: 'Category is required' })}
                   className={inputClass}
-                  style={inputStyle}
                 >
                   <option value="">Select category</option>
                   {categories.map((cat) => (
@@ -312,14 +297,13 @@ function ProductFormPage() {
                   id="fabric"
                   {...register('fabric')}
                   className={inputClass}
-                  style={inputStyle}
                   placeholder="e.g. 100% Cotton"
                 />
               </div>
             </div>
 
             {/* ── GSM + Color + Width ───────────────────────────── */}
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div>
                 {FIELD('GSM', 'gsm', errors.gsm)}
                 <input
@@ -328,7 +312,6 @@ function ProductFormPage() {
                   min={1}
                   {...register('gsm', { min: { value: 1, message: 'Min 1' } })}
                   className={inputClass}
-                  style={inputStyle}
                   placeholder="e.g. 120"
                 />
               </div>
@@ -338,7 +321,6 @@ function ProductFormPage() {
                   id="color"
                   {...register('color')}
                   className={inputClass}
-                  style={inputStyle}
                   placeholder="e.g. Ivory"
                 />
               </div>
@@ -350,14 +332,13 @@ function ProductFormPage() {
                   min={1}
                   {...register('width', { min: { value: 1, message: 'Min 1 cm' } })}
                   className={inputClass}
-                  style={inputStyle}
                   placeholder="e.g. 150"
                 />
               </div>
             </div>
 
             {/* ── Price + MOQ + Stock ───────────────────────────── */}
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div>
                 {FIELD('Price / Metre (₹) *', 'pricePerMeter', errors.pricePerMeter)}
                 <input
@@ -370,7 +351,6 @@ function ProductFormPage() {
                     min: { value: 0.01, message: 'Must be > 0' },
                   })}
                   className={inputClass}
-                  style={inputStyle}
                   placeholder="0.00"
                 />
               </div>
@@ -385,7 +365,6 @@ function ProductFormPage() {
                     min: { value: 1, message: 'Min 1' },
                   })}
                   className={inputClass}
-                  style={inputStyle}
                 />
               </div>
               <div>
@@ -399,7 +378,6 @@ function ProductFormPage() {
                     min: { value: 0, message: 'Cannot be negative' },
                   })}
                   className={inputClass}
-                  style={inputStyle}
                   placeholder="0"
                 />
               </div>
@@ -412,22 +390,20 @@ function ProductFormPage() {
                 id="tags"
                 {...register('tags')}
                 className={inputClass}
-                style={inputStyle}
                 placeholder="e.g. premium, summer, bridal (comma separated)"
               />
             </div>
 
             {/* ── Listing Active toggle ─────────────────────────── */}
             {isEditMode && (
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 pt-2">
                 <input
                   id="isActive"
                   type="checkbox"
                   {...register('isActive')}
-                  className="w-4 h-4 rounded"
-                  style={{ accentColor: 'var(--color-brand-primary)' }}
+                  className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-600"
                 />
-                <label htmlFor="isActive" className="text-sm font-medium cursor-pointer" style={{ color: 'var(--color-text)' }}>
+                <label htmlFor="isActive" className="text-sm font-medium cursor-pointer text-gray-900">
                   Listing is active (visible on marketplace)
                 </label>
               </div>
@@ -435,24 +411,22 @@ function ProductFormPage() {
           </div>
 
           {/* Submit */}
-          <div className="flex items-center gap-4 mt-6">
+          <div className="flex flex-col-reverse sm:flex-row items-center gap-3 mt-6">
+            <Link
+              to="/supplier/products"
+              className="w-full sm:w-auto px-6 py-3.5 rounded-xl font-semibold text-sm border border-gray-200 text-gray-700 hover:bg-gray-50 transition-colors bg-white shadow-sm text-center"
+            >
+              Cancel
+            </Link>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="flex-1 py-3.5 rounded-xl font-semibold text-sm transition-opacity disabled:opacity-60"
-              style={{ backgroundColor: 'var(--color-brand-primary)', color: '#ffffff' }}
+              className="w-full sm:flex-1 py-3.5 rounded-xl font-bold text-sm transition-all disabled:opacity-70 bg-blue-600 hover:bg-blue-700 text-white shadow-sm"
             >
               {isSubmitting
                 ? (isEditMode ? 'Saving…' : 'Creating…')
                 : (isEditMode ? 'Save Changes' : 'Publish Product')}
             </button>
-            <Link
-              to="/supplier/products"
-              className="px-6 py-3.5 rounded-xl font-semibold text-sm border"
-              style={{ borderColor: 'var(--color-border)', color: 'var(--color-muted)' }}
-            >
-              Cancel
-            </Link>
           </div>
         </form>
       </div>

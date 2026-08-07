@@ -2,27 +2,33 @@ import React from 'react';
 import { ChevronDown } from 'lucide-react';
 
 /**
- * Reusable Select Dropdown Component — Stripe/Linear Design System.
+ * Reusable Select Component — Stripe Checkout Design System.
  */
 const Select = React.forwardRef(({
   label,
   error,
+  helperText,
   options = [],
   className = '',
   id,
-  children,
+  placeholder = 'Select an option',
   ...props
 }, ref) => {
   const selectId = id || (label ? label.toLowerCase().replace(/\s+/g, '-') : undefined);
   const isError = Boolean(error);
-  const errorClass = isError ? 'ui-select-error' : '';
+
+  const baseSelectStyle = 'w-full px-3.5 py-2.5 text-sm rounded-xl border bg-white text-[#111827] outline-none transition-all duration-150 shadow-xs appearance-none';
+  const normalBorder = 'border-[#E5E7EB] focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/15 hover:border-gray-300';
+  const errorBorder = 'border-[#DC2626] focus:border-[#DC2626] focus:ring-2 focus:ring-[#DC2626]/15 hover:border-[#DC2626]';
+  
+  const borderClass = isError ? errorBorder : normalBorder;
 
   return (
     <div className="w-full space-y-1.5">
       {label && (
         <label
           htmlFor={selectId}
-          className="block text-xs font-semibold text-[var(--color-text-primary)] uppercase tracking-wider"
+          className="block text-sm font-medium text-[#111827]"
         >
           {label}
         </label>
@@ -31,26 +37,27 @@ const Select = React.forwardRef(({
         <select
           ref={ref}
           id={selectId}
-          className={`ui-select appearance-none pr-10 ${errorClass} ${className}`}
+          className={`${baseSelectStyle} ${borderClass} ${className}`}
           {...props}
         >
-          {children || options.map((opt) => {
-            const value = typeof opt === 'object' ? opt.value : opt;
-            const optionLabel = typeof opt === 'object' ? opt.label : opt;
-            return (
-              <option key={value} value={value}>
-                {optionLabel}
-              </option>
-            );
-          })}
+          <option value="" disabled className="text-[#6B7280]">
+            {placeholder}
+          </option>
+          {options.map((opt) => (
+            <option key={opt.value} value={opt.value}>
+              {opt.label}
+            </option>
+          ))}
         </select>
-        <div className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)] pointer-events-none">
+        <div className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-[#6B7280]">
           <ChevronDown size={16} />
         </div>
       </div>
-      {error && (
-        <p className="text-xs font-medium text-[var(--color-error-text)] mt-1">{error}</p>
-      )}
+      {error ? (
+        <p className="text-xs font-medium text-[#DC2626] mt-1">{error}</p>
+      ) : helperText ? (
+        <p className="text-xs text-[#6B7280] mt-1">{helperText}</p>
+      ) : null}
     </div>
   );
 });

@@ -16,7 +16,7 @@ const SIZE_MAP = {
   lg: { ring: 48, border: 3 },
 };
 
-function Spinner({ size = 'md', color = 'var(--color-brand-secondary)' }) {
+function Spinner({ size = 'md', color = '#2563EB' }) {
   const { ring, border } = SIZE_MAP[size] || SIZE_MAP.md;
 
   return (
@@ -29,7 +29,7 @@ function Spinner({ size = 'md', color = 'var(--color-brand-secondary)' }) {
         width: ring,
         height: ring,
         borderRadius: '50%',
-        border: `${border}px solid var(--color-border)`,
+        border: `${border}px solid #E5E7EB`,
         borderTopColor: color,
         flexShrink: 0,
       }}
@@ -41,13 +41,13 @@ function Loading({ variant = 'spinner', size = 'md', message, color }) {
   if (variant === 'page') {
     return (
       <div
-        className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-3 bg-[var(--color-surface)]/80 backdrop-blur-md"
+        className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-3 bg-white/80 backdrop-blur-xs"
         aria-live="polite"
         aria-label={message || 'Loading page'}
       >
         <Spinner size="lg" color={color} />
         {message && (
-          <p className="text-sm font-medium text-[var(--color-text-secondary)]">
+          <p className="text-sm font-medium text-[#6B7280]">
             {message}
           </p>
         )}
@@ -59,7 +59,7 @@ function Loading({ variant = 'spinner', size = 'md', message, color }) {
     return (
       <span className="inline-flex items-center gap-2" aria-label={message || 'Loading'}>
         <Spinner size="sm" color={color} />
-        {message && <span className="text-sm font-medium text-[var(--color-text-secondary)]">{message}</span>}
+        {message && <span className="text-sm font-medium text-[#6B7280]">{message}</span>}
       </span>
     );
   }
@@ -69,7 +69,7 @@ function Loading({ variant = 'spinner', size = 'md', message, color }) {
     <div className="flex flex-col items-center justify-center gap-3 py-12" aria-live="polite">
       <Spinner size={size} color={color} />
       {message && (
-        <p className="text-sm font-medium text-[var(--color-text-secondary)]">
+        <p className="text-sm font-medium text-[#6B7280]">
           {message}
         </p>
       )}

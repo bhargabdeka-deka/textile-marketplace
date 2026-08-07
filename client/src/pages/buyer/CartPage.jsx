@@ -24,15 +24,15 @@ function CartPage() {
   }
 
   return (
-    <div className="bg-[var(--color-bg)] min-h-screen">
+    <div className="bg-gray-50 min-h-screen font-sans">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 space-y-8">
         
         {/* Page title */}
         <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-950 dark:text-white">
+          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-gray-900">
             Your Cart
           </h1>
-          <p className="text-sm font-medium text-slate-500 mt-1">
+          <p className="text-sm font-medium text-gray-500 mt-1">
             Review your wholesale fabric selections before initiating secure checkout.
           </p>
         </div>
@@ -56,13 +56,13 @@ function CartPage() {
                 return (
                   <div
                     key={item.product._id}
-                    className="flex flex-col sm:flex-row gap-5 p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow"
+                    className="flex flex-col sm:flex-row gap-5 p-5 rounded-2xl bg-white border border-gray-200 shadow-sm hover:shadow-md transition-shadow"
                   >
                     
                     {/* Item Thumbnail */}
                     <Link
                       to={`/products/${item.product._id}`}
-                      className="shrink-0 w-28 h-28 rounded-xl overflow-hidden bg-slate-50 border border-slate-150/80"
+                      className="shrink-0 w-28 h-28 rounded-xl overflow-hidden bg-gray-50 border border-gray-200"
                     >
                       {item.product.images?.[0] ? (
                         <img
@@ -71,7 +71,7 @@ function CartPage() {
                           className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                         />
                       ) : (
-                        <div className="w-full h-full flex items-center justify-center text-slate-400">
+                        <div className="w-full h-full flex items-center justify-center text-gray-400">
                           <ShoppingBag size={22} />
                         </div>
                       )}
@@ -82,33 +82,33 @@ function CartPage() {
                       <div className="space-y-1">
                         <Link
                           to={`/products/${item.product._id}`}
-                          className="font-bold text-sm sm:text-base text-slate-950 dark:text-white hover:text-[#0070F3] transition-colors line-clamp-2"
+                          className="font-bold text-sm sm:text-base text-gray-900 hover:text-blue-600 transition-colors line-clamp-2"
                         >
                           {item.product.title}
                         </Link>
-                        <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">
-                          Supplier: <span className="text-slate-800 dark:text-slate-200 font-bold">{supplierName}</span>
+                        <p className="text-xs font-semibold text-gray-500">
+                          Supplier: <span className="text-gray-800 font-bold">{supplierName}</span>
                         </p>
                       </div>
 
                       {/* Controls Box */}
                       <div className="flex items-center justify-between mt-4">
-                        <div className="flex items-center border border-slate-200 dark:border-slate-800 rounded-lg overflow-hidden bg-slate-50 dark:bg-slate-950">
+                        <div className="flex items-center border border-gray-200 rounded-lg overflow-hidden bg-gray-50">
                           <button
                             type="button"
                             onClick={() => updateQuantity(item.product._id, item.quantity - 1)}
-                            className="p-2 text-slate-500 hover:text-black hover:bg-slate-100 transition-colors"
+                            className="p-2 text-gray-500 hover:text-black hover:bg-gray-100 transition-colors"
                             aria-label="Decrease quantity"
                           >
                             <Minus size={13} />
                           </button>
-                          <span className="px-3 text-xs font-extrabold text-slate-900 dark:text-white">
+                          <span className="px-3 text-xs font-extrabold text-gray-900">
                             {item.quantity} m
                           </span>
                           <button
                             type="button"
                             onClick={() => updateQuantity(item.product._id, item.quantity + 1)}
-                            className="p-2 text-slate-500 hover:text-black hover:bg-slate-100 transition-colors"
+                            className="p-2 text-gray-500 hover:text-black hover:bg-gray-100 transition-colors"
                             aria-label="Increase quantity"
                           >
                             <Plus size={13} />
@@ -117,13 +117,13 @@ function CartPage() {
 
                         {/* Pricing & Remove Actions */}
                         <div className="text-right">
-                          <p className="font-extrabold text-sm sm:text-base text-slate-900 dark:text-white">
+                          <p className="font-extrabold text-sm sm:text-base text-gray-900">
                             {formatCurrency(item.priceAtAdd * item.quantity)}
                           </p>
                           <button
                             type="button"
                             onClick={() => removeItem(item.product._id)}
-                            className="text-[11px] font-bold inline-flex items-center gap-1 mt-1.5 text-rose-600 hover:text-rose-800 transition-colors"
+                            className="text-[11px] font-bold inline-flex items-center gap-1 mt-1.5 text-red-600 hover:text-red-700 transition-colors"
                           >
                             <Trash2 size={13} />
                             <span>Remove</span>
@@ -140,30 +140,30 @@ function CartPage() {
 
             {/* ── Cart Summary Side Card ─────────────────────────────── */}
             <div className="lg:col-span-1">
-              <div className="sticky top-24 p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-sm space-y-6">
-                <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900 dark:text-white pb-3 border-b border-slate-100 dark:border-slate-800">
+              <div className="sticky top-24 p-6 rounded-2xl bg-white border border-gray-200 shadow-sm space-y-6">
+                <h3 className="text-sm font-bold uppercase tracking-wider text-gray-900 pb-3 border-b border-gray-100">
                   Order Summary
                 </h3>
                 
                 <div className="space-y-3.5 text-xs sm:text-sm font-medium">
                   <div className="flex justify-between">
-                    <span className="text-slate-500">Subtotal ({totalItems} items)</span>
-                    <span className="text-slate-900 dark:text-white font-bold">{formatCurrency(totalPrice)}</span>
+                    <span className="text-gray-500">Subtotal ({totalItems} items)</span>
+                    <span className="text-gray-900 font-bold">{formatCurrency(totalPrice)}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-slate-500">Shipping</span>
+                    <span className="text-gray-500">Shipping</span>
                     <span className="text-emerald-600 font-bold">Calculated at Checkout</span>
                   </div>
                 </div>
 
-                <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-between items-baseline">
-                  <span className="text-sm font-extrabold text-slate-900 dark:text-white">Estimated Total</span>
-                  <span className="text-lg font-black text-[#0070F3]">{formatCurrency(totalPrice)}</span>
+                <div className="pt-4 border-t border-gray-100 flex justify-between items-baseline">
+                  <span className="text-sm font-extrabold text-gray-900">Estimated Total</span>
+                  <span className="text-lg font-black text-blue-600">{formatCurrency(totalPrice)}</span>
                 </div>
 
                 <Link
                   to="/buyer/checkout"
-                  className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-bold text-sm bg-slate-950 dark:bg-white text-white dark:text-slate-950 hover:opacity-90 transition-all shadow-sm"
+                  className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-bold text-sm bg-blue-600 text-white hover:bg-blue-700 transition-all shadow-sm"
                 >
                   Proceed to Checkout
                   <ArrowRight size={15} />
