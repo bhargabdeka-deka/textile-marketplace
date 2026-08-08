@@ -1,45 +1,84 @@
-# 🧵 TextileHub — B2B Textile Marketplace
+# 🧵 TextileHub — B2B Textile Marketplace & Mill Directory
 
-> A production-quality MVP for connecting textile buyers and suppliers in India.
+[![Node.js](https://img.shields.io/badge/Node.js-v18%2B-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
+[![React](https://img.shields.io/badge/React-v19-61DAFB?logo=react&logoColor=black)](https://react.dev/)
+[![Express](https://img.shields.io/badge/Express.js-v4-000000?logo=express&logoColor=white)](https://expressjs.com/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-Atlas%2FLocal-47A248?logo=mongodb&logoColor=white)](https://www.mongodb.com/)
+[![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-v4-38BDF8?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
+> A production-ready, high-density B2B SaaS marketplace connecting textile mills, fabric suppliers, and bulk apparel buyers across India and global markets.
+
+---
+
+## 🌟 Key Features
+
+### 🛍️ Buyer Experience & Marketplace
+- **Wholesale Fabric Directory**: Filter fabrics by GSM, weave, material composition, price per meter, minimum order quantity (MOQ), and real-time inventory stock.
+- **AI Fabric Search**: Natural language query engine allowing buyers to describe target garments or fabric specs (e.g., *"breathable 200+ GSM cotton for summer shirts"*).
+- **Persistent Shopping Cart & Bulk Checkout**: Role-restricted bulk procurement cart with live total calculations, sample requests, and instant order placement.
+- **Order Tracking & History**: Real-time status updates (*Pending*, *Processing*, *Shipped*, *Delivered*, *Cancelled*) for buyer procurement management.
+
+### 🏭 Supplier Portal & Management
+- **Catalog Management**: Full CRUD capabilities for adding, updating, and archiving fabric listings with Cloudinary image optimizations.
+- **Order Fulfillment**: Dedicated dashboard for suppliers to review incoming buyer purchase orders, update fulfillment statuses, and manage lead times.
+- **Sales Analytics**: Metrics grid tracking active listings, total order volume, inventory turnover, and revenue trends.
+
+### 🔒 Security & Performance
+- **Enterprise Access Control**: Role-Based Access Control (RBAC) separating Buyer and Supplier workflows with JWT authentication and password hashing (`bcryptjs`).
+- **Cloudinary Image Optimization**: Automatic WebP transformation, responsive scaling, and fast asset delivery.
+- **Stripe/Shopify-Inspired UI**: Handcrafted, restrained light-theme design system built around strict 8px layout grids, high contrast text hierarchy (`#111827`), thin stroke borders (`#E5E7EB`), and zero visual noise.
+
+---
+
+## 🛠️ Technology Stack
+
+| Layer | Technologies & Tools |
+| :--- | :--- |
+| **Frontend Core** | React 19, Vite 8, React Router DOM v7 |
+| **Styling & Motion** | Tailwind CSS v4, Vanilla CSS Design System, Framer Motion |
+| **State Management** | Zustand (Persisted client-side state for auth & cart) |
+| **Icons & UI Utilities** | Lucide React, React Hot Toast |
+| **Backend API** | Node.js 18+, Express.js |
+| **Database & ORM** | MongoDB, Mongoose |
+| **Auth & Security** | JSON Web Tokens (JWT), Bcrypt.js, CORS |
+| **File Storage** | Cloudinary API & Local Fallback via Multer |
 
 ---
 
 ## 📁 Project Structure
 
-```
+```text
 textile-marketplace/
-├── client/                  # React 19 + Vite frontend
+├── client/                      # React 19 + Vite Frontend
 │   ├── src/
-│   │   ├── assets/          # Static assets (images, fonts, icons)
+│   │   ├── assets/              # Logos, favicon, static images
 │   │   ├── components/
-│   │   │   ├── common/      # Navbar, Footer
-│   │   │   └── ui/          # Loading, Button, Card, etc.
-│   │   ├── contexts/        # React Contexts (ThemeContext)
-│   │   ├── hooks/           # useAuth, useApi
-│   │   ├── layouts/         # AppLayout, AuthLayout
+│   │   │   ├── common/          # Navbar, Footer
+│   │   │   └── ui/              # Button, Card, Input, Select, Badge, Skeleton, EmptyState, Loading
+│   │   ├── layouts/             # AppLayout, AuthLayout
 │   │   ├── pages/
-│   │   │   ├── buyer/       # Buyer-only pages
-│   │   │   ├── supplier/    # Supplier-only pages
-│   │   │   └── common/      # Home, Login, Register, 404
-│   │   ├── routes/          # ProtectedRoute guard
-│   │   ├── services/        # Axios instance + API service wrappers
-│   │   ├── store/           # Zustand stores (auth, cart)
-│   │   ├── styles/          # globals.css (Tailwind + design tokens)
-│   │   └── utils/           # Formatters, validators
+│   │   │   ├── buyer/           # BuyerDashboardPage, CartPage, CheckoutPage
+│   │   │   ├── supplier/        # SupplierDashboardPage, ProductFormPage, SupplierProductsPage
+│   │   │   ├── info/            # AboutPage, ContactPage, BuyerGuidePage, SupplierGuidePage, Policies
+│   │   │   └── common/          # HomePage, MarketplacePage, ProductDetailPage, LoginPage, RegisterPage
+│   │   ├── routes/              # ProtectedRoute guard
+│   │   ├── services/            # Axios instance, Auth/Product API services
+│   │   ├── store/               # Zustand stores (authStore, cartStore, productStore)
+│   │   └── styles/              # globals.css (Base typography & Tailwind tokens)
 │   ├── index.html
 │   └── vite.config.js
 │
-└── server/                  # Node.js + Express + MongoDB API
-    ├── config/              # db.js, corsOptions.js
-    ├── controllers/         # auth, product, order, cart, user
-    ├── middleware/          # errorHandler, notFound, auth, upload
-    ├── models/              # User, Product, Order, Cart
-    ├── routes/              # auth, product, order, cart, user routes
-    ├── services/            # auth.service, product.service
-    ├── uploads/             # User-uploaded files (gitignored)
-    ├── utils/               # apiResponse, token
-    ├── app.js               # Express app factory
-    └── server.js            # HTTP server entry point
+└── server/                      # Node.js + Express Backend API
+    ├── config/                  # Database connection, CORS settings
+    ├── controllers/             # Auth, Product, Order, Cart, User controllers
+    ├── middleware/              # Authentication, Error handling, File upload
+    ├── models/                  # Mongoose schemas (User, Product, Order, Cart)
+    ├── routes/                  # API routes (auth, product, order, cart, user, ai)
+    ├── services/                # Business logic services
+    ├── utils/                   # Standardized API response formatters
+    ├── app.js                   # Express application setup
+    └── server.js                # Server entry point
 ```
 
 ---
@@ -47,103 +86,110 @@ textile-marketplace/
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js 18+
-- MongoDB (local or Atlas)
+- **Node.js**: v18.0.0 or higher
+- **MongoDB**: Local MongoDB instance or MongoDB Atlas Connection URI
+- **npm** or **yarn**
 
-### 1. Clone & Install
+### 1. Repository Setup
 
 ```bash
-# Install server dependencies
-cd server
-npm install
+# Clone the repository
+git clone https://github.com/bhargabdeka-deka/textile-marketplace.git
+cd textile-marketplace
+```
 
-# Install client dependencies
-cd ../client
+### 2. Backend Setup & Environment
+
+```bash
+cd server
 npm install
 ```
 
-### 2. Configure Environment
+Create a `.env` file inside the `server/` directory:
 
-```bash
-# Server
-cp server/.env.example server/.env
-# Edit server/.env — set MONGO_URI, JWT_SECRET
-
-# Client
-cp client/.env.example client/.env
+```env
+PORT=5000
+NODE_ENV=development
+MONGO_URI=mongodb://127.0.0.1:27017/textile-marketplace
+JWT_SECRET=your_super_secret_jwt_key_here
+JWT_EXPIRE=30d
+CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
+CLOUDINARY_API_KEY=your_cloudinary_api_key
+CLOUDINARY_API_SECRET=your_cloudinary_api_secret
 ```
 
-### 3. Run Development Servers
+Start the API server:
 
 ```bash
-# Terminal 1 — API server (port 5000)
-cd server
 npm run dev
+```
 
-# Terminal 2 — React client (port 5173)
+### 3. Frontend Setup & Environment
+
+Open a new terminal window:
+
+```bash
 cd client
+npm install
+```
+
+Create a `.env` file inside the `client/` directory:
+
+```env
+VITE_API_URL=http://localhost:5000/api
+```
+
+Start the development server:
+
+```bash
 npm run dev
 ```
 
-### 4. Verify
-
-| URL | Description |
-|-----|-------------|
-| http://localhost:5173 | React frontend |
-| http://localhost:5000/api/health | API health check |
-| http://localhost:5000/api/auth/health | Auth routes test |
-| http://localhost:5000/api/products/health | Product routes test |
+The application will be accessible at:
+- **Frontend App**: `http://localhost:5173`
+- **Backend API**: `http://localhost:5000/api`
 
 ---
 
-## 🛠️ Tech Stack
+## 📡 API Endpoint Overview
 
-| Layer | Technology |
-|-------|-----------|
-| Frontend | React 19, Vite, React Router DOM v7 |
-| Styling | Tailwind CSS v4, Framer Motion |
-| State | Zustand (persisted) |
-| Forms | React Hook Form |
-| HTTP | Axios |
-| Icons | Lucide React |
-| Notifications | React Hot Toast |
-| Backend | Node.js, Express.js |
-| Database | MongoDB, Mongoose |
-| Auth | JWT, bcryptjs |
-| File Uploads | Multer |
+### 🔐 Authentication (`/api/auth`)
+- `POST /api/auth/register` — Register a new account (Buyer or Supplier)
+- `POST /api/auth/login` — Authenticate user and receive JWT token
+- `GET /api/auth/me` — Retrieve current authenticated user profile
+
+### 📦 Products (`/api/products`)
+- `GET /api/products` — Browse products with search, filter, and pagination parameters
+- `GET /api/products/:id` — Retrieve detailed fabric specification
+- `POST /api/products` — Create fabric listing *(Supplier only)*
+- `PUT /api/products/:id` — Update fabric details *(Supplier only)*
+- `DELETE /api/products/:id` — Archive product listing *(Supplier only)*
+
+### 🤖 AI Engine (`/api/ai`)
+- `POST /api/ai/search` — Execute natural language query for fabric matching
+
+### 🛒 Cart & Orders (`/api/cart`, `/api/orders`)
+- `GET /api/cart` — Fetch buyer cart items
+- `POST /api/cart` — Add item to cart
+- `POST /api/orders` — Submit bulk purchase order
+- `GET /api/orders` — Fetch buyer or supplier order history
 
 ---
 
-## 📋 Development Roadmap
+## 🛠️ Verification & Build Commands
 
-### ✅ Phase 1 — Architecture (Current)
-- [x] Project scaffolding (client + server)
-- [x] Folder structure and placeholder files
-- [x] Route configuration skeleton
-- [x] Design system (CSS tokens, Tailwind)
-- [x] Navbar, Footer, Loading, 404 page
-- [x] Zustand stores (auth, cart)
-- [x] Axios instance with interceptors
-- [x] Global error handler
-- [x] Landing page (Hero, Stats, Categories, CTA)
+```bash
+# Verify client production build
+cd client
+npm run build
 
-### 🔲 Phase 2 — Core Features
-- [ ] JWT Authentication (register, login, logout)
-- [ ] Product listing and detail pages
-- [ ] Supplier product management
-- [ ] Shopping cart (sync with backend)
-- [ ] Order placement and tracking
-- [ ] File uploads (product images)
-
-### 🔲 Phase 3 — Polish
-- [ ] AI chatbot assistant
-- [ ] Advanced search and filters
-- [ ] Analytics dashboard
-- [ ] Email notifications
-- [ ] Payment gateway integration
+# Run server in production mode
+cd server
+npm start
+```
 
 ---
 
 ## 📄 License
 
-MIT © TextileHub Team
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
