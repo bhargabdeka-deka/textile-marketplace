@@ -6,12 +6,11 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   plugins: [
     react(),       // React JSX transform + Fast Refresh
-    tailwindcss(), // Tailwind CSS v4 via Vite plugin (no postcss.config needed)
+    tailwindcss(), // Tailwind CSS v4 via Vite plugin
   ],
 
   resolve: {
     alias: {
-      // Allows clean imports: import { Button } from '@/components/ui/Button'
       '@': new URL('./src', import.meta.url).pathname,
     },
   },
@@ -19,7 +18,6 @@ export default defineConfig({
   server: {
     port: 5173,
     proxy: {
-      // Proxy /api requests to the Express server during development
       '/api': {
         target: 'http://localhost:5000',
         changeOrigin: true,
@@ -35,6 +33,25 @@ export default defineConfig({
 
   build: {
     outDir: 'dist',
-    sourcemap: true, // Enable for production debugging; disable for smaller builds
+    sourcemap: false, // Disable sourcemaps in production for minimal payload size
+    cssCodeSplit: true,
+    chunkSizeWarningLimit: 1000,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('react') || id.includes('react-dom') || id.includes('react-router-dom')) {
+              return 'react-vendor';
+            }
+            if (id.includes('framer-motion')) {
+              return 'framer-motion';
+            }
+            if (id.includes('lucide-react')) {
+              return 'lucide-icons';
+            }
+          }
+        },
+      },
+    },
   },
 });

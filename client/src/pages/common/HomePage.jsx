@@ -241,6 +241,8 @@ function HomePage() {
                   <img
                     src="/images/cotton_fabric.png"
                     alt="Luxury Cotton Fabric"
+                    fetchpriority="high"
+                    decoding="async"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex flex-col justify-end p-4 text-white">
