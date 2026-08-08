@@ -1,7 +1,7 @@
 /**
  * src/components/ui/ProductCard.jsx
  *
- * Amazon Business / Stripe B2B Product Card.
+ * Traditional Indian B2B Textile Product Card — Fabcurate Inspired.
  */
 
 import { useState } from 'react';
@@ -10,7 +10,6 @@ import { motion } from 'framer-motion';
 import {
   Edit2,
   Trash2,
-  Package,
   CheckCircle2,
   XCircle,
   ShieldCheck,
@@ -56,10 +55,10 @@ function ProductCard({ product, onEdit, onDelete, showActions = false }) {
       initial={{ opacity: 0, y: 4 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.15 }}
-      className="group relative flex flex-col h-full bg-white rounded-2xl border border-[#E5E7EB] shadow-xs hover:shadow-md hover:border-gray-300 transition-all duration-150 overflow-hidden"
+      className="group relative flex flex-col h-full bg-white rounded-2xl border border-[#E7E2D7] shadow-xs hover:shadow-md hover:border-[#7B8B30] transition-all duration-150 overflow-hidden"
     >
       {/* ── 1. Image Showcase Header ───────────────────────────────────── */}
-      <div className="relative overflow-hidden aspect-[4/3] bg-[#FAFBFC] border-b border-[#EEF2F7]">
+      <div className="relative overflow-hidden aspect-[4/3] bg-[#FAF8F5] border-b border-[#E7E2D7]">
         <Link to={`/products/${_id}`} className="block w-full h-full">
           <img
             src={imageSrc}
@@ -71,7 +70,7 @@ function ProductCard({ product, onEdit, onDelete, showActions = false }) {
 
         {/* Category Badge (Top Left) */}
         {category && (
-          <span className="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-lg text-xs font-medium bg-[#111827]/90 text-white shadow-sm">
+          <span className="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-lg text-xs font-bold uppercase tracking-wider bg-[#1C1917] text-[#FAF8F5] shadow-sm">
             {category}
           </span>
         )}
@@ -87,7 +86,7 @@ function ProductCard({ product, onEdit, onDelete, showActions = false }) {
           className={`absolute top-2.5 right-2.5 w-8 h-8 rounded-full flex items-center justify-center transition-colors shadow-sm ${
             isFavorite
               ? 'bg-rose-50 border border-rose-200 text-rose-600'
-              : 'bg-white/90 border border-[#E5E7EB] text-[#6B7280] hover:text-[#111827]'
+              : 'bg-white/90 border border-[#E7E2D7] text-[#78716C] hover:text-[#1C1917]'
           }`}
           aria-label={isFavorite ? 'Remove from wishlist' : 'Save to wishlist'}
         >
@@ -96,12 +95,12 @@ function ProductCard({ product, onEdit, onDelete, showActions = false }) {
 
         {/* Status Badges */}
         {!isActive && (
-          <span className="absolute bottom-2.5 left-2.5 px-2.5 py-1 rounded-md text-xs font-medium bg-red-600 text-white shadow-sm">
+          <span className="absolute bottom-2.5 left-2.5 px-2.5 py-1 rounded-md text-xs font-semibold bg-red-700 text-white shadow-sm">
             Inactive Listing
           </span>
         )}
         {isActive && stock === 0 && (
-          <span className="absolute bottom-2.5 left-2.5 px-2.5 py-1 rounded-md text-xs font-medium bg-amber-600 text-white shadow-sm">
+          <span className="absolute bottom-2.5 left-2.5 px-2.5 py-1 rounded-md text-xs font-semibold bg-amber-700 text-white shadow-sm">
             Out of Stock
           </span>
         )}
@@ -112,37 +111,37 @@ function ProductCard({ product, onEdit, onDelete, showActions = false }) {
         
         {/* Supplier Info & Verified Badge */}
         <div className="flex items-center justify-between text-xs gap-2">
-          <div className="flex items-center gap-1.5 min-w-0 text-[#6B7280]">
-            <Building2 size={14} className="shrink-0 text-[#6B7280]" />
-            <span className="truncate font-medium text-[#374151] text-xs">
+          <div className="flex items-center gap-1.5 min-w-0 text-[#78716C]">
+            <Building2 size={14} className="shrink-0 text-[#7B8B30]" />
+            <span className="truncate font-semibold text-[#1C1917] text-xs">
               {supplierName}
             </span>
           </div>
           
-          <div className="flex items-center gap-1 text-xs font-medium text-[#16A34A] bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200 shrink-0">
+          <div className="flex items-center gap-1 text-xs font-bold text-[#16A34A] bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200 shrink-0">
             <ShieldCheck size={13} className="shrink-0 text-[#16A34A]" />
-            <span>Verified</span>
+            <span>Audited</span>
           </div>
         </div>
 
         {/* Product Title */}
         <Link
           to={`/products/${_id}`}
-          className="font-semibold text-sm leading-snug line-clamp-2 text-[#111827] hover:text-[#2563EB] transition-colors"
+          className="font-bold text-sm leading-snug line-clamp-2 text-[#1C1917] font-serif-display group-hover:text-[#7B8B30] transition-colors"
         >
           {title}
         </Link>
 
         {/* Specification Chips */}
         {(fabric || gsm) && (
-          <div className="flex flex-wrap gap-1.5 text-xs text-[#6B7280]">
+          <div className="flex flex-wrap gap-1.5 text-xs text-[#78716C]">
             {fabric && (
-              <span className="bg-[#FAFBFC] px-2 py-0.5 rounded-md border border-[#E5E7EB]">
+              <span className="bg-[#FAF8F5] px-2 py-0.5 rounded-md border border-[#E7E2D7] font-medium">
                 {fabric}
               </span>
             )}
             {gsm && (
-              <span className="bg-[#FAFBFC] px-2 py-0.5 rounded-md border border-[#E5E7EB]">
+              <span className="bg-[#FAF8F5] px-2 py-0.5 rounded-md border border-[#E7E2D7] font-medium">
                 {gsm} GSM
               </span>
             )}
@@ -150,28 +149,28 @@ function ProductCard({ product, onEdit, onDelete, showActions = false }) {
         )}
 
         {/* ── 3. Pricing & MOQ Box ─────────────────────────────────────── */}
-        <div className="mt-auto pt-3 border-t border-[#EEF2F7] flex items-end justify-between gap-2">
+        <div className="mt-auto pt-3 border-t border-[#E7E2D7] flex items-end justify-between gap-2">
           <div>
             <div className="flex items-baseline gap-1">
-              <span className="text-base sm:text-lg font-semibold tracking-tight text-[#111827]">
+              <span className="text-base sm:text-lg font-bold tracking-tight text-[#7B8B30]">
                 {formatCurrency(pricePerMeter)}
               </span>
-              <span className="text-xs text-[#6B7280]">/ m</span>
+              <span className="text-xs text-[#78716C] font-medium">/ m</span>
             </div>
-            <p className="text-xs text-[#6B7280] mt-0.5">
-              MOQ: <span className="text-[#111827] font-medium">{minOrderQuantity} m</span>
+            <p className="text-xs text-[#78716C] mt-0.5">
+              MOQ: <span className="text-[#1C1917] font-bold">{minOrderQuantity} m</span>
             </p>
           </div>
 
           {/* Stock Indicator */}
           <div className="flex items-center gap-1 text-xs shrink-0">
             {stock > 0 ? (
-              <span className="flex items-center gap-1 text-[#16A34A] bg-emerald-50 px-2 py-1 rounded-md text-xs font-medium">
+              <span className="flex items-center gap-1 text-[#16A34A] bg-emerald-50 px-2 py-1 rounded-md text-xs font-semibold">
                 <CheckCircle2 size={12} />
-                In Stock ({stock}m)
+                In Stock
               </span>
             ) : (
-              <span className="flex items-center gap-1 text-red-600 bg-red-50 px-2 py-1 rounded-md text-xs font-medium">
+              <span className="flex items-center gap-1 text-red-700 bg-red-50 px-2 py-1 rounded-md text-xs font-semibold">
                 <XCircle size={12} />
                 Out of Stock
               </span>
@@ -184,26 +183,26 @@ function ProductCard({ product, onEdit, onDelete, showActions = false }) {
           {!showActions ? (
             <Link
               to={`/products/${_id}`}
-              className="w-full inline-flex items-center justify-center gap-1.5 py-2 px-4 rounded-xl text-xs font-medium bg-white border border-[#E5E7EB] hover:border-gray-300 hover:bg-gray-50 text-[#111827] transition-colors shadow-sm"
+              className="w-full inline-flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-xl text-xs font-bold uppercase tracking-wider bg-[#FAF8F5] border border-[#E7E2D7] hover:bg-[#7B8B30] hover:text-white text-[#1C1917] transition-all shadow-xs"
             >
-              <span>View Details</span>
-              <ArrowUpRight size={14} className="text-[#6B7280]" />
+              <span>View Specs & Swatch</span>
+              <ArrowUpRight size={14} />
             </Link>
           ) : (
             <div className="w-full flex gap-2">
               <button
                 type="button"
                 onClick={() => onEdit && onEdit(product)}
-                className="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl text-xs font-medium bg-white hover:bg-gray-50 text-[#111827] border border-[#E5E7EB] transition-colors shadow-sm"
+                className="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl text-xs font-bold uppercase tracking-wider bg-white hover:bg-[#FAF8F5] text-[#1C1917] border border-[#E7E2D7] transition-colors shadow-xs"
                 aria-label={`Edit ${title}`}
               >
-                <Edit2 size={14} className="text-[#6B7280]" />
+                <Edit2 size={14} className="text-[#7B8B30]" />
                 Edit
               </button>
               <button
                 type="button"
                 onClick={() => onDelete && onDelete(product)}
-                className="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl text-xs font-medium bg-white hover:bg-red-50 text-red-600 border border-[#E5E7EB] hover:border-red-200 transition-colors shadow-sm"
+                className="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl text-xs font-bold uppercase tracking-wider bg-white hover:bg-red-50 text-red-700 border border-[#E7E2D7] hover:border-red-200 transition-colors shadow-xs"
                 aria-label={`Delete ${title}`}
               >
                 <Trash2 size={14} />

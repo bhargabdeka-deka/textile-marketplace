@@ -1,15 +1,17 @@
 /**
  * src/components/common/Navbar.jsx
  *
- * Responsive top navigation bar — Stripe / Vercel / Apple Design System.
+ * Traditional Indian Textile Aesthetic Top Navigation Bar.
+ * Inspired by Fabcurate's organic heritage color palette & loom emblem.
  */
 
 import { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ShoppingBag, Package, ShoppingCart, LogOut, LayoutDashboard } from 'lucide-react';
+import { Menu, X, ShoppingBag, ShoppingCart, LogOut, LayoutDashboard } from 'lucide-react';
 import useAuthStore from '@/store/authStore';
 import useCartStore from '@/store/cartStore';
+import Logo from './Logo';
 
 const NAV_LINKS = [
   { label: 'Marketplace', to: '/products' },
@@ -30,19 +32,12 @@ function Navbar() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 bg-white border-b border-[#E5E7EB] text-[#111827] shadow-xs transition-colors duration-150">
+    <header className="sticky top-0 z-50 bg-[#FAF8F5] border-b border-[#E7E2D7] text-[#1C1917] shadow-xs transition-colors duration-150">
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 gap-4">
+        <div className="flex items-center justify-between h-20 gap-4">
 
-          {/* ── Brand Logo ─────────────────────────────────────────────── */}
-          <Link to="/" className="flex items-center gap-2.5 shrink-0 group py-1 focus:outline-none">
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-[#2563EB] text-white shadow-xs transition-colors">
-              <Package size={18} strokeWidth={2} />
-            </div>
-            <span className="text-lg font-semibold tracking-tight text-[#111827]">
-              Textile<span className="text-[#2563EB]">Hub</span>
-            </span>
-          </Link>
+          {/* ── Traditional Loom Brand Logo ─────────────────────────────── */}
+          <Logo size="md" />
 
           {/* ── Desktop Navigation Links ────────────────────────────────── */}
           <div className="hidden md:flex items-center gap-2">
@@ -51,10 +46,10 @@ function Navbar() {
                 key={to}
                 to={to}
                 className={({ isActive }) =>
-                  `px-3 py-2 rounded-lg text-sm font-medium transition-all duration-150 ${
+                  `px-3.5 py-2 rounded-xl text-sm font-semibold transition-all duration-150 ${
                     isActive 
-                      ? 'text-[#2563EB] bg-blue-50/60 border border-blue-100' 
-                      : 'text-[#6B7280] hover:text-[#111827] hover:bg-gray-50 border border-transparent'
+                      ? 'text-[#7B8B30] bg-[#7B8B30]/10 border border-[#7B8B30]/20' 
+                      : 'text-[#57534E] hover:text-[#1C1917] hover:bg-white border border-transparent'
                   }`
                 }
               >
@@ -70,12 +65,12 @@ function Navbar() {
                 {user?.role === 'buyer' && (
                   <Link
                     to="/buyer/cart"
-                    className="relative p-2 rounded-lg text-[#6B7280] hover:text-[#111827] hover:bg-gray-50 transition-colors border border-transparent"
+                    className="relative p-2.5 rounded-xl text-[#57534E] hover:text-[#1C1917] hover:bg-white transition-colors border border-transparent"
                     aria-label={`Cart with ${totalItems} items`}
                   >
                     <ShoppingCart size={20} />
                     {totalItems > 0 && (
-                      <span className="absolute -top-1 -right-1 inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 text-[11px] font-semibold text-white bg-[#2563EB] rounded-full shadow-xs border-2 border-white">
+                      <span className="absolute -top-1 -right-1 inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 text-[11px] font-bold text-white bg-[#7B8B30] rounded-full shadow-xs border-2 border-[#FAF8F5]">
                         {totalItems}
                       </span>
                     )}
@@ -84,17 +79,17 @@ function Navbar() {
                 
                 <Link
                   to={user?.role === 'supplier' ? '/supplier/dashboard' : '/buyer/dashboard'}
-                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-sm font-medium bg-[#FAFBFC] hover:bg-gray-100 text-[#111827] border border-[#E5E7EB] transition-colors shadow-xs"
+                  className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider bg-white hover:bg-[#F3EFE6] text-[#1C1917] border border-[#E7E2D7] transition-colors shadow-xs"
                 >
-                  <LayoutDashboard size={16} className="text-[#6B7280]" />
+                  <LayoutDashboard size={15} className="text-[#7B8B30]" />
                   Dashboard
                 </Link>
 
                 <button
                   onClick={logout}
-                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-sm font-medium text-[#6B7280] hover:text-[#111827] hover:bg-gray-50 border border-transparent transition-colors"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-[#78716C] hover:text-[#1C1917] hover:bg-white transition-colors"
                 >
-                  <LogOut size={16} />
+                  <LogOut size={15} />
                   Logout
                 </button>
               </>
@@ -102,15 +97,15 @@ function Navbar() {
               <>
                 <Link
                   to="/login"
-                  className="px-4 py-2 rounded-xl text-sm font-medium text-[#6B7280] hover:text-[#111827] hover:bg-gray-50 transition-colors"
+                  className="px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider text-[#57534E] hover:text-[#1C1917] hover:bg-white transition-colors"
                 >
                   Sign In
                 </Link>
                 <Link
                   to="/register"
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-medium bg-[#2563EB] text-white hover:bg-[#1D4ED8] transition-colors shadow-xs"
+                  className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider bg-[#7B8B30] text-white hover:bg-[#6B7A28] transition-colors shadow-xs"
                 >
-                  <ShoppingBag size={16} />
+                  <ShoppingBag size={15} />
                   Get Started
                 </Link>
               </>
@@ -122,19 +117,19 @@ function Navbar() {
             {isAuthenticated && user?.role === 'buyer' && (
               <Link
                 to="/buyer/cart"
-                className="relative p-2 rounded-lg text-[#111827] hover:bg-gray-50"
+                className="relative p-2 rounded-lg text-[#1C1917] hover:bg-white"
                 aria-label={`Cart with ${totalItems} items`}
               >
                 <ShoppingCart size={20} />
                 {totalItems > 0 && (
-                  <span className="absolute -top-1 -right-1 inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 text-[11px] font-semibold text-white bg-[#2563EB] rounded-full shadow-xs border-2 border-white">
+                  <span className="absolute -top-1 -right-1 inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 text-[11px] font-bold text-white bg-[#7B8B30] rounded-full shadow-xs border-2 border-white">
                     {totalItems}
                   </span>
                 )}
               </Link>
             )}
             <button
-              className="p-2 rounded-lg text-[#111827] hover:bg-gray-50 transition-colors"
+              className="p-2 rounded-lg text-[#1C1917] hover:bg-white transition-colors"
               onClick={() => setMobileOpen((o) => !o)}
               aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
             >
@@ -152,7 +147,7 @@ function Navbar() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -6 }}
               transition={{ duration: 0.15 }}
-              className="md:hidden overflow-hidden bg-white text-[#111827] rounded-xl shadow-lg border border-[#E5E7EB] my-2 p-3 absolute left-4 right-4 z-50"
+              className="md:hidden overflow-hidden bg-[#FAF8F5] text-[#1C1917] rounded-xl shadow-lg border border-[#E7E2D7] my-2 p-3 absolute left-4 right-4 z-50"
             >
               <div className="space-y-2">
                 {NAV_LINKS.map(({ label, to }) => (
@@ -160,10 +155,10 @@ function Navbar() {
                     key={to}
                     to={to}
                     className={({ isActive }) =>
-                      `block px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                      `block px-4 py-2.5 rounded-lg text-sm font-semibold transition-colors ${
                         isActive
-                          ? 'bg-blue-50/60 text-[#2563EB]'
-                          : 'text-[#374151] hover:bg-gray-50'
+                          ? 'bg-[#7B8B30]/10 text-[#7B8B30]'
+                          : 'text-[#57534E] hover:bg-white'
                       }`
                     }
                     onClick={() => setMobileOpen(false)}
@@ -172,19 +167,19 @@ function Navbar() {
                   </NavLink>
                 ))}
 
-                <div className="pt-3 mt-3 border-t border-[#EEF2F7] space-y-2">
+                <div className="pt-3 mt-3 border-t border-[#E7E2D7] space-y-2">
                   {!isAuthenticated ? (
                     <div className="grid grid-cols-2 gap-3">
                       <Link
                         to="/login"
-                        className="flex items-center justify-center py-2.5 px-4 rounded-xl text-sm font-medium border border-[#E5E7EB] text-[#111827] hover:bg-gray-50 shadow-xs"
+                        className="flex items-center justify-center py-2.5 px-4 rounded-xl text-xs font-bold uppercase tracking-wider border border-[#E7E2D7] bg-white text-[#1C1917] shadow-xs"
                         onClick={() => setMobileOpen(false)}
                       >
                         Sign In
                       </Link>
                       <Link
                         to="/register"
-                        className="flex items-center justify-center py-2.5 px-4 rounded-xl text-sm font-medium bg-[#2563EB] text-white hover:bg-[#1D4ED8] shadow-xs"
+                        className="flex items-center justify-center py-2.5 px-4 rounded-xl text-xs font-bold uppercase tracking-wider bg-[#7B8B30] text-white shadow-xs"
                         onClick={() => setMobileOpen(false)}
                       >
                         Get Started
@@ -194,15 +189,15 @@ function Navbar() {
                     <div className="space-y-2">
                       <Link
                         to={user?.role === 'supplier' ? '/supplier/dashboard' : '/buyer/dashboard'}
-                        className="flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-sm font-medium bg-[#FAFBFC] text-[#111827] hover:bg-gray-100 border border-[#E5E7EB] shadow-xs"
+                        className="flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-xs font-bold uppercase tracking-wider bg-white text-[#1C1917] border border-[#E7E2D7] shadow-xs"
                         onClick={() => setMobileOpen(false)}
                       >
-                        <LayoutDashboard size={16} className="text-[#6B7280]" />
+                        <LayoutDashboard size={16} className="text-[#7B8B30]" />
                         Dashboard
                       </Link>
                       <button
                         onClick={() => { logout(); setMobileOpen(false); }}
-                        className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-sm font-medium border border-red-200 text-red-600 hover:bg-red-50"
+                        className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-xs font-bold uppercase tracking-wider border border-red-200 text-red-700 bg-red-50"
                       >
                         <LogOut size={16} />
                         Logout

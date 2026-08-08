@@ -1,7 +1,7 @@
 /**
  * src/pages/common/HomePage.jsx
  *
- * B2B Textile Marketplace Landing Page — Fabcurate & Shopify Inspired Enterprise UI.
+ * Traditional Indian B2B Textile Marketplace Landing Page — Fabcurate Inspired.
  */
 
 import { Link } from 'react-router-dom';
@@ -11,13 +11,8 @@ import {
   CheckCircle2,
   Lock,
   Truck,
-  Box,
-  Globe,
-  Zap,
-  Users,
   Building2,
   Search,
-  TrendingUp,
   Layers,
   ChevronRight,
   Sparkles,
@@ -29,9 +24,9 @@ import {
 
 // ── Platform Statistics ───────────────────────────────────────────────────────
 const STATS = [
-  { value: '2,500+', label: 'Verified Textile Mills', subtext: 'Audited & compliance checked' },
-  { value: '50,000+', label: 'Fabric Listings', subtext: 'GSM & weave specs verified' },
-  { value: '18,000+', label: 'Active B2B Buyers', subtext: 'Garment brands & exporters' },
+  { value: '2,500+', label: 'Verified Textile Mills', subtext: 'Surat, Ahmedabad & Tirupur' },
+  { value: '50,000+', label: 'Fabric SKUs Listed', subtext: 'GSM & yarn specs verified' },
+  { value: '18,000+', label: 'Active B2B Buyers', subtext: 'Garment houses & exporters' },
   { value: '₹500Cr+', label: 'GMV Sourced', subtext: 'Secured via escrow protocol' },
 ];
 
@@ -119,21 +114,21 @@ const TRUST_PILLARS = [
 const HOW_IT_WORKS = [
   {
     step: '01',
-    icon: Users,
-    title: 'Register & Verify Business',
-    desc: 'Create a verified buyer or supplier account with tax & business identification credentials.',
-  },
-  {
-    step: '02',
     icon: Search,
-    title: 'Discover & Inspect Fabrics',
+    title: 'Discover & Inspect Weaves',
     desc: 'Filter by GSM, weave type, MOQ, and pricing. Request physical swatch sample booklets.',
   },
   {
-    step: '03',
+    step: '02',
     icon: ShieldCheck,
     title: 'Direct Wholesale Sourcing',
     desc: 'Place bulk purchase orders directly with verified mills backed by milestone escrow protection.',
+  },
+  {
+    step: '03',
+    icon: Truck,
+    title: 'Doorstep Freight & GST Invoice',
+    desc: 'Receive real-time shipment updates with tax-compliant GST e-Invoices for your business.',
   },
 ];
 
@@ -155,82 +150,82 @@ const TESTIMONIALS = [
 
 function HomePage() {
   return (
-    <div className="bg-[#FAFBFC] min-h-screen text-[#374151] font-sans antialiased">
+    <div className="bg-[#FAF8F5] min-h-screen text-[#44403C] font-sans antialiased">
       {/* ── 0. Top Announcement Bar (Fabcurate Inspired) ─────────────────────── */}
-      <div className="bg-[#111827] text-white text-xs py-2 px-4 border-b border-gray-800">
+      <div className="bg-[#1C1917] text-white text-xs py-2.5 px-4 border-b border-[#292524]">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2 text-center sm:text-left">
           <div className="flex items-center gap-2 mx-auto sm:mx-0">
-            <span className="font-medium text-gray-200">
-              India's Most Trusted B2B Fabric Directory • 5 Lakh+ Meters Shipped
+            <span className="font-semibold tracking-wide text-[#E7E2D7]">
+              India's Most Trusted B2B Textile Sourcing Directory • 5 Lakh+ Meters Shipped
             </span>
           </div>
-          <div className="hidden md:flex items-center gap-6 text-gray-300 font-medium text-[12px]">
-            <span className="flex items-center gap-1.5"><ShieldCheck size={13} className="text-[#2563EB]" /> 100% Quality Audited</span>
-            <span className="flex items-center gap-1.5"><Truck size={13} className="text-[#2563EB]" /> Express Freight</span>
-            <span className="flex items-center gap-1.5"><Award size={13} className="text-[#2563EB]" /> Direct Mill Pricing</span>
+          <div className="hidden md:flex items-center gap-6 text-[#A8A29E] font-medium text-[12px]">
+            <span className="flex items-center gap-1.5"><ShieldCheck size={14} className="text-[#7B8B30]" /> 100% Quality Audited</span>
+            <span className="flex items-center gap-1.5"><Truck size={14} className="text-[#7B8B30]" /> Express Freight</span>
+            <span className="flex items-center gap-1.5"><Award size={14} className="text-[#7B8B30]" /> Direct Mill Pricing</span>
           </div>
         </div>
       </div>
 
-      {/* ── 1. Hero Section (Enterprise B2B SaaS Layout) ────────────────────── */}
-      <section className="bg-white border-b border-[#E5E7EB]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
+      {/* ── 1. Hero Section (Traditional Indian Textile Heritage) ─────────────── */}
+      <section className="bg-[#FAF8F5] border-b border-[#E7E2D7] relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             
             {/* Left Column: Main Headline & Actions */}
             <div className="lg:col-span-7 space-y-6 text-left">
               
               {/* Badge Pill */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium bg-[#FAFBFC] text-[#111827] border border-[#E5E7EB] shadow-xs">
-                <Sparkles size={14} className="text-[#2563EB]" />
-                <span>Verified Mill-to-Buyer Wholesale Platform</span>
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold bg-[#7B8B30]/10 text-[#7B8B30] border border-[#7B8B30]/20 shadow-xs">
+                <Sparkles size={14} className="text-[#8C6D35]" />
+                <span className="uppercase tracking-wider">Authentic Indian Wholesale Fabric Directory</span>
               </div>
 
               {/* Main Headline */}
-              <h1 className="text-4xl sm:text-[54px] sm:leading-[1.1] font-semibold tracking-tight text-[#111827]">
-                Direct Wholesale Fabric Sourcing <br />
-                <span className="text-[#2563EB]">From Audited Textile Mills</span>
+              <h1 className="text-4xl sm:text-[52px] sm:leading-[1.15] font-bold tracking-tight text-[#1C1917] font-serif-display">
+                Direct Indian Fabric Sourcing <br />
+                <span className="text-[#7B8B30]">From Regional Weaving Mills</span>
               </h1>
 
               {/* Subheadline */}
-              <p className="text-base text-[#6B7280] font-normal leading-relaxed max-w-xl">
-                Source 50,000+ verified fabric listings directly from Surat, Ahmedabad, and Coimbatore mills. Transparent B2B factory pricing, verified GSM specs, custom MOQs, and escrow payment protection.
+              <p className="text-base text-[#57534E] font-normal leading-relaxed max-w-xl">
+                Source 50,000+ verified fabric listings directly from Surat, Ahmedabad, Tirupur, and Banaras mills. Transparent factory pricing, verified GSM specs, custom MOQs, and escrow payment safety.
               </p>
 
               {/* CTA Buttons */}
               <div className="pt-2 flex flex-wrap gap-3">
                 <Link
                   to="/products"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-medium bg-[#2563EB] hover:bg-[#1D4ED8] text-white transition-colors shadow-sm"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-xs font-bold uppercase tracking-wider bg-[#7B8B30] hover:bg-[#6B7A28] text-white transition-colors shadow-xs"
                 >
                   Explore Wholesale Directory
                   <ArrowRight size={16} />
                 </Link>
                 <Link
                   to="/register?role=supplier"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-medium bg-white hover:bg-gray-50 text-[#111827] border border-[#E5E7EB] transition-colors shadow-sm"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-xs font-bold uppercase tracking-wider bg-white hover:bg-[#F3EFE6] text-[#1C1917] border border-[#E7E2D7] transition-colors shadow-xs"
                 >
-                  <Building2 size={16} className="text-[#6B7280]" />
-                  Register as Textile Mill
+                  <Building2 size={16} className="text-[#7B8B30]" />
+                  Register as Weaving Mill
                 </Link>
               </div>
 
               {/* Trust Badges Bar */}
-              <div className="pt-6 border-t border-[#EEF2F7] grid grid-cols-2 sm:grid-cols-4 gap-3 text-[#6B7280] text-xs font-medium">
+              <div className="pt-6 border-t border-[#E7E2D7] grid grid-cols-2 sm:grid-cols-4 gap-3 text-[#78716C] text-xs font-semibold">
                 <div className="flex items-center gap-2">
                   <CheckCircle2 size={16} className="text-[#16A34A] shrink-0" />
                   <span>Verified Mill Specs</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <ShieldCheck size={16} className="text-[#2563EB] shrink-0" />
+                  <ShieldCheck size={16} className="text-[#7B8B30] shrink-0" />
                   <span>Lab GSM Audits</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Lock size={16} className="text-[#2563EB] shrink-0" />
+                  <Lock size={16} className="text-[#7B8B30] shrink-0" />
                   <span>Escrow Payments</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Truck size={16} className="text-[#2563EB] shrink-0" />
+                  <Truck size={16} className="text-[#7B8B30] shrink-0" />
                   <span>Pan-India Dispatch</span>
                 </div>
               </div>
@@ -239,21 +234,21 @@ function HomePage() {
 
             {/* Right Column: Hero Visual Showcase (Real Fabric Imagery) */}
             <div className="lg:col-span-5 w-full">
-              <div className="relative rounded-2xl bg-[#FAFBFC] border border-[#E5E7EB] p-4 shadow-sm space-y-4">
+              <div className="relative rounded-2xl bg-white border border-[#E7E2D7] p-4 shadow-sm space-y-4">
                 
                 {/* Hero Main Image Banner */}
-                <div className="relative h-64 sm:h-72 rounded-xl overflow-hidden border border-[#E5E7EB] shadow-xs group">
+                <div className="relative h-64 sm:h-72 rounded-xl overflow-hidden border border-[#E7E2D7] shadow-xs group">
                   <img
                     src="/images/cotton_fabric.png"
                     alt="Luxury Cotton Fabric"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex flex-col justify-end p-4 text-white">
-                    <span className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-600 text-white w-fit mb-1">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex flex-col justify-end p-4 text-white">
+                    <span className="px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider bg-[#7B8B30] text-white w-fit mb-1">
                       Featured Mill Listing
                     </span>
-                    <h3 className="text-lg font-semibold">Organic Combed Cotton Twill</h3>
-                    <p className="text-xs text-gray-200">240 GSM • Shivam Mills, Surat</p>
+                    <h3 className="text-lg font-bold font-serif-display">Organic Combed Cotton Twill</h3>
+                    <p className="text-xs text-[#E7E2D7]">240 GSM • Shivam Mills, Surat</p>
                   </div>
                 </div>
 
@@ -267,14 +262,14 @@ function HomePage() {
                     <Link
                       key={item.title}
                       to="/products"
-                      className="group block rounded-lg border border-[#E5E7EB] overflow-hidden bg-white p-1.5 hover:border-[#2563EB] transition-all"
+                      className="group block rounded-lg border border-[#E7E2D7] overflow-hidden bg-[#FAF8F5] p-1.5 hover:border-[#7B8B30] transition-all"
                     >
-                      <div className="h-16 rounded-md overflow-hidden bg-gray-100">
+                      <div className="h-16 rounded-md overflow-hidden bg-white">
                         <img src={item.img} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
                       </div>
                       <div className="mt-1 text-center">
-                        <p className="text-[11px] font-medium text-[#111827] truncate">{item.title}</p>
-                        <p className="text-[10px] font-semibold text-[#2563EB]">{item.price}</p>
+                        <p className="text-[11px] font-semibold text-[#1C1917] truncate">{item.title}</p>
+                        <p className="text-[10px] font-bold text-[#7B8B30]">{item.price}</p>
                       </div>
                     </Link>
                   ))}
@@ -288,14 +283,14 @@ function HomePage() {
       </section>
 
       {/* ── 2. Quick Category Visual Chips (Fabcurate Layout) ────────────────── */}
-      <section className="py-8 bg-white border-b border-[#E5E7EB]">
+      <section className="py-8 bg-white border-b border-[#E7E2D7]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-base font-semibold text-[#111827] flex items-center gap-2">
-              <Layers size={18} className="text-[#2563EB]" />
-              Popular Wholesale Crafts & Weaves
+            <h2 className="text-base font-bold text-[#1C1917] font-serif-display flex items-center gap-2">
+              <Layers size={18} className="text-[#7B8B30]" />
+              Popular Indian Wholesale Crafts & Weaves
             </h2>
-            <Link to="/products" className="text-xs font-medium text-[#2563EB] hover:underline flex items-center gap-1">
+            <Link to="/products" className="text-xs font-bold text-[#7B8B30] hover:underline flex items-center gap-1">
               View All <ChevronRight size={14} />
             </Link>
           </div>
@@ -305,14 +300,14 @@ function HomePage() {
               <Link
                 key={cat.name}
                 to="/products"
-                className="flex items-center gap-3 p-3 rounded-xl bg-[#FAFBFC] border border-[#E5E7EB] hover:border-[#2563EB] hover:bg-white transition-all shadow-xs group"
+                className="flex items-center gap-3 p-3 rounded-xl bg-[#FAF8F5] border border-[#E7E2D7] hover:border-[#7B8B30] hover:bg-white transition-all shadow-xs group"
               >
-                <div className="w-12 h-12 rounded-lg overflow-hidden shrink-0 border border-[#E5E7EB]">
+                <div className="w-12 h-12 rounded-lg overflow-hidden shrink-0 border border-[#E7E2D7]">
                   <img src={cat.img} alt={cat.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform" />
                 </div>
                 <div>
-                  <h4 className="text-xs font-semibold text-[#111827] group-hover:text-[#2563EB] transition-colors">{cat.name}</h4>
-                  <p className="text-[11px] text-[#6B7280]">{cat.tag}</p>
+                  <h4 className="text-xs font-bold text-[#1C1917] group-hover:text-[#7B8B30] transition-colors">{cat.name}</h4>
+                  <p className="text-[11px] text-[#78716C] font-medium">{cat.tag}</p>
                 </div>
               </Link>
             ))}
@@ -321,21 +316,21 @@ function HomePage() {
       </section>
 
       {/* ── 3. Platform Statistics ────────────────────────────────────────────── */}
-      <section className="py-12 bg-white border-b border-[#E5E7EB]">
+      <section className="py-12 bg-[#FAF8F5] border-b border-[#E7E2D7]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
             {STATS.map(({ value, label, subtext }) => (
               <div
                 key={label}
-                className="p-6 rounded-2xl bg-[#FAFBFC] border border-[#E5E7EB] text-left shadow-xs"
+                className="p-6 rounded-2xl bg-white border border-[#E7E2D7] text-left shadow-xs space-y-1"
               >
-                <p className="text-3xl sm:text-4xl font-semibold tracking-tight text-[#111827]">
+                <p className="text-3xl sm:text-4xl font-bold tracking-tight text-[#1C1917] font-serif-display">
                   {value}
                 </p>
-                <p className="text-sm font-medium text-[#111827] mt-2">
+                <p className="text-xs font-bold text-[#7B8B30] uppercase tracking-wider">
                   {label}
                 </p>
-                <p className="text-xs text-[#6B7280] mt-0.5">
+                <p className="text-xs text-[#78716C] font-medium">
                   {subtext}
                 </p>
               </div>
@@ -345,21 +340,21 @@ function HomePage() {
       </section>
 
       {/* ── 4. Featured Craft Spotlight Grid ─────────────────────────────────── */}
-      <section className="py-16 bg-[#FAFBFC] border-b border-[#E5E7EB]">
+      <section className="py-16 bg-white border-b border-[#E7E2D7]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-3">
             <div>
-              <span className="text-xs font-semibold uppercase tracking-wider text-[#2563EB]">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#8C6D35]">
                 Mill Direct Spotlight
               </span>
-              <h2 className="text-2xl sm:text-[34px] font-semibold tracking-tight text-[#111827] mt-1">
+              <h2 className="text-2xl sm:text-[34px] font-bold tracking-tight text-[#1C1917] font-serif-display mt-1">
                 Trending Wholesale Fabrics
               </h2>
             </div>
             <Link
               to="/products"
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-[#2563EB] hover:text-[#1D4ED8] transition-colors"
+              className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#7B8B30] hover:text-[#6B7A28] transition-colors"
             >
               Browse All 50,000+ Listings
               <ArrowRight size={16} />
@@ -370,35 +365,35 @@ function HomePage() {
             {FEATURED_SPOTLIGHTS.map((item) => (
               <div
                 key={item.id}
-                className="group rounded-2xl bg-white border border-[#E5E7EB] hover:border-gray-300 shadow-xs transition-all duration-150 overflow-hidden flex flex-col justify-between"
+                className="group rounded-2xl bg-[#FAF8F5] border border-[#E7E2D7] hover:border-[#7B8B30] shadow-xs transition-all duration-150 overflow-hidden flex flex-col justify-between"
               >
                 <div>
                   {/* Image Header */}
-                  <div className="relative h-48 overflow-hidden bg-gray-100 border-b border-[#E5E7EB]">
+                  <div className="relative h-48 overflow-hidden bg-white border-b border-[#E7E2D7]">
                     <img src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
-                    <span className="absolute top-3 left-3 px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-white/90 backdrop-blur-xs text-[#111827] border border-[#E5E7EB] shadow-xs">
+                    <span className="absolute top-3 left-3 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#1C1917] text-white shadow-xs">
                       {item.badge}
                     </span>
-                    <span className="absolute bottom-3 right-3 px-2 py-0.5 rounded bg-black/70 text-white text-[11px] font-medium">
+                    <span className="absolute bottom-3 right-3 px-2 py-0.5 rounded bg-black/70 text-white text-[10px] font-semibold">
                       {item.gsm}
                     </span>
                   </div>
 
                   {/* Body Content */}
                   <div className="p-4 space-y-2">
-                    <h3 className="font-semibold text-base text-[#111827] group-hover:text-[#2563EB] transition-colors line-clamp-1">
+                    <h3 className="font-bold text-base text-[#1C1917] font-serif-display group-hover:text-[#7B8B30] transition-colors line-clamp-1">
                       {item.title}
                     </h3>
-                    <p className="text-xs text-[#6B7280]">{item.mill}</p>
+                    <p className="text-xs text-[#78716C] font-medium">{item.mill}</p>
 
                     <div className="grid grid-cols-2 gap-2 pt-2 text-xs">
-                      <div className="p-2 rounded-lg bg-[#FAFBFC] border border-[#E5E7EB]">
-                        <span className="text-[#6B7280] text-[11px] block">Price / meter</span>
-                        <span className="font-semibold text-[#111827] text-sm">{item.price}</span>
+                      <div className="p-2 rounded-lg bg-white border border-[#E7E2D7]">
+                        <span className="text-[#78716C] text-[10px] uppercase font-bold block">Price / meter</span>
+                        <span className="font-bold text-[#7B8B30] text-sm">{item.price}</span>
                       </div>
-                      <div className="p-2 rounded-lg bg-[#FAFBFC] border border-[#E5E7EB]">
-                        <span className="text-[#6B7280] text-[11px] block">Min Order</span>
-                        <span className="font-medium text-[#111827] text-xs">{item.moq}</span>
+                      <div className="p-2 rounded-lg bg-white border border-[#E7E2D7]">
+                        <span className="text-[#78716C] text-[10px] uppercase font-bold block">Min Order</span>
+                        <span className="font-semibold text-[#1C1917] text-xs">{item.moq}</span>
                       </div>
                     </div>
                   </div>
@@ -408,9 +403,9 @@ function HomePage() {
                 <div className="p-4 pt-0">
                   <Link
                     to="/products"
-                    className="w-full py-2 rounded-xl text-xs font-medium bg-[#FAFBFC] hover:bg-[#2563EB] hover:text-white text-[#111827] border border-[#E5E7EB] hover:border-transparent transition-all flex items-center justify-center gap-1.5"
+                    className="w-full py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider bg-white hover:bg-[#7B8B30] hover:text-white text-[#1C1917] border border-[#E7E2D7] hover:border-transparent transition-all flex items-center justify-center gap-1.5 shadow-xs"
                   >
-                    View Specs & Request Swatch
+                    View Specs & Swatch
                     <ChevronRight size={14} />
                   </Link>
                 </div>
@@ -422,17 +417,17 @@ function HomePage() {
       </section>
 
       {/* ── 5. Why Top Garment Brands Choose TextileHub (Trust Pillars) ─────── */}
-      <section className="py-16 bg-white border-b border-[#E5E7EB]">
+      <section className="py-16 bg-[#FAF8F5] border-b border-[#E7E2D7]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="text-center max-w-xl mx-auto mb-12 space-y-2">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[#2563EB]">
-              Quality Infrastructure
+            <span className="text-xs font-bold uppercase tracking-wider text-[#7B8B30]">
+              Quality Assurance
             </span>
-            <h2 className="text-2xl sm:text-[34px] font-semibold tracking-tight text-[#111827]">
-              Why Garment Brands Trust TextileHub
+            <h2 className="text-2xl sm:text-[34px] font-bold tracking-tight text-[#1C1917] font-serif-display">
+              Why Garment Exporters Trust TextileHub
             </h2>
-            <p className="text-sm text-[#6B7280]">
+            <p className="text-sm text-[#78716C]">
               Built for high-volume apparel manufacturers, fashion labels, and textile exporters.
             </p>
           </div>
@@ -441,13 +436,13 @@ function HomePage() {
             {TRUST_PILLARS.map(({ icon: Icon, title, desc }) => (
               <div
                 key={title}
-                className="p-6 rounded-2xl bg-[#FAFBFC] border border-[#E5E7EB] shadow-xs space-y-3"
+                className="p-6 rounded-2xl bg-white border border-[#E7E2D7] shadow-xs space-y-3"
               >
-                <div className="w-10 h-10 rounded-xl bg-white border border-[#E5E7EB] text-[#2563EB] flex items-center justify-center shadow-xs">
+                <div className="w-10 h-10 rounded-xl bg-[#FAF8F5] border border-[#E7E2D7] text-[#7B8B30] flex items-center justify-center shadow-xs">
                   <Icon size={20} />
                 </div>
-                <h3 className="font-semibold text-base text-[#111827]">{title}</h3>
-                <p className="text-xs text-[#6B7280] leading-relaxed">{desc}</p>
+                <h3 className="font-bold text-base text-[#1C1917]">{title}</h3>
+                <p className="text-xs text-[#78716C] leading-relaxed font-normal">{desc}</p>
               </div>
             ))}
           </div>
@@ -456,35 +451,35 @@ function HomePage() {
       </section>
 
       {/* ── 6. Verified Buyer Reviews (Social Proof Grid) ───────────────────── */}
-      <section className="py-16 bg-[#FAFBFC] border-b border-[#E5E7EB]">
+      <section className="py-16 bg-white border-b border-[#E7E2D7]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="text-center max-w-lg mx-auto mb-10 space-y-1">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[#2563EB]">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#8C6D35]">
               Client Testimonials
             </span>
-            <h2 className="text-2xl sm:text-[32px] font-semibold text-[#111827]">
+            <h2 className="text-2xl sm:text-[32px] font-bold text-[#1C1917] font-serif-display">
               Trusted by 18,000+ Procurement Teams
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {TESTIMONIALS.map((t) => (
-              <div key={t.name} className="p-6 rounded-2xl bg-white border border-[#E5E7EB] shadow-xs space-y-4">
-                <div className="flex items-center gap-1 text-amber-400">
+              <div key={t.name} className="p-6 rounded-2xl bg-[#FAF8F5] border border-[#E7E2D7] shadow-xs space-y-4">
+                <div className="flex items-center gap-1 text-amber-500">
                   {Array.from({ length: 5 }).map((_, i) => (
-                    <Star key={i} size={16} fill="currentColor" />
+                    <Star key={i} size={15} fill="currentColor" />
                   ))}
                 </div>
-                <p className="text-sm text-[#374151] leading-relaxed italic font-normal">
+                <p className="text-xs text-[#44403C] leading-relaxed italic font-normal">
                   "{t.quote}"
                 </p>
-                <div className="pt-2 border-t border-[#EEF2F7] flex items-center justify-between text-xs">
+                <div className="pt-2 border-t border-[#E7E2D7] flex items-center justify-between text-xs">
                   <div>
-                    <h4 className="font-semibold text-[#111827]">{t.name}</h4>
-                    <p className="text-[#6B7280] text-[11px]">{t.role} • {t.city}</p>
+                    <h4 className="font-bold text-[#1C1917]">{t.name}</h4>
+                    <p className="text-[#78716C] text-[11px]">{t.role} • {t.city}</p>
                   </div>
-                  <span className="inline-flex items-center gap-1 text-emerald-600 font-medium bg-emerald-50 px-2.5 py-1 rounded-full text-[11px]">
+                  <span className="inline-flex items-center gap-1 text-[#16A34A] font-bold bg-emerald-50 px-2.5 py-1 rounded-full text-[10px] border border-emerald-200">
                     <Check size={12} /> Verified Buyer
                   </span>
                 </div>
@@ -495,74 +490,28 @@ function HomePage() {
         </div>
       </section>
 
-      {/* ── 7. How It Works Workflow ────────────────────────────────────────── */}
-      <section className="py-16 bg-white border-b border-[#E5E7EB]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          <div className="text-center max-w-xl mx-auto mb-12 space-y-2">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[#2563EB]">
-              Procurement Workflow
-            </span>
-            <h2 className="text-2xl sm:text-[34px] font-semibold tracking-tight text-[#111827]">
-              How TextileHub Works
-            </h2>
-            <p className="text-sm text-[#6B7280]">
-              Direct mill-to-buyer trade infrastructure with transparent pricing and escrow safety.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {HOW_IT_WORKS.map(({ step, icon: Icon, title, desc }) => (
-              <div
-                key={step}
-                className="p-6 rounded-2xl bg-white border border-[#E5E7EB] shadow-xs space-y-4"
-              >
-                <div className="flex items-center justify-between">
-                  <div className="w-10 h-10 rounded-xl bg-[#111827] text-white flex items-center justify-center">
-                    <Icon size={20} />
-                  </div>
-                  <span className="text-2xl font-semibold text-[#6B7280]">
-                    {step}
-                  </span>
-                </div>
-
-                <div className="space-y-1.5">
-                  <h3 className="text-lg font-semibold text-[#111827]">
-                    {title}
-                  </h3>
-                  <p className="text-xs text-[#6B7280] leading-relaxed">
-                    {desc}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-        </div>
-      </section>
-
-      {/* ── 8. CTA Conversion Section ────────────────────────────────────────── */}
-      <section className="py-16 bg-white text-center">
+      {/* ── 7. CTA Conversion Section ────────────────────────────────────────── */}
+      <section className="py-16 bg-[#FAF8F5] text-center">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 space-y-5">
-          <h2 className="text-3xl sm:text-[36px] font-semibold tracking-tight text-[#111827]">
+          <h2 className="text-3xl sm:text-[36px] font-bold tracking-tight text-[#1C1917] font-serif-display">
             Ready to Streamline Fabric Sourcing?
           </h2>
 
-          <p className="text-sm text-[#6B7280] max-w-lg mx-auto">
+          <p className="text-xs text-[#78716C] max-w-lg mx-auto leading-relaxed">
             Join thousands of verified garment manufacturers, apparel brands, and textile mills trading directly on India's premier B2B marketplace.
           </p>
 
           <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
             <Link
               to="/products"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-medium bg-[#2563EB] hover:bg-[#1D4ED8] text-white transition-colors shadow-sm"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-xs font-bold uppercase tracking-wider bg-[#7B8B30] hover:bg-[#6B7A28] text-white transition-colors shadow-xs"
             >
               Start Sourcing
               <ArrowRight size={16} />
             </Link>
             <Link
               to="/register?role=supplier"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-medium bg-white hover:bg-gray-50 text-[#111827] border border-[#E5E7EB] transition-colors shadow-sm"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-xs font-bold uppercase tracking-wider bg-white hover:bg-[#F3EFE6] text-[#1C1917] border border-[#E7E2D7] transition-colors shadow-xs"
             >
               Register Mill
             </Link>
