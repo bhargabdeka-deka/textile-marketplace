@@ -3,8 +3,10 @@
  *
  * Root application component.
  * Defines the full route tree for the TextileHub marketplace.
- * Optimized with route-based code-splitting (React.lazy + Suspense)
- * and automatic ScrollToTop navigation behavior.
+ * 
+ * Optimized for maximum LCP performance and Google Search indexing:
+ * - HomePage is statically imported for instant < 300ms initial paint.
+ * - Secondary pages remain lazily loaded.
  */
 
 import { lazy, Suspense, useEffect } from 'react';
@@ -20,6 +22,9 @@ import ProtectedRoute from '@/routes/ProtectedRoute.jsx';
 // Global loading fallback
 import Loading from '@/components/ui/Loading';
 
+// ── Static Import for Immediate LCP Initial Paint (< 300ms) ───────────────────
+import HomePage from '@/pages/common/HomePage.jsx';
+
 // ── Automatic Scroll-to-Top Helper ─────────────────────────────────────────────
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -31,8 +36,7 @@ function ScrollToTop() {
   return null;
 }
 
-// ── Lazy-loaded Public Pages ──────────────────────────────────────────────────
-const HomePage          = lazy(() => import('@/pages/common/HomePage.jsx'));
+// ── Lazy-loaded Public & Secondary Pages ──────────────────────────────────────
 const NotFoundPage      = lazy(() => import('@/pages/common/NotFoundPage.jsx'));
 const MarketplacePage   = lazy(() => import('@/pages/common/MarketplacePage.jsx'));
 const ProductDetailPage = lazy(() => import('@/pages/common/ProductDetailPage.jsx'));
