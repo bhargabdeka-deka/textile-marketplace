@@ -233,17 +233,15 @@ function ProductDetailPage() {
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
                   {stock > 0 ? (
-                    <>
-                      <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-                      <span className="text-sm font-bold text-gray-900">
-                        In Stock <span className="text-gray-500 font-medium">({stock}m available)</span>
-                      </span>
-                    </>
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-semibold text-[#16A34A] bg-emerald-50 border border-emerald-200">
+                      <CheckCircle size={14} />
+                      In Stock ({stock}m available)
+                    </span>
                   ) : (
-                    <>
-                      <div className="w-2.5 h-2.5 rounded-full bg-red-500" />
-                      <span className="text-sm font-bold text-red-600">Out of Stock</span>
-                    </>
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-semibold text-red-600 bg-red-50 border border-red-200">
+                      <XCircle size={14} />
+                      Out of Stock
+                    </span>
                   )}
                 </div>
                 <div className="text-xs font-bold text-gray-500">

@@ -160,7 +160,6 @@ function HomePage() {
       <div className="bg-[#111827] text-white text-xs py-2 px-4 border-b border-gray-800">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2 text-center sm:text-left">
           <div className="flex items-center gap-2 mx-auto sm:mx-0">
-            <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
             <span className="font-medium text-gray-200">
               India's Most Trusted B2B Fabric Directory • 5 Lakh+ Meters Shipped
             </span>
