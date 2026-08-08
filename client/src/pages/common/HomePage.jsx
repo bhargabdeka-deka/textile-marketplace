@@ -241,7 +241,7 @@ function HomePage() {
                   <img
                     src="/images/cotton_fabric.png"
                     alt="Luxury Cotton Fabric"
-                    fetchpriority="high"
+                    fetchPriority="high"
                     decoding="async"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
