@@ -3,11 +3,19 @@
 [![Node.js](https://img.shields.io/badge/Node.js-v18%2B-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
 [![React](https://img.shields.io/badge/React-v19-61DAFB?logo=react&logoColor=black)](https://react.dev/)
 [![Express](https://img.shields.io/badge/Express.js-v4-000000?logo=express&logoColor=white)](https://expressjs.com/)
-[![MongoDB](https://img.shields.io/badge/MongoDB-Atlas%2FLocal-47A248?logo=mongodb&logoColor=white)](https://www.mongodb.com/)
-[![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-v4-38BDF8?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47A248?logo=mongodb&logoColor=white)](https://www.mongodb.com/)
+[![Vercel Deployment](https://img.shields.io/badge/Vercel-Production-000000?logo=vercel&logoColor=white)](https://textile-marketplace.vercel.app)
+[![Render API](https://img.shields.io/badge/Render-API%20Live-46E3B7?logo=render&logoColor=white)](https://textile-marketplace-api.onrender.com/api)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 > A production-ready, high-density B2B SaaS marketplace connecting textile mills, fabric suppliers, and bulk apparel buyers across India and global markets.
+
+---
+
+## 🌐 Live Production Deployments
+
+- **Live Web Application (Vercel)**: [https://textile-marketplace.vercel.app](https://textile-marketplace.vercel.app)
+- **Live Backend API (Render)**: [https://textile-marketplace-api.onrender.com/api](https://textile-marketplace-api.onrender.com/api)
 
 ---
 
@@ -40,9 +48,10 @@
 | **State Management** | Zustand (Persisted client-side state for auth & cart) |
 | **Icons & UI Utilities** | Lucide React, React Hot Toast |
 | **Backend API** | Node.js 18+, Express.js |
-| **Database & ORM** | MongoDB, Mongoose |
+| **Database & ORM** | MongoDB Atlas, Mongoose |
 | **Auth & Security** | JSON Web Tokens (JWT), Bcrypt.js, CORS |
 | **File Storage** | Cloudinary API & Local Fallback via Multer |
+| **Production Hosting** | Vercel (Client SPA) & Render (Node API) |
 
 ---
 
@@ -83,12 +92,7 @@ textile-marketplace/
 
 ---
 
-## 🚀 Getting Started
-
-### Prerequisites
-- **Node.js**: v18.0.0 or higher
-- **MongoDB**: Local MongoDB instance or MongoDB Atlas Connection URI
-- **npm** or **yarn**
+## 🚀 Deployment & Environment Setup
 
 ### 1. Repository Setup
 
@@ -98,19 +102,17 @@ git clone https://github.com/bhargabdeka-deka/textile-marketplace.git
 cd textile-marketplace
 ```
 
-### 2. Backend Setup & Environment
+### 2. Backend Environment (`server/.env`)
 
 ```bash
 cd server
 npm install
 ```
 
-Create a `.env` file inside the `server/` directory:
-
 ```env
 PORT=5000
-NODE_ENV=development
-MONGO_URI=mongodb://127.0.0.1:27017/textile-marketplace
+NODE_ENV=production
+MONGO_URI=mongodb+srv://user:password@cluster.mongodb.net/textile-marketplace
 JWT_SECRET=your_super_secret_jwt_key_here
 JWT_EXPIRE=30d
 CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
@@ -118,36 +120,20 @@ CLOUDINARY_API_KEY=your_cloudinary_api_key
 CLOUDINARY_API_SECRET=your_cloudinary_api_secret
 ```
 
-Start the API server:
-
-```bash
-npm run dev
-```
-
-### 3. Frontend Setup & Environment
-
-Open a new terminal window:
+### 3. Frontend Environment (`client/.env`)
 
 ```bash
 cd client
 npm install
 ```
 
-Create a `.env` file inside the `client/` directory:
-
 ```env
-VITE_API_URL=http://localhost:5000/api
+VITE_API_URL=https://textile-marketplace-api.onrender.com/api
 ```
 
-Start the development server:
-
-```bash
-npm run dev
-```
-
-The application will be accessible at:
-- **Frontend App**: `http://localhost:5173`
-- **Backend API**: `http://localhost:5000/api`
+### 🌐 Live Production Access
+- **Live Frontend App (Vercel)**: [https://textile-marketplace.vercel.app](https://textile-marketplace.vercel.app)
+- **Live Production API (Render)**: [https://textile-marketplace-api.onrender.com/api](https://textile-marketplace-api.onrender.com/api)
 
 ---
 
