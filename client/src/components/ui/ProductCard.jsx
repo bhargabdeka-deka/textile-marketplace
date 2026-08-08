@@ -2,7 +2,7 @@
  * src/components/ui/ProductCard.jsx
  *
  * Traditional Indian B2B Textile Product Card — Fabcurate Inspired.
- * Includes fail-safe image error fallbacks for uploaded products.
+ * Includes fail-safe image error fallbacks and no-wrap typographic styling.
  */
 
 import { useState } from 'react';
@@ -140,7 +140,7 @@ function ProductCard({ product, onEdit, onDelete, showActions = false }) {
         
         {/* Supplier Info & Verified Badge */}
         <div className="flex items-center justify-between text-xs gap-2">
-          <div className="flex items-center gap-1.5 min-w-0 text-[#78716C]">
+          <div className="flex items-center gap-1.5 min-w-0 flex-1 text-[#78716C]">
             <Building2 size={14} className="shrink-0 text-[#7B8B30]" />
             <span className="truncate font-semibold text-[#1C1917] text-xs">
               {supplierName}
@@ -165,12 +165,12 @@ function ProductCard({ product, onEdit, onDelete, showActions = false }) {
         {(fabric || gsm) && (
           <div className="flex flex-wrap gap-1.5 text-xs text-[#78716C]">
             {fabric && (
-              <span className="bg-[#FAF8F5] px-2 py-0.5 rounded-md border border-[#E7E2D7] font-medium">
+              <span className="bg-[#FAF8F5] px-2 py-0.5 rounded-md border border-[#E7E2D7] font-medium whitespace-nowrap">
                 {fabric}
               </span>
             )}
             {gsm && (
-              <span className="bg-[#FAF8F5] px-2 py-0.5 rounded-md border border-[#E7E2D7] font-medium">
+              <span className="bg-[#FAF8F5] px-2 py-0.5 rounded-md border border-[#E7E2D7] font-medium whitespace-nowrap">
                 {gsm} GSM
               </span>
             )}
@@ -179,28 +179,28 @@ function ProductCard({ product, onEdit, onDelete, showActions = false }) {
 
         {/* ── 3. Pricing & MOQ Box ─────────────────────────────────────── */}
         <div className="mt-auto pt-3 border-t border-[#E7E2D7] flex items-end justify-between gap-2">
-          <div>
-            <div className="flex items-baseline gap-1">
+          <div className="min-w-0 flex-1">
+            <div className="flex items-baseline gap-1 whitespace-nowrap">
               <span className="text-base sm:text-lg font-bold tracking-tight text-[#7B8B30]">
                 {formatCurrency(pricePerMeter)}
               </span>
               <span className="text-xs text-[#78716C] font-medium">/ m</span>
             </div>
-            <p className="text-xs text-[#78716C] mt-0.5">
-              MOQ: <span className="text-[#1C1917] font-bold">{minOrderQuantity} m</span>
+            <p className="text-xs text-[#78716C] mt-0.5 whitespace-nowrap">
+              MOQ: <span className="text-[#1C1917] font-bold">{minOrderQuantity}&nbsp;m</span>
             </p>
           </div>
 
           {/* Stock Indicator */}
           <div className="flex items-center gap-1 text-xs shrink-0">
             {stock > 0 ? (
-              <span className="flex items-center gap-1 text-[#16A34A] bg-emerald-50 px-2 py-1 rounded-md text-xs font-semibold">
-                <CheckCircle2 size={12} />
+              <span className="flex items-center gap-1 text-[#16A34A] bg-emerald-50 px-2 py-1 rounded-md text-xs font-semibold whitespace-nowrap">
+                <CheckCircle2 size={12} className="shrink-0" />
                 In Stock
               </span>
             ) : (
-              <span className="flex items-center gap-1 text-red-700 bg-red-50 px-2 py-1 rounded-md text-xs font-semibold">
-                <XCircle size={12} />
+              <span className="flex items-center gap-1 text-red-700 bg-red-50 px-2 py-1 rounded-md text-xs font-semibold whitespace-nowrap">
+                <XCircle size={12} className="shrink-0" />
                 Out of Stock
               </span>
             )}
@@ -212,29 +212,29 @@ function ProductCard({ product, onEdit, onDelete, showActions = false }) {
           {!showActions ? (
             <Link
               to={`/products/${_id}`}
-              className="w-full inline-flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-xl text-xs font-bold uppercase tracking-wider bg-[#FAF8F5] border border-[#E7E2D7] hover:bg-[#7B8B30] hover:text-white text-[#1C1917] transition-all shadow-xs"
+              className="w-full inline-flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl text-xs font-bold uppercase tracking-wider bg-[#FAF8F5] border border-[#E7E2D7] hover:bg-[#7B8B30] hover:text-white text-[#1C1917] transition-all shadow-xs whitespace-nowrap"
             >
               <span>View Specs & Swatch</span>
-              <ArrowUpRight size={14} />
+              <ArrowUpRight size={14} className="shrink-0" />
             </Link>
           ) : (
             <div className="w-full flex gap-2">
               <button
                 type="button"
                 onClick={() => onEdit && onEdit(product)}
-                className="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl text-xs font-bold uppercase tracking-wider bg-white hover:bg-[#FAF8F5] text-[#1C1917] border border-[#E7E2D7] transition-colors shadow-xs"
+                className="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl text-xs font-bold uppercase tracking-wider bg-white hover:bg-[#FAF8F5] text-[#1C1917] border border-[#E7E2D7] transition-colors shadow-xs whitespace-nowrap"
                 aria-label={`Edit ${title}`}
               >
-                <Edit2 size={14} className="text-[#7B8B30]" />
+                <Edit2 size={14} className="text-[#7B8B30] shrink-0" />
                 Edit
               </button>
               <button
                 type="button"
                 onClick={() => onDelete && onDelete(product)}
-                className="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl text-xs font-bold uppercase tracking-wider bg-white hover:bg-red-50 text-red-700 border border-[#E7E2D7] hover:border-red-200 transition-colors shadow-xs"
+                className="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl text-xs font-bold uppercase tracking-wider bg-white hover:bg-red-50 text-red-700 border border-[#E7E2D7] hover:border-red-200 transition-colors shadow-xs whitespace-nowrap"
                 aria-label={`Delete ${title}`}
               >
-                <Trash2 size={14} />
+                <Trash2 size={14} className="shrink-0" />
                 Delete
               </button>
             </div>
