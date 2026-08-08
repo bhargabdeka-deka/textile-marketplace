@@ -132,8 +132,21 @@ function ProductDetailPage() {
                 >
                   {images && images[activeImage] ? (
                     <img
-                      src={optimizeCloudinaryUrl(images[activeImage], 1200)}
+                      src={
+                        images[activeImage].startsWith('/uploads/') || images[activeImage].startsWith('uploads/')
+                          ? `${import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL.replace('/api', '') : 'https://textile-marketplace-api.onrender.com'}${images[activeImage].startsWith('/') ? images[activeImage] : `/${images[activeImage]}`}`
+                          : images[activeImage].includes('localhost:5000')
+                          ? images[activeImage].replace('http://localhost:5000', 'https://textile-marketplace-api.onrender.com')
+                          : optimizeCloudinaryUrl(images[activeImage], 1200)
+                      }
                       alt={`${title} image ${activeImage + 1}`}
+                      onError={(e) => {
+                        const cat = (category || title || '').toLowerCase();
+                        if (cat.includes('silk') || cat.includes('satin')) e.target.src = '/images/silk_satin.png';
+                        else if (cat.includes('linen')) e.target.src = '/images/linen_fabric.png';
+                        else if (cat.includes('print') || cat.includes('craft') || cat.includes('ajrakh')) e.target.src = '/images/printed_craft.png';
+                        else e.target.src = '/images/cotton_fabric.png';
+                      }}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   ) : (

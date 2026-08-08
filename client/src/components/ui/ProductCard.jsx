@@ -2,6 +2,7 @@
  * src/components/ui/ProductCard.jsx
  *
  * Traditional Indian B2B Textile Product Card — Fabcurate Inspired.
+ * Includes fail-safe image error fallbacks for uploaded products.
  */
 
 import { useState } from 'react';
@@ -21,6 +22,7 @@ import { formatCurrency, optimizeCloudinaryUrl } from '@/utils/formatters';
 
 function ProductCard({ product, onEdit, onDelete, showActions = false }) {
   const [isFavorite, setIsFavorite] = useState(false);
+  const [imageError, setImageError] = useState(false);
 
   const {
     _id,
@@ -48,7 +50,27 @@ function ProductCard({ product, onEdit, onDelete, showActions = false }) {
     return '/images/cotton_fabric.png';
   };
 
-  const imageSrc = primaryImage ? optimizeCloudinaryUrl(primaryImage, 600) : getFallbackImage();
+  // Helper to format image URLs (supports Cloudinary, local server uploads, and absolute URLs)
+  const getFormattedImageSrc = () => {
+    if (imageError || !primaryImage) {
+      return getFallbackImage();
+    }
+    // If image URL is a local relative upload path
+    if (primaryImage.startsWith('/uploads/') || primaryImage.startsWith('uploads/')) {
+      const backendBase = import.meta.env.VITE_API_URL
+        ? import.meta.env.VITE_API_URL.replace('/api', '')
+        : 'https://textile-marketplace-api.onrender.com';
+      const cleanPath = primaryImage.startsWith('/') ? primaryImage : `/${primaryImage}`;
+      return `${backendBase}${cleanPath}`;
+    }
+    // If image URL points to local localhost server from dev DB seeding
+    if (primaryImage.includes('localhost:5000')) {
+      return primaryImage.replace('http://localhost:5000', 'https://textile-marketplace-api.onrender.com');
+    }
+    return optimizeCloudinaryUrl(primaryImage, 600);
+  };
+
+  const imageSrc = getFormattedImageSrc();
 
   return (
     <motion.div
@@ -63,6 +85,7 @@ function ProductCard({ product, onEdit, onDelete, showActions = false }) {
           <img
             src={imageSrc}
             alt={title}
+            onError={() => setImageError(true)}
             className="w-full h-full object-cover transition-transform duration-200 group-hover:scale-[1.03]"
             loading="lazy"
           />
