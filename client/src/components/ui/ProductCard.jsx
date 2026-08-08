@@ -40,29 +40,33 @@ function ProductCard({ product, onEdit, onDelete, showActions = false }) {
   const primaryImage = images && images.length > 0 ? images[0] : null;
   const supplierName = supplier?.companyName || supplier?.name || 'Verified Mill';
 
+  // Fallback high-resolution fabric image based on category or title
+  const getFallbackImage = () => {
+    const cat = (category || title || '').toLowerCase();
+    if (cat.includes('silk') || cat.includes('satin')) return '/images/silk_satin.png';
+    if (cat.includes('linen')) return '/images/linen_fabric.png';
+    if (cat.includes('print') || cat.includes('craft') || cat.includes('ajrakh')) return '/images/printed_craft.png';
+    return '/images/cotton_fabric.png';
+  };
+
+  const imageSrc = primaryImage ? optimizeCloudinaryUrl(primaryImage, 600) : getFallbackImage();
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 4 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.15 }}
-      className="group relative flex flex-col h-full bg-white rounded-2xl border border-[#E5E7EB] shadow-sm hover:shadow-md hover:border-gray-300 transition-all duration-150 overflow-hidden"
+      className="group relative flex flex-col h-full bg-white rounded-2xl border border-[#E5E7EB] shadow-xs hover:shadow-md hover:border-gray-300 transition-all duration-150 overflow-hidden"
     >
       {/* ── 1. Image Showcase Header ───────────────────────────────────── */}
       <div className="relative overflow-hidden aspect-[4/3] bg-[#FAFBFC] border-b border-[#EEF2F7]">
         <Link to={`/products/${_id}`} className="block w-full h-full">
-          {primaryImage ? (
-            <img
-              src={optimizeCloudinaryUrl(primaryImage, 600)}
-              alt={title}
-              className="w-full h-full object-cover transition-transform duration-200 group-hover:scale-[1.02]"
-              loading="lazy"
-            />
-          ) : (
-            <div className="w-full h-full flex flex-col items-center justify-center text-[#6B7280] gap-1.5">
-              <Package size={32} strokeWidth={1.5} className="opacity-40" />
-              <span className="text-xs font-medium text-[#6B7280]">No Image</span>
-            </div>
-          )}
+          <img
+            src={imageSrc}
+            alt={title}
+            className="w-full h-full object-cover transition-transform duration-200 group-hover:scale-[1.03]"
+            loading="lazy"
+          />
         </Link>
 
         {/* Category Badge (Top Left) */}
