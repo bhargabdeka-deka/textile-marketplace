@@ -4,7 +4,7 @@
 [![React](https://img.shields.io/badge/React-v19-61DAFB?logo=react&logoColor=black)](https://react.dev/)
 [![Express](https://img.shields.io/badge/Express.js-v4-000000?logo=express&logoColor=white)](https://expressjs.com/)
 [![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47A248?logo=mongodb&logoColor=white)](https://www.mongodb.com/)
-[![Vercel Deployment](https://img.shields.io/badge/Vercel-Production-000000?logo=vercel&logoColor=white)](https://textile-marketplace.vercel.app)
+[![Vercel Deployment](https://img.shields.io/badge/Vercel-Production-000000?logo=vercel&logoColor=white)](https://textile-marketplace-alpha.vercel.app)
 [![Render API](https://img.shields.io/badge/Render-API%20Live-46E3B7?logo=render&logoColor=white)](https://textile-marketplace-api.onrender.com/api)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
@@ -14,7 +14,7 @@
 
 ## 🌐 Live Production Deployments
 
-- **Live Web Application (Vercel)**: [https://textile-marketplace.vercel.app](https://textile-marketplace.vercel.app)
+- **Live Web Application (Vercel)**: [https://textile-marketplace-alpha.vercel.app](https://textile-marketplace-alpha.vercel.app)
 - **Live Backend API (Render)**: [https://textile-marketplace-api.onrender.com/api](https://textile-marketplace-api.onrender.com/api)
 
 ---
