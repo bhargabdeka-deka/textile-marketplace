@@ -3,11 +3,12 @@
  *
  * Root application component.
  * Defines the full route tree for the TextileHub marketplace.
- * Optimized with route-based code-splitting (React.lazy + Suspense).
+ * Optimized with route-based code-splitting (React.lazy + Suspense)
+ * and automatic ScrollToTop navigation behavior.
  */
 
-import { lazy, Suspense } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { lazy, Suspense, useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 
 // Layouts
 import AppLayout  from '@/layouts/AppLayout.jsx';
@@ -18,6 +19,17 @@ import ProtectedRoute from '@/routes/ProtectedRoute.jsx';
 
 // Global loading fallback
 import Loading from '@/components/ui/Loading';
+
+// ── Automatic Scroll-to-Top Helper ─────────────────────────────────────────────
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, [pathname]);
+
+  return null;
+}
 
 // ── Lazy-loaded Public Pages ──────────────────────────────────────────────────
 const HomePage          = lazy(() => import('@/pages/common/HomePage.jsx'));
@@ -57,65 +69,68 @@ const ProductFormPage       = lazy(() => import('@/pages/supplier/ProductFormPag
 
 function App() {
   return (
-    <Suspense fallback={<Loading variant="page" message="Accessing console secure routes..." />}>
-      <Routes>
-        {/* ── Public Routes (Navbar + Footer) ────────────────────────── */}
-        <Route element={<AppLayout />}>
-          <Route index          element={<HomePage />} />
-          <Route path="/products"    element={<MarketplacePage />} />
-          <Route path="/products/:id" element={<ProductDetailPage />} />
-          
-          {/* Info & Policy Routes */}
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/blog" element={<BlogPage />} />
-          <Route path="/careers" element={<CareersPage />} />
-          <Route path="/suppliers" element={<SuppliersPage />} />
-          <Route path="/categories" element={<CategoriesPage />} />
-          <Route path="/bulk-orders" element={<BulkOrdersPage />} />
-          <Route path="/help" element={<HelpCenterPage />} />
-          <Route path="/help-center" element={<HelpCenterPage />} />
-          <Route path="/buyer-guide" element={<BuyerGuidePage />} />
-          <Route path="/supplier-guide" element={<SupplierGuidePage />} />
-          <Route path="/returns" element={<ReturnsPolicyPage />} />
-          <Route path="/returns-policy" element={<ReturnsPolicyPage />} />
-          <Route path="/privacy" element={<PrivacyPolicyPage />} />
-          <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
-          <Route path="/terms" element={<TermsOfServicePage />} />
-          <Route path="/terms-of-service" element={<TermsOfServicePage />} />
-          <Route path="/cookies" element={<CookiePolicyPage />} />
-          <Route path="/cookie-policy" element={<CookiePolicyPage />} />
-        </Route>
-
-        {/* ── Auth Routes (centered layout) ──────────────────────────── */}
-        <Route element={<AuthLayout />}>
-          <Route path="/login"    element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-        </Route>
-
-        {/* ── Buyer Protected Routes ──────────────────────────────────── */}
-        <Route element={<ProtectedRoute allowedRoles={['buyer']} />}>
+    <>
+      <ScrollToTop />
+      <Suspense fallback={<Loading variant="page" message="Accessing console secure routes..." />}>
+        <Routes>
+          {/* ── Public Routes (Navbar + Footer) ────────────────────────── */}
           <Route element={<AppLayout />}>
-            <Route path="/buyer/dashboard" element={<BuyerDashboardPage />} />
-            <Route path="/buyer/cart"      element={<CartPage />} />
-            <Route path="/buyer/checkout"  element={<CheckoutPage />} />
+            <Route index          element={<HomePage />} />
+            <Route path="/products"    element={<MarketplacePage />} />
+            <Route path="/products/:id" element={<ProductDetailPage />} />
+            
+            {/* Info & Policy Routes */}
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/blog" element={<BlogPage />} />
+            <Route path="/careers" element={<CareersPage />} />
+            <Route path="/suppliers" element={<SuppliersPage />} />
+            <Route path="/categories" element={<CategoriesPage />} />
+            <Route path="/bulk-orders" element={<BulkOrdersPage />} />
+            <Route path="/help" element={<HelpCenterPage />} />
+            <Route path="/help-center" element={<HelpCenterPage />} />
+            <Route path="/buyer-guide" element={<BuyerGuidePage />} />
+            <Route path="/supplier-guide" element={<SupplierGuidePage />} />
+            <Route path="/returns" element={<ReturnsPolicyPage />} />
+            <Route path="/returns-policy" element={<ReturnsPolicyPage />} />
+            <Route path="/privacy" element={<PrivacyPolicyPage />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+            <Route path="/terms" element={<TermsOfServicePage />} />
+            <Route path="/terms-of-service" element={<TermsOfServicePage />} />
+            <Route path="/cookies" element={<CookiePolicyPage />} />
+            <Route path="/cookie-policy" element={<CookiePolicyPage />} />
           </Route>
-        </Route>
 
-        {/* ── Supplier Protected Routes ───────────────────────────────── */}
-        <Route element={<ProtectedRoute allowedRoles={['supplier']} />}>
-          <Route element={<AppLayout />}>
-            <Route path="/supplier/dashboard"          element={<SupplierDashboardPage />} />
-            <Route path="/supplier/products"           element={<SupplierProductsPage />} />
-            <Route path="/supplier/products/new"       element={<ProductFormPage />} />
-            <Route path="/supplier/products/:id/edit"  element={<ProductFormPage />} />
+          {/* ── Auth Routes (centered layout) ──────────────────────────── */}
+          <Route element={<AuthLayout />}>
+            <Route path="/login"    element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
           </Route>
-        </Route>
 
-        {/* ── 404 ─────────────────────────────────────────────────────── */}
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-    </Suspense>
+          {/* ── Buyer Protected Routes ──────────────────────────────────── */}
+          <Route element={<ProtectedRoute allowedRoles={['buyer']} />}>
+            <Route element={<AppLayout />}>
+              <Route path="/buyer/dashboard" element={<BuyerDashboardPage />} />
+              <Route path="/buyer/cart"      element={<CartPage />} />
+              <Route path="/buyer/checkout"  element={<CheckoutPage />} />
+            </Route>
+          </Route>
+
+          {/* ── Supplier Protected Routes ───────────────────────────────── */}
+          <Route element={<ProtectedRoute allowedRoles={['supplier']} />}>
+            <Route element={<AppLayout />}>
+              <Route path="/supplier/dashboard"          element={<SupplierDashboardPage />} />
+              <Route path="/supplier/products"           element={<SupplierProductsPage />} />
+              <Route path="/supplier/products/new"       element={<ProductFormPage />} />
+              <Route path="/supplier/products/:id/edit"  element={<ProductFormPage />} />
+            </Route>
+          </Route>
+
+          {/* ── 404 ─────────────────────────────────────────────────────── */}
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </Suspense>
+    </>
   );
 }
 
