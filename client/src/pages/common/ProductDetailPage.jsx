@@ -141,11 +141,16 @@ function ProductDetailPage() {
                       }
                       alt={`${title} image ${activeImage + 1}`}
                       onError={(e) => {
-                        const cat = (category || title || '').toLowerCase();
-                        if (cat.includes('silk') || cat.includes('satin')) e.target.src = '/images/silk_satin.png';
-                        else if (cat.includes('linen')) e.target.src = '/images/linen_fabric.png';
-                        else if (cat.includes('print') || cat.includes('craft') || cat.includes('ajrakh')) e.target.src = '/images/printed_craft.png';
-                        else e.target.src = '/images/cotton_fabric.png';
+                        const text = `${title || ''} ${category || ''} ${fabric || ''}`.toLowerCase();
+                        if (text.includes('print') || text.includes('craft') || text.includes('ajrakh') || text.includes('block') || text.includes('printed')) {
+                          e.target.src = '/images/printed_craft.png';
+                        } else if (text.includes('silk') || text.includes('satin')) {
+                          e.target.src = '/images/silk_satin.png';
+                        } else if (text.includes('linen')) {
+                          e.target.src = '/images/linen_fabric.png';
+                        } else {
+                          e.target.src = '/images/cotton_fabric.png';
+                        }
                       }}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />

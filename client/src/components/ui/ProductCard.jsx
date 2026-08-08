@@ -41,12 +41,18 @@ function ProductCard({ product, onEdit, onDelete, showActions = false }) {
   const primaryImage = images && images.length > 0 ? images[0] : null;
   const supplierName = supplier?.companyName || supplier?.name || 'Verified Mill';
 
-  // Fallback high-resolution fabric image based on category or title
+  // Fallback high-resolution fabric image prioritizing print/pattern over material
   const getFallbackImage = () => {
-    const cat = (category || title || '').toLowerCase();
-    if (cat.includes('silk') || cat.includes('satin')) return '/images/silk_satin.png';
-    if (cat.includes('linen')) return '/images/linen_fabric.png';
-    if (cat.includes('print') || cat.includes('craft') || cat.includes('ajrakh')) return '/images/printed_craft.png';
+    const text = `${title || ''} ${category || ''} ${fabric || ''}`.toLowerCase();
+    if (text.includes('print') || text.includes('craft') || text.includes('ajrakh') || text.includes('block') || text.includes('printed')) {
+      return '/images/printed_craft.png';
+    }
+    if (text.includes('silk') || text.includes('satin')) {
+      return '/images/silk_satin.png';
+    }
+    if (text.includes('linen')) {
+      return '/images/linen_fabric.png';
+    }
     return '/images/cotton_fabric.png';
   };
 
